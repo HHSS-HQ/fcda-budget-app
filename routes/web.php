@@ -6,6 +6,7 @@ use App\Http\Controllers\pages\Projects;
 use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\LogoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,6 +109,7 @@ Route::get('/login', [LoginController::class, 'show'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform'); 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.perform'); 
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
+Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
 
 
 // Route::group(['namespace' => 'App\Http\Controllers'], function()
