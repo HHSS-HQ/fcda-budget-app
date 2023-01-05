@@ -1,0 +1,62 @@
+@extends('layouts/contentNavbarLayout')
+
+@section('title', 'Tables - Basic Tables')
+
+@section('content')
+<a href="/add-project" ><button type="button" class="btn btn-primary" style="float: right">[+] New Project</button></a>
+<h4 class="fw-bold py-3 mb-4">
+  <span class="text-muted fw-light">Projects /</span> All Projects
+</h4>
+
+
+
+<!-- Bordered Table -->
+<div class="card">
+  <h5 class="card-header">All Projects</h5>
+  <div class="card-body">
+    <div class="table-responsive text-nowrap">
+      
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Project ID</th>
+            <th>Project Title</th>
+            <th>Contractor Name</th>
+            <th>Contract Sum</th>
+            <th>Oustanding Balance</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @forelse($comm as $data)
+          <tr>
+            <td>{{$data->project_id}}</td>
+            <td>{{$data->project_title}}</td>
+            <td>{{$data->contractor_name}}</td>
+            <td>&#8358;{{ number_format($data->contract_sum ? : '0', 2) }}</td>
+            <td>&#8358;{{ number_format($data->outstanding_balance ? : '0', 2) }}</td>
+            {{-- <td><span class="badge bg-label-primary me-1">Active</span></td> --}}
+            <td>
+              <a  href="/view_project/{{$data->project_id}}"><i class="bx bx-search-alt-2 me-1"></i> </a> &nbsp;
+              <a  href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
+              <a  href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
+            </td>
+          </tr>
+          @empty
+                <tr>
+                  <td colspan="5" style="color:red">Oops! No projects registered yet</td>
+                </tr>
+
+          @endforelse
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<!--/ Bordered Table -->
+
+
+<!--/ Responsive Table -->
+@endsection

@@ -1,0 +1,120 @@
+{
+  "menu": [
+    {
+      "url": "/dashboard",
+      "name": "Dashboard",
+      "icon": "menu-icon tf-icons bx bx-home-circle",
+      "slug": "dashboard-analytics"
+    },
+    {
+      "name": "Heads",
+      "icon": "menu-icon tf-icons bx bx-layout",
+      "slug": "layouts",
+      "submenu": [
+        {
+          "url": "/layouts/without-menu",
+          "name": "Show Heads",
+          "slug": "layouts-without-menu"
+        },
+        {
+          "url": "/layouts/without-navbar",
+          "name": "Add Heads",
+          "slug": "layouts-without-navbar"
+        }
+   
+      ]
+    },
+    
+    {
+      "name": "Projects",
+      "icon": "menu-icon tf-icons bx bx-spreadsheet",
+      "slug": "projects",
+      "submenu": [
+        {
+          "url": "/projects",
+          "name": "View Projects",
+          "slug": "layouts-without-menu"
+        },
+        {
+          "url": "/add-project",
+          "name": "Add Projects",
+          "slug": "layouts-without-navbar"
+          },        {
+            "url": "/layouts/without-navbar",
+            "name": "Fund Project",
+            "slug": "layouts-without-navbar"
+          }
+          
+        ]
+      },   
+      {
+        "name": "Departments",
+        "icon": "menu-icon tf-icons bx bx-git-branch",
+        "slug": "departments",
+        "submenu": [
+          {
+            "url": "/layouts/without-menu",
+            "name": "View Departments",
+            "slug": "layouts-without-menu"
+          },
+          {
+            "url": "/layouts/without-navbar",
+            "name": "Add Department",
+            "slug": "layouts-without-navbar"
+          }
+     
+        ]
+      },
+
+      {
+        "name": "ECF",
+        "icon": "menu-icon tf-icons bx bx-file",
+        "slug": "ecf",
+        "submenu": [
+          {
+            "url": "/layouts/without-menu",
+            "name": "View ECF",
+            "slug": "layouts-without-menu"
+          },
+          {
+            "url": "/layouts/without-navbar",
+            "name": "Generate ECF",
+            "slug": "layouts-without-navbar"
+          }
+     
+        ]
+      },
+
+      {
+        "name": "Users",
+        "icon": "menu-icon tf-icons bx bx-user",
+        "slug": "users",
+        "submenu": [
+          {
+            "url": "/layouts/without-menu",
+            "name": "Show Users",
+            "slug": "layouts-without-menu"
+          },
+          {
+            "url": "/layouts/without-navbar",
+            "name": "Add User",
+            "slug": "layouts-without-navbar"
+          }
+     
+        ]
+      },
+
+      {
+        "name": "Settings",
+        "icon": "menu-icon tf-icons bx bx-cog",
+        "slug": "departments",
+        "submenu": [
+          {
+            "url": "/layouts/without-menu",
+            "name": "Downloads",
+            "slug": "layouts-without-menu"
+          }    
+        ]
+      }
+      ]
+}
