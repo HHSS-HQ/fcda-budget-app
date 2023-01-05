@@ -30,7 +30,7 @@
         <div class="col-sm-6">
           <div class="card-body">
             <h5 class="card-title text-primary">Welcome <b>{{Auth::user()->name}}</b> 🎉</h5>
-            <p class="mb-4">Welcome to the OpenBudgetCity Application. Use this software to manage budget records across the FCT.</p>
+            <p class="mb-4">Welcome to the OpenBudgetCT Application. Use this software to manage budget records across the FCT.</p>
 
             <a href="/projects" class="btn btn-sm btn-outline-primary">View All Projects</a>
           </div>

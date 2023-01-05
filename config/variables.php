@@ -3,7 +3,7 @@
   return [
     "creatorName" => "FCTA",
     "creatorUrl" => "",
-    "templateName" => "OpenBudgetCity",
+    "templateName" => "OpenBudgetCT",
     "templateDescription" => "Robust Budget tracking application for the FCT",
     "templateKeyword" => "budget, project, fct, federal capital territory, nigeria, finance, fcda, fcta,",
     "licenseUrl" => "",

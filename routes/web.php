@@ -27,6 +27,12 @@ Route::get('/dashboard', $controller_path . '\dashboard\Analytics@index')->name(
 // Route::get('/', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
 Route::get('/', [LoginController::class, 'show'])->name('login.show');
 
+// Route::get('/', function () {
+//     return view('login');
+// })->middleware('auth');
+
+// Route::get('/login', 'LoginController@show');
+
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');
 Route::get('/layouts/without-navbar', $controller_path . '\layouts\WithoutNavbar@index')->name('layouts-without-navbar');
@@ -115,7 +121,6 @@ Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perfor
 
 
 
-Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index'); 
 
 // Route::group(['namespace' => 'App\Http\Controllers'], function()
 // {   

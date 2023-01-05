@@ -20,7 +20,7 @@
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
               {{-- <span class="app-brand-logo demo"><img src="{{asset('storage/images/fcta-logo.png')}}" alt="" style=" width:2%;" /></span> --}}
-              <span class="app-brand-text demo  fw-bold ms-2 " style="text-transform:none;">OpenBudgetCity</span>
+              <span class="app-brand-text demo  fw-bold ms-2 " style="text-transform:none;">OpenBudgetCT</span>
             </a>
 
 

@@ -1,5 +1,4 @@
 @if (auth()->check())
-{{-- // logic if user is authenticated --}}
 
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
 
@@ -9,7 +8,7 @@
       {{-- <span class="app-brand-logo demo"> --}}
         {{-- @include('_partials.macros',["width"=>25,"withbg"=>'#696cff']) --}}
       {{-- </span> --}}
-      <span class="app-brand-text demo  fw-bold ms-2" style="text-transform:none;">OpenBudgetCity</span>
+      <span class="app-brand-text demo  fw-bold ms-2" style="text-transform:none;">OpenBudgetCT</span>
     </a>
  
     <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-autod-block d-xl-none">
