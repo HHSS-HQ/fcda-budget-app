@@ -7,6 +7,8 @@ use App\Http\Controllers\LoginController;
 
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LogoutController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -111,6 +113,9 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
 
+
+
+Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index'); 
 
 // Route::group(['namespace' => 'App\Http\Controllers'], function()
 // {   

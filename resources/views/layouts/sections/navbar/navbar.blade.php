@@ -47,14 +47,14 @@ $navbarDetached = ($navbarDetached ?? '');
 
           <!-- Place this tag where you want the button to render. -->
           <li class="nav-item lh-1 me-3">
-            <a class="github-button" href="https://github.com/themeselection/sneat-html-laravel-admin-template-free" data-icon="octicon-star" data-size="large" data-show-count="true" aria-label="Star themeselection/sneat-html-laravel-admin-template-free on GitHub">Star</a>
+            Hi <b>{{Auth::user()->name}}!</b>
           </li>
 
           <!-- User -->
           <li class="nav-item navbar-dropdown dropdown-user dropdown">
             <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
-              <div class="avatar avatar-online">
-                <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+              <div class="avatar ">
+                <img src="{{ asset('assets/img/avatars/profile.png') }}" alt class="w-px-30 h-auto ">
               </div>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
@@ -62,12 +62,12 @@ $navbarDetached = ($navbarDetached ?? '');
                 <a class="dropdown-item" href="javascript:void(0);">
                   <div class="d-flex">
                     <div class="flex-shrink-0 me-3">
-                      <div class="avatar avatar-online">
-                        <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle">
+                      <div class="avatar">
+                        <img src="{{ asset('assets/img/avatars/profile.png') }}" alt class="w-px-30 h-auto">
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">John Doe</span>
+                      <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
                       <small class="text-muted">Admin</small>
                     </div>
                   </div>
@@ -88,7 +88,7 @@ $navbarDetached = ($navbarDetached ?? '');
                   <span class="align-middle">Settings</span>
                 </a>
               </li>
-              <li>
+              {{-- <li>
                 <a class="dropdown-item" href="javascript:void(0);">
                   <span class="d-flex align-items-center align-middle">
                     <i class="flex-shrink-0 bx bx-credit-card me-2 pe-1"></i>
@@ -96,7 +96,7 @@ $navbarDetached = ($navbarDetached ?? '');
                     <span class="flex-shrink-0 badge badge-center rounded-pill bg-danger w-px-20 h-px-20">4</span>
                   </span>
                 </a>
-              </li>
+              </li> --}}
               <li>
                 <div class="dropdown-divider"></div>
               </li>

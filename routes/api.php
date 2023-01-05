@@ -10,6 +10,8 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\LogoutController;
 
 use App\Http\Controllers\RegisterController;
+
+use App\Http\Controllers\DashboardController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -57,3 +59,5 @@ Route::post('/register', [RegisterController::class, 'register'])->name('registe
 
 Route::post('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
 // Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
+
+Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index'); 

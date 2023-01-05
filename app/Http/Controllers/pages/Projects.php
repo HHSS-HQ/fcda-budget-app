@@ -82,16 +82,7 @@ class Projects extends Controller
 }
 
 
-// public function show( Request $request )
-// {
-//     $comm = DB::table('bakerysales')
-//         ->where('customer_id', Auth::id() ) // Getting the Authenticated user id
-//         ->whereMonth('sales_date', $request->input('mn') )
-//         ->whereYear('sales_date', $request->input('yr') )
-//         ->get();
 
-//     return view('showCommission', compact('comm') );
-// }
 
 public function display($project_id)  
 {  
