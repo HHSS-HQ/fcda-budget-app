@@ -8,7 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -116,12 +116,24 @@ Route::post('custom-registration', [CustomAuthController::class, 'customRegistra
 Route::get('/login', [LoginController::class, 'show'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform'); 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.perform'); 
-Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
+// Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
 
+Route::get('/add-role', [RoleController::class, 'show'])->name('role.show'); 
+Route::post('/add-role', [RoleController::class, 'store'])->name('role.store'); 
 
+Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show'); 
 
+Route::get('/users', [RoleController::class, 'AllUsers'])->name('users.show'); 
+Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show'); 
+Route::get('/add-user', [RoleController::class, 'AllRoles2'])->name('role.store');
 
+// Route::get('/add-user', function () {
+//     // $roles = \App\Models\Role::all();
+//     $roles = DB::table('role')->pluck('id','role_name');
+//     return view('content.pages.users.add-user')->with(['roles' => $roles]);
+// });
+// Route::post('/add-user', [RegisterController::class, 'store'])->name('r.store'); 
 // Route::group(['namespace' => 'App\Http\Controllers'], function()
 // {   
 //     /**

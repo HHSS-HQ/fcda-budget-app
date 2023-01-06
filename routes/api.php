@@ -12,6 +12,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\RegisterController;
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\RoleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -61,3 +62,7 @@ Route::post('/logout', [LogoutController::class, 'perform'])->name('logout.perfo
 // Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 
 Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index'); 
+
+
+Route::post('/role', [RoleController::class, 'store'])->name('role.store'); 
+Route::get('/roles', [RoleController::class, 'AllRoles2'])->name('role.store'); 

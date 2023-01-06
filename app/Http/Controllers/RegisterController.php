@@ -18,6 +18,12 @@ class RegisterController extends Controller
         return view('content.authentications.auth-register-basic');
     }
 
+    public function add_user()
+    {
+        return view('content.pages.users.add-user');
+    }
+
+
     /**
      * Handle account registration request
      * 
