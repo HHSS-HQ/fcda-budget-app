@@ -32,6 +32,7 @@
               <form id="formAuthentication" class="mb-3" action="" action="{{ route('register.perform') }}" method="POST">
               @csrf
               {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}
+              <input type="hidden"  value="1" name="role_id" placeholder="Enter your Fullname" >
             <div class="mb-3">
               <label for="username" class="form-label">Fullname</label>
               <input type="text" class="form-control {{ $errors->has('name') ? 'error' : '' }}" id="name" name="name" placeholder="Enter your Fullname" autofocus>

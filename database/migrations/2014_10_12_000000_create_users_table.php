@@ -20,8 +20,20 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->unsignedInteger('role_id');
             $table->rememberToken();
             $table->timestamps();
+
+
+            $table->index(["role_id"], 'fk_user_1_idx');
+            
+
+
+            $table->foreign('role_id', 'fk_user_1_idx')
+                ->references('id')->on('role')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
         });
     }
 

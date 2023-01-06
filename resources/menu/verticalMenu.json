@@ -12,12 +12,12 @@
       "slug": "layouts",
       "submenu": [
         {
-          "url": "/layouts/without-menu",
+          "url": "#",
           "name": "Show Heads",
           "slug": "layouts-without-menu"
         },
         {
-          "url": "/layouts/without-navbar",
+          "url": "#",
           "name": "Add Heads",
           "slug": "layouts-without-navbar"
         }
@@ -53,12 +53,12 @@
         "slug": "departments",
         "submenu": [
           {
-            "url": "/layouts/without-menu",
+            "url": "#",
             "name": "View Departments",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "/layouts/without-navbar",
+            "url": "#",
             "name": "Add Department",
             "slug": "layouts-without-navbar"
           }
@@ -72,7 +72,7 @@
         "slug": "ecf",
         "submenu": [
           {
-            "url": "/layouts/without-menu",
+            "url": "#",
             "name": "View ECF",
             "slug": "layouts-without-menu"
           },
@@ -91,12 +91,12 @@
         "slug": "users",
         "submenu": [
           {
-            "url": "/layouts/without-menu",
+            "url": "",
             "name": "Show Users",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "/layouts/without-navbar",
+            "url": "#",
             "name": "Add User",
             "slug": "layouts-without-navbar"
           }
@@ -110,7 +110,7 @@
         "slug": "departments",
         "submenu": [
           {
-            "url": "/layouts/without-menu",
+            "url": "#",
             "name": "Downloads",
             "slug": "layouts-without-menu"
           }    
