@@ -129,9 +129,10 @@ Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
 
 Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show'); 
 
-Route::get('/users', [RoleController::class, 'AllUsers'])->name('users.show'); 
+Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'); 
 Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show'); 
-Route::get('/add-user', [RoleController::class, 'AllRoles2'])->name('role.store');
+// Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
+Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
 
 // Route::get('/add-user', function () {
 //     // $roles = \App\Models\Role::all();

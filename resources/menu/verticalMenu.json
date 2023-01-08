@@ -91,7 +91,7 @@
         "slug": "users",
         "submenu": [
           {
-            "url": "",
+            "url": "/users",
             "name": "Show Users",
             "slug": "layouts-without-menu"
           },

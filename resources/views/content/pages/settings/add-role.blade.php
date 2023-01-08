@@ -69,7 +69,7 @@
             <div class="mb-3 col-md-6">
               <label for="project_title" class="form-label">Role Name</label>
               <input class="form-control {{ $errors->has('role_name') ? 'error' : '' }}" type="password" id="role_name" name="role_name" autofocus placeholder="Role Name"/>
-              <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+              {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
               <!-- Error -->
         @if ($errors->has('role_name'))
         <div class="error">

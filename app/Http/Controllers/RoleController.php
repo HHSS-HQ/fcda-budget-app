@@ -45,10 +45,8 @@ class RoleController extends Controller
     public function AllRoles2( Request $request )
     {
         // $items = Role::get();
-        $items =  Role::select('role_name', 'id')->get();
-    // return view('home', compact('propertyTypes'));
-        // return $items;
-        return view('content.pages.users.add-user', compact('items') );
+        $roles =  Role::select('role_name', 'id')->get();
+        return view('content.pages.users.users', compact('roles') );
     }
     
     // public function id()

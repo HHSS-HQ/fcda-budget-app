@@ -5,14 +5,14 @@
 @section('content')
 <a href="/add-role" ><button type="button" class="btn btn-primary" style="float: right">[+] New Role</button></a>
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Projects /</span> All Roles
+  <span class="text-muted fw-light">Roles /</span> All Roles
 </h4>
 
 
 
 <!-- Bordered Table -->
 <div class="card">
-  <h5 class="card-header">All Projects</h5>
+  <h5 class="card-header">All Roles</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
       
