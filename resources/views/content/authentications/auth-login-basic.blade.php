@@ -33,6 +33,11 @@
             {{ @session('success') }}  
           </div>
           @endif
+          @if(session('error'))
+          <div class="alert alert-danger" role="alert">
+            {{ @session('error') }}  
+          </div>
+          @endif
           <form id="formAuthentication" class="mb-3" action="" action="{{route('login.perform')}}" method="POST">
             @csrf
             {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}

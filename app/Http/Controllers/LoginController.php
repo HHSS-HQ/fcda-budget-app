@@ -61,6 +61,13 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user) 
     {
         // return redirect()->intended();
-        return redirect('/dashboard')->with('success', "Account successfully registered.");
-    }
+        if (Auth::user()->role_id == null) {
+            return redirect()->to('/login')->with('error', 'Sorry! Your account has not been activated. Please contact an admin');
+    
+        } else {
+            
+            return redirect('/dashboard')->with('success', "Account successfully registered.");
+        }
+        
+        }
 }
