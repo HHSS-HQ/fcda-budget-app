@@ -28,7 +28,11 @@
           <!-- /Logo -->
           <h4 class="mb-2">Welcome back! 👋</h4>
           <p class="mb-4">Please sign-in to your account</p>
-
+          @if(session('success'))
+          <div class="alert alert-success" role="alert">
+            {{ @session('success') }}  
+          </div>
+          @endif
           <form id="formAuthentication" class="mb-3" action="" action="{{route('login.perform')}}" method="POST">
             @csrf
             {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}" /> --}}

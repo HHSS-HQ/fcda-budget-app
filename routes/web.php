@@ -9,6 +9,7 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\HomeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,13 +26,17 @@ $controller_path = 'App\Http\Controllers';
 // Main Page Route
 Route::get('/dashboard', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');
 // Route::get('/', $controller_path . '\authentications\LoginBasic@index')->name('auth-login-basic');
-Route::get('/', [LoginController::class, 'show'])->name('login.show');
+// Route::get('/', [LoginController::class, 'show'])->name('login.show');
 
 // Route::get('/', function () {
 //     return view('login');
 // })->middleware('auth');
 
 // Route::get('/login', 'LoginController@show');
+
+Route::get('/', [HomeController::class, 'index'])->name('home.index');
+Route::post('/', [LoginController::class, 'login'])->name('login.perform');
+
 
 // layout
 Route::get('/layouts/without-menu', $controller_path . '\layouts\WithoutMenu@index')->name('layouts-without-menu');
@@ -116,7 +121,7 @@ Route::post('custom-registration', [CustomAuthController::class, 'customRegistra
 Route::get('/login', [LoginController::class, 'show'])->name('login.show');
 Route::post('/login', [LoginController::class, 'login'])->name('login.perform'); 
 Route::post('/register', [RegisterController::class, 'register'])->name('register.perform'); 
-// Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
+Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
 Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
 
 Route::get('/add-role', [RoleController::class, 'show'])->name('role.show'); 
