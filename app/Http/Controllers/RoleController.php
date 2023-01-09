@@ -30,10 +30,7 @@ class RoleController extends Controller
     {
         
         $user = Role::create($request->validated());
-
-       
-
-        return redirect('/role')->with('success', "Role successfully added.");
+         return redirect('/role')->with('success', "Role successfully added.");
     }
 
     public function AllRoles( Request $request )

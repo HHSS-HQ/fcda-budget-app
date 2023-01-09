@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    public $tableName = 'role';
+    public $tableName = 'department';
     /**
      * Run the migrations.
      *
@@ -17,9 +17,18 @@ return new class extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('role_name')->nullable();
+            $table->string('department_name')->nullable();
+            $table->unsignedBigInteger('created_by');
+            $table->string('remarks')->nullable();
             $table->timestamps();
-              $table->softDeletes();
+            $table->softDeletes();
+
+            $table->index(["created_by"], 'fk_entered_by_id_1_idx');
+
+            $table->foreign('created_by', 'fk_entered_by_id_1_idx')
+            ->references('id')->on('users')
+            ->onDelete('no action')
+            ->onUpdate('no action');
 
                   });
     }

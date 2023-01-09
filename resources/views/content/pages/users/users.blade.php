@@ -76,7 +76,7 @@
                         <label for="dobBasic" class="form-label">Email</label>
                         <input type="text" name="email" id="dobBasic" class="form-control" value="{{$data->email}}" >
                       </div>
-                    </div>
+                    </div><br/>
                     <div class="row">
                       <div class="col mb-3">
                         <label for="nameBasic" class="form-label">Role</label>
@@ -84,7 +84,7 @@
                           <option value="">Select</option>
                           {{$roles =  App\Models\Role::select('role_name', 'id')->get();}}
                           @forelse($roles as $item)
-                          <option value="{{$item->id}}">{{$item->role_name}}</option>
+                          <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->role_name}}</option>
                           @empty
                           @endforelse
                         </select>

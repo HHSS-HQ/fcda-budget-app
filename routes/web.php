@@ -10,6 +10,9 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UnitController;
+use App\Http\Controllers\BudgetController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -126,13 +129,28 @@ Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perfor
 
 Route::get('/add-role', [RoleController::class, 'show'])->name('role.show'); 
 Route::post('/add-role', [RoleController::class, 'store'])->name('role.store'); 
-
 Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show'); 
 
 Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'); 
 Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show'); 
 // Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
 Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
+
+Route::get('/add-department', [DepartmentController::class, 'show'])->name('department.show'); 
+Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
+Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');  
+Route::any('/update-department/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
+
+Route::get('/add-unit', [UnitController::class, 'show'])->name('unit.show'); 
+Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store'); 
+Route::get('/units', [UnitController::class, 'AllUnits'])->name('units.show'); 
+Route::any('/update-unit/{id}', [UnitController::class, 'updateUnit'])->name('unit.update');
+
+
+Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show'); 
+Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.store'); 
+Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show'); 
+Route::any('/update-budget/{id}', [BudgetController::class, 'updateBudget'])->name('budget.update');
 
 // Route::get('/add-user', function () {
 //     // $roles = \App\Models\Role::all();

@@ -58,26 +58,7 @@ class RegisterController extends Controller
     }
 
 
-    // public function updateUser(Request $request, $id)
-    // {
-    //   $this->validate($request, [
-    //     // 'farm_location' => 'required|string',
-    //     'name' => 'required|string',
-    //     'email' => 'required|string',
-    //     'role_id' => 'required|string',
-    //   ]);;
-  
-  
-    //   if (User::where(['id' => $id])->exists()) {
-    //     $user = User::find($id);
-    //     $user->name =  $request->name;
-    //     $user->email = $request->email;
-    //     $user->role_id =   $request->role_id;
-    //     $user->save();
-  
-    //     return redirect('/users')->with('success', "User details successfuly updated.");
-    // }
-    // }
+
 
 
     public function updateUser(Request $request, $id)

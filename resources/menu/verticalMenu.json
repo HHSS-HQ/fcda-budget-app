@@ -53,13 +53,51 @@
         "slug": "departments",
         "submenu": [
           {
-            "url": "#",
+            "url": "/departments",
             "name": "View Departments",
+            "slug": "view-departments"
+          },
+          {
+            "url": "/add-department",
+            "name": "Add Department",
+            "slug": "add-department"
+          }
+     
+        ]
+      },
+
+      {
+        "name": "Units",
+        "icon": "menu-icon tf-icons bx bx-git-branch",
+        "slug": "unit",
+        "submenu": [
+          {
+            "url": "/units",
+            "name": "View Units",
+            "slug": "units"
+          },
+          {
+            "url": "/add-unit",
+            "name": "Add Unit",
+            "slug": "add-units"
+          }
+     
+        ]
+      },
+
+      {
+        "name": "Annual Budget",
+        "icon": "menu-icon tf-icons bx bx-wallet",
+        "slug": "ecf",
+        "submenu": [
+          {
+            "url": "/budgets",
+            "name": "View Annual Budget",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "#",
-            "name": "Add Department",
+            "url": "/add-budget",
+            "name": "Add Annual Budget",
             "slug": "layouts-without-navbar"
           }
      
@@ -77,7 +115,7 @@
             "slug": "layouts-without-menu"
           },
           {
-            "url": "/layouts/without-navbar",
+            "url": "#",
             "name": "Generate ECF",
             "slug": "layouts-without-navbar"
           }
@@ -107,12 +145,12 @@
       {
         "name": "Settings",
         "icon": "menu-icon tf-icons bx bx-cog",
-        "slug": "departments",
+        "slug": "settings",
         "submenu": [
           {
             "url": "/roles",
             "name": "Roles",
-            "slug": "layouts-without-menu"
+            "slug": "roles"
           }    
         ]
       }

@@ -13,6 +13,8 @@ use App\Http\Controllers\RegisterController;
 
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\UnitController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -69,3 +71,6 @@ Route::get('/roles', [RoleController::class, 'AllRoles2'])->name('role.store');
 
 Route::put('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
 Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'); 
+
+Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
+Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store'); 

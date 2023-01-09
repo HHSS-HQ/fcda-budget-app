@@ -24,10 +24,10 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/roles" ><button type="button" class="btn btn-primary" style="float: right">←Back To Roles</button></a>
+<a href="/departments" ><button type="button" class="btn btn-primary" style="float: right">←Back To Departments</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Roles /</span> New Role
+  <span class="text-muted fw-light">Departments /</span> New Department
 </h4>
 
 <div class="row">
@@ -38,56 +38,42 @@
       <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li>
     </ul> --}}
     <div class="card mb-4">
-      <h5 class="card-header">Role Capture Form</h5>
-      <!-- Account -->
-      {{-- <div class="card-body">
-        <div class="d-flex align-items-start align-items-sm-center gap-4">
-          <img src="{{asset('assets/img/avatars/1.png')}}" alt="user-avatar" class="d-block rounded" height="100" width="100" id="uploadedAvatar" />
-          <div class="button-wrapper">
-            <label for="upload" class="btn btn-primary me-2 mb-4" tabindex="0">
-              <span class="d-none d-sm-block">Project Images</span>
-              <i class="bx bx-upload d-block d-sm-none"></i>
-              <input type="file" id="upload" class="account-file-input" hidden accept="image/png, image/jpeg" />
-            </label>
-            <button type="button" class="btn btn-outline-secondary account-image-reset mb-4">
-              <i class="bx bx-reset d-block d-sm-none"></i>
-              <span class="d-none d-sm-block">Reset</span>
-            </button>
+      <h5 class="card-header">Department Capture Form</h5>
 
-            <p class="text-muted mb-0">Allowed JPG, GIF or PNG. Max size of 800K</p>
-          </div>
-        </div>
-      </div> --}}
       <hr class="my-0">
       <div class="card-body">
-        <form id="formAccountSettings" action="" action="{{ route('role.store') }}" method="POST" >
+        <form id="formAccountSettings" action="" action="{{ route('department.store') }}" method="POST" >
           @csrf
 
 
 
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label for="role_name" class="form-label">Role Name</label>
-              <input class="form-control {{ $errors->has('role_name') ? 'error' : '' }}" type="text" id="role_name" name="role_name" autofocus placeholder="Role Name"/>
+              <label for="department_name" class="form-label">Department Name</label>
+              <input class="form-control {{ $errors->has('department_name') ? 'error' : '' }}" type="text" id="department_name" name="department_name" autofocus placeholder="Department Name"/>
               {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
               <!-- Error -->
-              @if ($errors->has('role_name'))
+        @if ($errors->has('department_name'))
+        <div class="error">
+            {{ $errors->first('department_name') }}
+        </div>
+        @endif
+            </div>
+
+
+           
+            <div class="mb-3 col-md-6">
+              <label for="remarks" class="form-label">Remarks</label>
+              {{-- <input class="form-control {{ $errors->has('role_name') ? 'error' : '' }}" type="text" id="role_name" name="role_name" autofocus placeholder="Role Name"/> --}}
+<textarea class="form-control {{ $errors->has('remarks') ? 'error' : '' }}" name="remarks"></textarea>
+              @if ($errors->has('remarks'))
               <div class="error">
-              {{ $errors->first('role_name') }}
+              {{ $errors->first('remarks') }}
              </div>
               @endif
             </div>
-
-
-
           </div>
-          {{-- <div>
-            <button wire:click="submit">Checkout</button>
-         
-            <div wire:loading.delay.long>
-                Processing Payment...
-            </div>
-        </div> --}}
+
 
 
           <div class="mt-2">
