@@ -14,6 +14,17 @@ class Projects extends Controller
     return view('content.pages.projects.projects');
   }
 
+  // public function EditProject()
+  // {
+  //   return view('content.pages.projects.edit-project');
+  // }
+
+  public function EditProject($project_id)  
+{  
+  $comm = DB::table('project')->where('project_id', '=', $project_id)->get();
+  return view('content.pages.projects.edit-project', compact('comm') );
+} 
+
   public function AddProject()
   {
     return view('content.pages.projects.add-project');
@@ -86,23 +97,28 @@ class Projects extends Controller
 
 public function display($project_id)  
 {  
-  // $comm = DB::table('project')->where('project_id', '=', $project_id)->first();
-  // return view('content.pages.projects.view_project', compact('comm') );
-  return view('content.pages.projects.view_project2')->with('project_id',$project_id);  
+  return view('content.pages.projects.view_project2')->with('project_id', $project_id);  
 } 
 
 public function one_project($project_id)  
 {  
-  // $comm = DB::table('project')->where('id', '=', '1')->get();
-  // \Log::info($comm);
-  // // return view('content.pages.projects.view_project', ["data"=>$comm]);
-  // return view('content.pages.projects.view_project', compact('comm') );
-  // // return view('content.pages.projects.view_project')->with('project_id',$project_id);  
-
   $users = $comm = DB::table('project')->where('project_id', '=', $project_id)->get();
   return view('content.pages.projects.view_project', compact('users') );
-                    
-                    //  \Log::info($users);
 } 
+
+
+public function updateProject(Request $request, $id)
+{
+  if (Project::where('id', $id)->exists()) {
+    $project = Project::find($id);
+    $project->project_title = is_null($request->project_title) ? $project->project_title : $request->project_title;
+    // $project->subhead_name = is_null($request->subhead_name) ? $subhead->subhead_name : $request->subhead_name;
+    // $project->remarks = is_null($request->remarks) ? $subhead->remarks : $request->remarks;
+    // $project->status = is_null($request->status) ? $subhead->status : $request->status;
+    $project->save();
+    return redirect('/projects')->with('success', "Project has successfuly been updated.");
+}
+}
+
 
   }

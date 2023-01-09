@@ -37,9 +37,9 @@
             <td>&#8358;{{ number_format($data->outstanding_balance ? : '0', 2) }}</td>
             {{-- <td><span class="badge bg-label-primary me-1">Active</span></td> --}}
             <td>
-              <a data-toggle = "tooltip" title = "Fund This Project"  href="/view_project/{{$data->project_id}}"><i class="bx bx-money me-1"></i> </a> &nbsp;
+              <a data-toggle = "tooltip" title = "Fund This Project"  href="javascript:void(0);"><i class="bx bx-money me-1"></i> </a> &nbsp;
               <a data-toggle = "tooltip" title = "View This Project"  href="/view_project/{{$data->project_id}}"><i class="bx bx-search-alt-2 me-1"></i> </a> &nbsp;
-              <a data-toggle = "tooltip" title = "Edit This Project"   href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
+              <a data-toggle = "tooltip" title = "Edit This Project"   href="/edit-project/{{$data->project_id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
               <a data-toggle = "tooltip" title = "Delete This Project"   href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
             </td>
           </tr>

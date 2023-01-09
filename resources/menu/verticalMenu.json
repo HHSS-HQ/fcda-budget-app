@@ -28,17 +28,17 @@
     {
       "name": "SubHeads",
       "icon": "menu-icon tf-icons bx bx-outline",
-      "slug": "layouts",
+      "slug": "subheads",
       "submenu": [
         {
           "url": "/subheads",
           "name": "Show SubHeads",
-          "slug": "layouts-without-menu"
+          "slug": "show-subhead"
         },
         {
           "url": "/add-subhead",
           "name": "Add SubHead",
-          "slug": "layouts-without-navbar"
+          "slug": "add-subhead"
         }
    
       ]
@@ -47,21 +47,21 @@
     {
       "name": "Projects",
       "icon": "menu-icon tf-icons bx bx-spreadsheet",
-      "slug": "/projects",
+      "slug": "projects",
       "submenu": [
         {
           "url": "/projects",
           "name": "View Projects",
-          "slug": "layouts-without-menu"
+          "slug": "view-projects"
         },
         {
           "url": "/add-project",
-          "name": "Add Projects",
-          "slug": "layouts-without-navbar"
+          "name": "Add Project",
+          "slug": "add-project"
           },        {
-            "url": "/layouts/without-navbar",
+            "url": "#",
             "name": "Fund Project",
-            "slug": "layouts-without-navbar"
+            "slug": "fund-project"
           }
           
         ]

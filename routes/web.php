@@ -119,6 +119,8 @@ Route::post('/add-project', $controller_path . '\pages\Projects@ProjectForm')->n
 // Route::get('/view_project/{id}', 'Projects@display');
 Route::get('/view_project2/{project_id}', $controller_path . '\pages\Projects@display')->name('display');
 Route::get('/view_project/{project_id}', $controller_path . '\pages\Projects@one_project')->name('one_project');
+Route::get('/edit-project/{project_id}', $controller_path . '\pages\Projects@EditProject')->name('edit-project');
+Route::any('/update-project/{id}', [Projects::class, 'updateProject'])->name('project.update');
 // Route::get('/view_project/{project_id}', ['as' => 'registration', 'uses' => 'Projects@one_project']);
 
 Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
@@ -160,37 +162,3 @@ Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subhea
 Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
 
 // Route::get('/add-user', function () {
-//     // $roles = \App\Models\Role::all();
-//     $roles = DB::table('role')->pluck('id','role_name');
-//     return view('content.pages.users.add-user')->with(['roles' => $roles]);
-// });
-// Route::post('/add-user', [RegisterController::class, 'store'])->name('r.store'); 
-// Route::group(['namespace' => 'App\Http\Controllers'], function()
-// {   
-//     /**
-//      * Home Routes
-//      */
-//     Route::get('/', 'HomeController@index')->name('home.index');
-
-//     Route::group(['middleware' => ['guest']], function() {
-//         /**
-//          * Register Routes
-//          */
-//         Route::get('/register', 'RegisterController@show')->name('register.show');
-//         Route::post('/register', 'RegisterController@register')->name('register.perform');
-
-//         /**
-//          * Login Routes
-//          */
-//         Route::get('/login', 'LoginController@show')->name('login.show');
-//         Route::post('/login', 'LoginController@login')->name('login.perform');
-
-//     });
-
-//     Route::group(['middleware' => ['auth']], function() {
-//         /**
-//          * Logout Routes
-//          */
-//         Route::get('/logout', 'LogoutController@perform')->name('logout.perform');
-//     });
-// });
