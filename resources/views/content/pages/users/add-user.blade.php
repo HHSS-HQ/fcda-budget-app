@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Add Project')
+@section('title', 'Add User')
 
 @section('page-script')
 <script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>
@@ -24,7 +24,7 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/roles" ><button type="button" class="btn btn-primary" style="float: right">←Back To Users</button></a>
+<a href="/users" ><button type="button" class="btn btn-primary" style="float: right">←Back To Users</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Users /</span> New User

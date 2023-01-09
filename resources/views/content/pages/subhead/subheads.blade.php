@@ -1,41 +1,41 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Budgets')
+@section('title', 'Subhead')
 
 @section('content')
-<a href="/add-budget" ><button type="button" class="btn btn-primary" style="float: right">[+] New Budget</button></a>
+<a href="/add-subhead" ><button type="button" class="btn btn-primary" style="float: right">[+] New Subhead</button></a>
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Budget /</span> All Budgets
+  <span class="text-muted fw-light">Subhead /</span> All Subheads
 </h4>
 
 
 
 <!-- Bordered Table -->
 <div class="card">
-  <h5 class="card-header">All Budgets</h5>
+  <h5 class="card-header">All Subheads</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
       
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Budget ID</th>
-            <th>Budget Year</th>
-            <th>Appropriated Amount</th>
+            <th>Subhead ID</th>
+            <th>Subhead Code</th>
+            <th>Subhead Name</th>
             <th>Status </th>
-            <th>Code </th>
+            {{-- <th>Code </th> --}}
 
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          @forelse($budgets as $data)
+          @forelse($subheads as $data)
           <tr>
             <td>{{$data->id}}</td>
-            <td>{{$data->budget_year}}</td>
-            <td>&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td>
+            <td>{{$data->subhead_code}}</td>
+            <td>{{$data->subhead_name}}</td>
             <td>{{$data->status}}</td>
-            <td>{{$data->code}}</td>
+            {{-- <td>&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td> --}}
 
             <td>
 
@@ -45,37 +45,37 @@
             </td>
           </tr>
 
-          <form action="{{ route('budget.update', [$data->id]) }}" method="PUT" >
+          <form action="{{ route('subhead.update', [$data->id]) }}" method="PUT" >
             <div class="modal fade" id="basicModal-{{$data->id}}" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     
-                    <h5 class="modal-title" id="exampleModalLabel1">Budget Edit Form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Subhead Edit Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="row">
                       <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Budget Year</label>
-                        <input type="number" min="2022" max="2040" name="budget_year" id="nameBasic" class="form-control" value="{{$data->budget_year}}">
+                        <label for="nameBasic" class="form-label">Subhead Code</label>
+                        <input type="text" name="subhead_code" id="nameBasic" class="form-control" value="{{$data->subhead_code}}">
                       </div>
                     </div>
 
                     
                       <div class="row">
                         <div class="col mb-3">
-                          <label for="nameBasic" class="form-label">Appropriated Amount</label>
-                          <input type="number" inputmode="numeric" pattern="[-+]?[0-9]*[.,]?[0-9]+" name="appropriated_amount" id="nameBasic" class="form-control" value="{{$data->appropriated_amount}}">
+                          <label for="nameBasic" class="form-label">Subhead Name</label>
+                          <input type="text"  name="subhead_name" id="nameBasic" class="form-control" value="{{$data->subhead_name}}">
                         </div>
                       </div>
          
-                      <div class="row">
+                      {{-- <div class="row">
                         <div class="col mb-3">
                           <label for="nameBasic" class="form-label">Code</label>
                           <input type="text" name="appropirated_amount" id="nameBasic" class="form-control" value="{{$data->code}}">
                         </div>
-                      </div>
+                      </div> --}}
 
                       <div class="row">
                         <div class="col mb-3">

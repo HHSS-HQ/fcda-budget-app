@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Project Summary')
 
 @section('content')
 <a href="/projects" ><button type="button" class="btn btn-primary" style="float: right">←Back To Projects</button></a>

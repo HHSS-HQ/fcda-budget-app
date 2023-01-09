@@ -13,6 +13,8 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BudgetController;
+use App\Http\Controllers\SubheadController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -151,6 +153,11 @@ Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show'
 Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.store'); 
 Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show'); 
 Route::any('/update-budget/{id}', [BudgetController::class, 'updateBudget'])->name('budget.update');
+
+Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.show'); 
+Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store'); 
+Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show'); 
+Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
 
 // Route::get('/add-user', function () {
 //     // $roles = \App\Models\Role::all();

@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Add Project')
+@section('title', 'Add Department')
 
 @section('page-script')
 <script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>

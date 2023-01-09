@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Add Project')
+@section('title', 'Add Budget')
 
 @section('page-script')
 <script src="{{asset('assets/js/pages-account-settings-account.js')}}"></script>
@@ -24,7 +24,7 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/departments" ><button type="button" class="btn btn-primary" style="float: right">←Back To Budgets</button></a>
+<a href="/budgets" ><button type="button" class="btn btn-primary" style="float: right">←Back To Budgets</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Budgets /</span> New Budget

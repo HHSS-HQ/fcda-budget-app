@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Units')
 
 @section('content')
 <a href="/add-unit" ><button type="button" class="btn btn-primary" style="float: right">[+] New Unit</button></a>

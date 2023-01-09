@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Departments')
 
 @section('content')
 <a href="/add-department" ><button type="button" class="btn btn-primary" style="float: right">[+] New Department</button></a>

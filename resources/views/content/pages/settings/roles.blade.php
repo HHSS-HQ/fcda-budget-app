@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Roles')
 
 @section('content')
 <a href="/add-role" ><button type="button" class="btn btn-primary" style="float: right">[+] New Role</button></a>

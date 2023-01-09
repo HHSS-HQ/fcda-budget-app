@@ -1,6 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Projects')
 
 @section('content')
 <a href="/add-project" ><button type="button" class="btn btn-primary" style="float: right">[+] New Project</button></a>

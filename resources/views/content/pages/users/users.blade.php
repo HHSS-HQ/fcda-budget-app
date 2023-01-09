@@ -1,10 +1,10 @@
 @extends('layouts/contentNavbarLayout')
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-@section('title', 'Tables - Basic Tables')
+@section('title', 'Users')
 
 @section('content')
-<a href="/add-role" ><button type="button" class="btn btn-primary" style="float: right">[+] New User</button></a>
+<a href="/add-user" ><button type="button" class="btn btn-primary" style="float: right">[+] New User</button></a>
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Users /</span> All Users
 </h4>
