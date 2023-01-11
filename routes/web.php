@@ -14,6 +14,7 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\SubheadController;
+use App\Http\Controllers\ProjectTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -160,5 +161,12 @@ Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.sh
 Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store'); 
 Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show'); 
 Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
+
+
+Route::get('/add-project-type', [ProjectTypeController::class, 'show'])->name('project-type.show'); 
+Route::post('/add-project-type', [ProjectTypeController::class, 'store'])->name('project-type.store'); 
+Route::get('/project-types', [ProjectTypeController::class, 'AllProjectTypes'])->name('project-type.show'); 
+Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updateProjectType'])->name('project-type.update');
+
 
 // Route::get('/add-user', function () {

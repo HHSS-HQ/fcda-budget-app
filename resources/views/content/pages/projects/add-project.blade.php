@@ -63,7 +63,19 @@
         <form id="formAccountSettings" action="" action="{{ route('project.store') }}" method="POST" >
           @csrf
 
-
+          <div class="row">
+            <div class="col mb-3">
+              <label for="nameBasic" class="form-label">Project Type</label>
+              <select id="id" class="select2 form-select" name="role_id">
+                <option value="">Select</option>
+                {{$project_types =  App\Models\ProjectType::select('project_type', 'id')->get();}}
+                @forelse($project_types as $item)
+                <option value="{{$item->id}}" >{{$item->project_type}}</option>
+                @empty
+                @endforelse
+              </select>
+            </div>
+          </div>
 
           <div class="row">
             <div class="mb-3 col-md-6">

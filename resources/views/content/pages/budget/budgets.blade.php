@@ -100,7 +100,7 @@
 
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No departments registered yet</td>
+                  <td colspan="5" style="color:red">Oops! No budgets registered yet</td>
                 </tr>
 
           @endforelse

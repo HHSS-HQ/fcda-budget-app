@@ -1,37 +1,40 @@
 @extends('layouts/contentNavbarLayout')
 
-@section('title', 'Units')
+@section('title', 'Project Type')
 
 @section('content')
-<a href="/add-unit" ><button type="button" class="btn btn-primary" style="float: right">[+] New Unit</button></a>
+<a href="/add-project-type" ><button type="button" class="btn btn-primary" style="float: right">[+] New Project Type</button></a>
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Units /</span> All Units
+  <span class="text-muted fw-light">Project Type /</span> All Project Types
 </h4>
 
 
 
 <!-- Bordered Table -->
 <div class="card">
-  <h5 class="card-header">All Units</h5>
+  <h5 class="card-header">All Project Types</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
       
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Unit ID</th>
-            <th>Unit Name</th>
-            <th>Department</th>
+            <th>Project Type ID</th>
+            <th>Project Type</th>
+            <th>Status </th>
+            {{-- <th>Code </th> --}}
+
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          @forelse($units as $data)
+          @forelse($project_types as $data)
           <tr>
             <td>{{$data->id}}</td>
-            <td>{{$data->unit_name}}</td>
-            <td>{{$data->department_name ?? 'No unit assigned'}}</td>
-            {{-- <td>{{$data->department_name}}</td> --}}
+            <td>{{$data->project_type}}</td>
+           
+            <td>{{$data->status}}</td>
+            {{-- <td>&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td> --}}
 
             <td>
 
@@ -41,36 +44,35 @@
             </td>
           </tr>
 
-          <form action="{{ route('unit.update', [$data->id]) }}" method="PUT" >
+          <form action="{{ route('project-type.update', [$data->id]) }}" method="PUT" >
             <div class="modal fade" id="basicModal-{{$data->id}}" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
                     
-                    <h5 class="modal-title" id="exampleModalLabel1">Unit Edit Form</h5>
+                    <h5 class="modal-title" id="exampleModalLabel1">Project Type Edit Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
                   <div class="modal-body">
                     <div class="row">
                       <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Unit Name</label>
-                        <input type="text" name="unit_name" id="nameBasic" class="form-control" value="{{$data->unit_name}}">
+                        <label for="nameBasic" class="form-label">Project Type</label>
+                        <input type="text" name="subhead_code" id="nameBasic" class="form-control" value="{{$data->project_type}}">
                       </div>
                     </div>
-         
-                    <div class="row">
-                      <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Role</label>
-                        <select id="id" class="select2 form-select" name="role_id">
-                          <option value="">Select</option>
-                          {{$departments =  App\Models\Department::select('department_name', 'id')->get();}}
-                          @forelse($departments as $item)
-                          <option value="{{$item->id}}" {{ $item->id == $item->id ? 'selected' : '' }}>{{$item->department_name}}</option>
-                          @empty
-                          @endforelse
-                        </select>
-                      </div>
-                    </div>
+
+
+
+                      <div class="row">
+                        <div class="col mb-3">
+                          <label for="nameBasic" class="form-label">Status</label><br/>
+    <input type="radio" id="status1" name="status" value="ACTIVE" {{ $data->status == 'ACTIVE' ? 'selected' : '' }}>
+  <label for="status1">Active</label><br>
+  <input type="radio" id="status2" name="status" value="INACTIVE" {{ $data->status == "INACTIVE" ? 'selected' : '' }}>
+  <label for="status2">Inactive</label><br>  
+</div>
+</div>
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -84,7 +86,7 @@
 
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No units registered yet</td>
+                  <td colspan="5" style="color:red">Oops! No project types registered yet</td>
                 </tr>
 
           @endforelse

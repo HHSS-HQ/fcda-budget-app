@@ -24,10 +24,10 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/subheads" ><button type="button" class="btn btn-primary" style="float: right">←Back To Subheads</button></a>
+<a href="/project-types" ><button type="button" class="btn btn-primary" style="float: right">←Back To Project Types</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
-  <span class="text-muted fw-light">Subheads /</span> New Subhead
+  <span class="text-muted fw-light">Project Types /</span> New Project Type
 </h4>
 
 <div class="row">
@@ -38,39 +38,29 @@
       <li class="nav-item"><a class="nav-link" href="{{url('pages/account-settings-connections')}}"><i class="bx bx-link-alt me-1"></i> Connections</a></li>
     </ul> --}}
     <div class="card mb-4">
-      <h5 class="card-header">Subhead Capture Form</h5>
+      <h5 class="card-header">Project Type Capture Form</h5>
 
       <hr class="my-0">
       <div class="card-body">
-        <form id="formAccountSettings" action="" action="{{ route('subhead.store') }}" method="POST" >
+        <form id="formAccountSettings" action="" action="{{ route('project-type.store') }}" method="POST" >
           @csrf
 
 
 
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label for="subhead_code" class="form-label">Subhead Code</label>
-              <input class="form-control {{ $errors->has('subhead_code') ? 'error' : '' }}"  type="text"  id="subhead_code" name="subhead_code" autofocus placeholder="Subhead Code"/>
+              <label for="project_type" class="form-label">Project Type</label>
+              <input class="form-control {{ $errors->has('project_type') ? 'error' : '' }}"  type="text"  id="project_type" name="project_type" autofocus placeholder="Project Type"/>
               {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
               <!-- Error -->
-        @if ($errors->has('subhead_code'))
+        @if ($errors->has('project_type'))
         <div class="error">
-            {{ $errors->first('subhead_code') }}
+            {{ $errors->first('project_type') }}
         </div>
         @endif
             </div>
 
-            <div class="mb-3 col-md-6">
-              <label for="subhead_name" class="form-label">Subhead Name</label>
-              <input class="form-control {{ $errors->has('subhead_name') ? 'error' : '' }}"  type="text" id="subhead_name" name="subhead_name" autofocus placeholder="Subhead Name"/>
-              {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
-              <!-- Error -->
-        @if ($errors->has('subhead_name'))
-        <div class="error">
-            {{ $errors->first('subhead_name') }}
-        </div>
-        @endif
-            </div>
+     
 
 
            
@@ -88,19 +78,7 @@
           </div>
 
 
-          {{-- <div class="row">
-            <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Department</label>
-              <select id="id" class="select2 form-select" name="department_id">
-                <option value="">Select</option>
-                {{$departments =  App\Models\Department::select('department_name', 'id')->get();}}
-                @forelse($departments as $item)
-                <option value="{{$item->id}}">{{$item->department_name}}</option>
-                @empty
-                @endforelse
-              </select>
-            </div>
-          </div> --}}
+
 
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>

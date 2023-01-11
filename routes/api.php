@@ -15,6 +15,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UnitController;
+
+use App\Http\Controllers\ProjectTypeController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -74,3 +76,5 @@ Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'
 
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
 Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store'); 
+
+Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updateProjectType'])->name('project-type.update');

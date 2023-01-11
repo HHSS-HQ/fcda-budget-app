@@ -39,8 +39,18 @@ return new class extends Migration
             $table->string('project_year')->nullable();
             $table->string('image_id')->nullable();
             // $table->text('abilities')->nullable();
+            $table->unsignedInteger('project_type_id')->nullable();
             $table->timestamps();
+
+
+         $table->index(["project_type_id"], 'fk_project_type_id_1_idx');
+
+         $table->foreign('project_type_id', 'fk_project_type_id_1_idx')
+         ->references('id')->on('project_type')
+         ->onDelete('no action')
+         ->onUpdate('no action');
         });
+        
     }
 
     /**

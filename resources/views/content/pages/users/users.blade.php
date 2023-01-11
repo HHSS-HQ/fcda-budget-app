@@ -102,7 +102,7 @@
 
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No roles registered yet</td>
+                  <td colspan="5" style="color:red">Oops! No users registered yet</td>
                 </tr>
 
           @endforelse
