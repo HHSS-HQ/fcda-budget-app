@@ -10,6 +10,12 @@ use DB;
 class DepartmentController extends Controller
 {
 
+  public function __construct()
+  {
+      // user must log in to use this controller
+      $this->middleware('auth');
+  }
+
     public function show()
     {
         return view('content.pages.department.add-department');
@@ -26,7 +32,7 @@ class DepartmentController extends Controller
 
     ]);
 
-    
+
     // \Log::info($request->all());
     $departments = new Department();
 

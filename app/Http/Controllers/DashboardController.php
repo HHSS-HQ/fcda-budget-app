@@ -1,12 +1,17 @@
 <?php
- 
+
 namespace App\Http\Controllers;
- 
+
 use DB;
 use App\Http\Controllers\Controller;
- 
+
 class DashboardController extends Controller
 {
+  public function __construct()
+  {
+      // user must log in to use this controller
+      $this->middleware('auth');
+  }
     /**
      * Show a list of all of the application's users.
      *
@@ -18,8 +23,6 @@ class DashboardController extends Controller
                     //   \Log::info($project);
 
         return view('/dashboard', ['project' => $project]);
-        // return view('/dashboard-statistics', compact('project') );
-        // return (['project' => $project]) ;
 
     }
 }

@@ -15,7 +15,9 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\SubheadController;
 use App\Http\Controllers\ProjectTypeController;
-
+use App\Http\Controllers\ECFController;
+use App\Http\Controllers\DropdownController;
+// use App\Http\Controllers\ECFController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -39,6 +41,7 @@ Route::get('/dashboard', $controller_path . '\dashboard\Analytics@index')->name(
 // })->middleware('auth');
 
 // Route::get('/login', 'LoginController@show');
+// Route::get('/login', [HomeController::class, 'index'])->name('login.show');
 
 Route::get('/', [HomeController::class, 'index'])->name('home.index');
 Route::post('/', [LoginController::class, 'login'])->name('login.perform');
@@ -61,7 +64,7 @@ Route::get('/pages/misc-under-maintenance', $controller_path . '\pages\MiscUnder
 // authentication
 // Route::post('/auth/register-basic', $controller_path . '\CustomAuthController@customRegistration')->name('register.custom');
 Route::get('/auth/forgot-password-basic', $controller_path . '\authentications\ForgotPasswordBasic@index')->name('auth-reset-password-basic');
-// Route::post('/auth/register-basic', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+// Route::post('/auth/register-basic', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 
 // cards
 Route::get('/cards/basic', $controller_path . '\cards\CardBasic@index')->name('cards-basic');
@@ -108,13 +111,13 @@ Route::get('/projects', $controller_path . '\pages\Projects@AllProjects')->name(
 Route::get('/add-project', $controller_path . '\pages\Projects@AddProject')->name('projects');
 Route::post('/add-project', $controller_path . '\pages\Projects@ProjectForm')->name('project.store');
 
-// Route::post('/create-project', [Projects::class, 'ProjectForm'])->name('project.store'); 
+// Route::post('/create-project', [Projects::class, 'ProjectForm'])->name('project.store');
 
-// Route::get('dashboard', [CustomAuthController::class, 'dashboard']); 
+// Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
 // Route::get('login', [CustomAuthController::class, 'index'])->name('login');
-// Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom'); 
+// Route::post('custom-login', [CustomAuthController::class, 'customLogin'])->name('login.custom');
 // Route::get('registration', [CustomAuthController::class, 'registration'])->name('register-user');
-// Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+// Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 // Route::get('signout', [CustomAuthController::class, 'signOut'])->name('signout');
 
 // Route::get('/view_project/{id}', 'Projects@display');
@@ -124,49 +127,63 @@ Route::get('/edit-project/{project_id}', $controller_path . '\pages\Projects@Edi
 Route::any('/update-project/{id}', [Projects::class, 'updateProject'])->name('project.update');
 // Route::get('/view_project/{project_id}', ['as' => 'registration', 'uses' => 'Projects@one_project']);
 
-Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 
 Route::get('/login', [LoginController::class, 'show'])->name('login.show');
-Route::post('/login', [LoginController::class, 'login'])->name('login.perform'); 
-Route::post('/register', [RegisterController::class, 'register'])->name('register.perform'); 
-Route::get('/register', [RegisterController::class, 'show'])->name('register.show'); 
-Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
+Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.perform');
+Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
+Route::get('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 
-Route::get('/add-role', [RoleController::class, 'show'])->name('role.show'); 
-Route::post('/add-role', [RoleController::class, 'store'])->name('role.store'); 
-Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show'); 
+Route::get('/add-role', [RoleController::class, 'show'])->name('role.show');
+Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
+Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show');
 
-Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'); 
-Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show'); 
+Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show');
+Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show');
 // Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
 Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
 
-Route::get('/add-department', [DepartmentController::class, 'show'])->name('department.show'); 
+Route::get('/add-department', [DepartmentController::class, 'show'])->name('department.show');
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
-Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');  
+Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');
 Route::any('/update-department/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
 
-Route::get('/add-unit', [UnitController::class, 'show'])->name('unit.show'); 
-Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store'); 
-Route::get('/units', [UnitController::class, 'AllUnits'])->name('units.show'); 
+Route::get('/add-unit', [UnitController::class, 'show'])->name('unit.show');
+Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store');
+Route::get('/units', [UnitController::class, 'AllUnits'])->name('units.show');
 Route::any('/update-unit/{id}', [UnitController::class, 'updateUnit'])->name('unit.update');
 
 
-Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show'); 
-Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.store'); 
-Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show'); 
+Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show');
+Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.store');
+Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show');
 Route::any('/update-budget/{id}', [BudgetController::class, 'updateBudget'])->name('budget.update');
 
-Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.show'); 
-Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store'); 
-Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show'); 
+Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.show');
+Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store');
+Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show');
 Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
 
 
-Route::get('/add-project-type', [ProjectTypeController::class, 'show'])->name('project-type.show'); 
-Route::post('/add-project-type', [ProjectTypeController::class, 'store'])->name('project-type.store'); 
-Route::get('/project-types', [ProjectTypeController::class, 'AllProjectTypes'])->name('project-type.show'); 
+Route::get('/add-project-type', [ProjectTypeController::class, 'show'])->name('project-type.show');
+Route::post('/add-project-type', [ProjectTypeController::class, 'store'])->name('project-type.store');
+Route::get('/project-types', [ProjectTypeController::class, 'AllProjectTypes'])->name('project-type.show');
 Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updateProjectType'])->name('project-type.update');
 
 
+Route::get('/add-ecf', [ECFController::class, 'index'])->name('ecf.show');
+Route::post('fetch-subhead', [ECFController::class, 'fetchSubhead']);
+Route::post('fetch-approved-provision', [ECFController::class, 'fetchApprovedProvision']);
+Route::post('fetch-revised-provision', [ECFController::class, 'fetchRevisedProvision']);
+
+Route::post('/add-ecf', [ECFController::class, 'store'])->name('ecf.store');
+Route::get('/ecfs', [ECFController::class, 'AllECF'])->name('ecfs.show');
+// Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updateProjectType'])->name('project-type.update');
+
+
 // Route::get('/add-user', function () {
+
+  // Route::get('dropdown', [DropdownController::class, 'index']);
+Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
+Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);

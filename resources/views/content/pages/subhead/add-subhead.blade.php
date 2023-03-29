@@ -17,7 +17,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   </div>
   <div class="toast-body">
-   {{ @session('success') }}  
+   {{ @session('success') }}
   </div>
 </div>
 
@@ -46,18 +46,38 @@
           @csrf
 
 
+      {{-- <select id="id" class="select2 form-select" name="department_id">
+                <option value="">Select</option>
+                {{$departments =  App\Models\Department::select('department_name', 'id')->get();}}
+                @forelse($departments as $item)
+                <option value="{{$item->id}}">{{$item->department_name}}</option>
+                @empty
+                @endforelse
+              </select> --}}
 
           <div class="row">
+            <div class="mb-3 col-md-6">
+              <label for="subhead_code" class="form-label">Department</label>
+         <select id="id" class="select2 form-select" name="department_id">
+                <option value="">Select</option>
+                {{$departments =  App\Models\Department::select('department_name', 'id')->get();}}
+                @forelse($departments as $item)
+                <option value="{{$item->id}}">{{$item->department_name}}</option>
+                @empty
+                @endforelse
+              </select>
+            </div>
+
             <div class="mb-3 col-md-6">
               <label for="subhead_code" class="form-label">Subhead Code</label>
               <input class="form-control {{ $errors->has('subhead_code') ? 'error' : '' }}"  type="text"  id="subhead_code" name="subhead_code" autofocus placeholder="Subhead Code"/>
               {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
               <!-- Error -->
-        @if ($errors->has('subhead_code'))
-        <div class="error">
-            {{ $errors->first('subhead_code') }}
-        </div>
-        @endif
+               @if ($errors->has('subhead_code'))
+              <div class="error">
+                {{ $errors->first('subhead_code') }}
+              </div>
+            @endif
             </div>
 
             <div class="mb-3 col-md-6">
@@ -73,8 +93,8 @@
             </div>
 
 
-           
-           
+
+
             <div class="mb-3 col-md-6">
               <label for="remarks" class="form-label">Remarks</label>
               {{-- <input class="form-control {{ $errors->has('role_name') ? 'error' : '' }}" type="text" id="role_name" name="role_name" autofocus placeholder="Role Name"/> --}}

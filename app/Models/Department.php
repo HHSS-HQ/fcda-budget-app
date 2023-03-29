@@ -11,4 +11,10 @@ class Department extends Model
 
     protected $table = 'department';
     public $fillable = ['id', 'department_name', 'created_by', 'remarks'];
+
+    public function department(): BelongsTo
+    {
+        return $this->belongsTo(ECF::class, 'department_id', 'id');
+    }
+
 }

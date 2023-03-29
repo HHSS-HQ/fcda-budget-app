@@ -15,11 +15,12 @@
   <h5 class="card-header">All Subheads</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      
+
       <table class="table table-bordered">
         <thead>
           <tr>
             <th>Subhead ID</th>
+            {{-- <th>Department</th> --}}
             <th>Subhead Code</th>
             <th>Subhead Name</th>
             <th>Status </th>
@@ -32,6 +33,7 @@
           @forelse($subheads as $data)
           <tr>
             <td>{{$data->id}}</td>
+            {{-- <td>{{$data->department_id}}</td> --}}
             <td>{{$data->subhead_code}}</td>
             <td>{{$data->subhead_name}}</td>
             <td>{{$data->status}}</td>
@@ -50,7 +52,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    
+
                     <h5 class="modal-title" id="exampleModalLabel1">Subhead Edit Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
@@ -62,14 +64,14 @@
                       </div>
                     </div>
 
-                    
+
                       <div class="row">
                         <div class="col mb-3">
                           <label for="nameBasic" class="form-label">Subhead Name</label>
                           <input type="text"  name="subhead_name" id="nameBasic" class="form-control" value="{{$data->subhead_name}}">
                         </div>
                       </div>
-         
+
                       {{-- <div class="row">
                         <div class="col mb-3">
                           <label for="nameBasic" class="form-label">Code</label>
@@ -83,7 +85,7 @@
     <input type="radio" id="status1" name="status" value="ACTIVE" {{ $data->status == 'ACTIVE' ? 'selected' : '' }}>
   <label for="status1">Active</label><br>
   <input type="radio" id="status2" name="status" value="INACTIVE" {{ $data->status == "INACTIVE" ? 'selected' : '' }}>
-  <label for="status2">Inactive</label><br>  
+  <label for="status2">Inactive</label><br>
 </div>
 </div>
 
@@ -100,7 +102,7 @@
 
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No departments registered yet</td>
+                  <td colspan="5" style="color:red">Oops! No Subhead registered yet</td>
                 </tr>
 
           @endforelse

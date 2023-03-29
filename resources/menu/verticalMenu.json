@@ -21,7 +21,7 @@
           "name": "Add Heads",
           "slug": "layouts-without-navbar"
         }
-   
+
       ]
     },
 
@@ -40,10 +40,10 @@
           "name": "Add SubHead",
           "slug": "add-subhead"
         }
-   
+
       ]
     },
-    
+
     {
       "name": "Projects",
       "icon": "menu-icon tf-icons bx bx-spreadsheet",
@@ -63,9 +63,9 @@
             "name": "Fund Project",
             "slug": "fund-project"
           }
-          
+
         ]
-      },   
+      },
       {
         "name": "Departments",
         "icon": "menu-icon tf-icons bx bx-git-branch",
@@ -81,7 +81,7 @@
             "name": "Add Department",
             "slug": "add-department"
           }
-     
+
         ]
       },
 
@@ -100,14 +100,14 @@
             "name": "Add Unit",
             "slug": "add-units"
           }
-     
+
         ]
       },
 
       {
         "name": "Annual Budget",
         "icon": "menu-icon tf-icons bx bx-wallet",
-        "slug": "ecf",
+        "slug": "annual-budget",
         "submenu": [
           {
             "url": "/budgets",
@@ -119,7 +119,7 @@
             "name": "Add Annual Budget",
             "slug": "layouts-without-navbar"
           }
-     
+
         ]
       },
 
@@ -129,16 +129,16 @@
         "slug": "ecf",
         "submenu": [
           {
-            "url": "#",
+            "url": "/ecfs",
             "name": "View ECF",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "#",
+            "url": "/add-ecf",
             "name": "Generate ECF",
             "slug": "layouts-without-navbar"
           }
-     
+
         ]
       },
 
@@ -157,7 +157,7 @@
             "name": "Add User",
             "slug": "layouts-without-navbar"
           }
-     
+
         ]
       },
 
@@ -175,7 +175,7 @@
             "url": "/project-types",
             "name": "Project Types",
             "slug": "project-types"
-          }    
+          }
         ]
       }
       ]

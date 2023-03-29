@@ -47,7 +47,11 @@ $navbarDetached = ($navbarDetached ?? '');
 
           <!-- Place this tag where you want the button to render. -->
           <li class="nav-item lh-1 me-3">
-            Hi <b>{{Auth::user()->name}}!</b>
+            Hi <b>
+              @auth
+              {{ Auth::user()->name }}
+             @endauth
+            </b>
           </li>
 
           <!-- User -->
@@ -67,8 +71,17 @@ $navbarDetached = ($navbarDetached ?? '');
                       </div>
                     </div>
                     <div class="flex-grow-1">
-                      <span class="fw-semibold d-block">{{Auth::user()->name}}</span>
-                      <small class="text-muted">{{Auth::user()->role_name}}</small>
+                      <span class="fw-semibold d-block">
+                        @auth
+ {{ Auth::user()->name }}
+@endauth
+                      </span>
+                      <small class="text-muted">
+                        @auth
+                        {{ Auth::user()->role_name }}
+                       @endauth
+
+                      </small>
                     </div>
                   </div>
                 </a>

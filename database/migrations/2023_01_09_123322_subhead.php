@@ -19,13 +19,16 @@ return new class extends Migration
             $table->increments('id');
             $table->string('subhead_code')->nullable();
             $table->string('subhead_name')->nullable();
+            $table->string('department_id', 32)->references('id')->on('department')->nullable();
+            $table->string('approved_provision')->nullable();
+            $table->string('revised_provision')->nullable();
             $table->string('remarks')->nullable();
             $table->string('status')->default('ACTIVE');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-           
+
             $table->index(["created_by"], 'fk_entered_by_id_4_idx');
 
                 $table->foreign('created_by', 'fk_entered_by_id_4_idx')
