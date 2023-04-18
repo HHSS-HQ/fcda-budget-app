@@ -8,7 +8,11 @@
   <span class="text-muted fw-light">ECF /</span> All ECFs
 </h4>
 
-
+@if(session('message'))
+    <div class="alert alert-success">
+        {{ session('message') }}
+    </div>
+@endif
 
 <!-- Bordered Table -->
 <div class="card">
@@ -38,14 +42,32 @@
             <td>{{$data->subhead->subhead_name}}</td>
             <td>&#8358;{{$data->present_requisition}}</td>
             <td>{{$data->payee->payee_name}}</td>
-            <td>{{$data->status}}</td>
+            @if ($data->status == "PENDING APPROVAL")
+            <td style="color:red;">{{$data->status}}</td>
+            @else
+            <td style="color:green;">{{$data->status}}</td>
+            @endif
 
+
+            @if ($data->status == "PENDING APPROVAL")
+             <td>
+
+              <form action="/change-ecf-status" method="POST">
+                @csrf
+                <input type="hidden" name="id" value="{{ $data->id }}">
+                <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal">APPROVE</button>
+              </form>
+
+            </td>
+            @else
             <td>
-
-              <a data-toggle = "tooltip" title = "Print ECF"   href="javascript:void(0);"><i class="bx bx-printer me-1"></i> </a> &nbsp;
+              <a data-toggle = "tooltip" title = "Print ECF"   target="_blank" href="/print-ecf?id={{$data->id}}"><i class="bx bx-printer me-1"></i></a>&nbsp;
+              {{-- <a data-toggle = "tooltip" title = "Print ECF"   href="javascript:void(0);"><i class="bx bx-printer me-1"></i> </a> &nbsp; --}}
               <a data-toggle = "tooltip" title = "Edit This ECF"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
               <a data-toggle = "tooltip" title = "Delete This ECF"   href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
             </td>
+            @endif
+
           </tr>
 
           <form action="{{ route('department.update', [$data->id]) }}" method="PUT" >

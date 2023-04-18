@@ -58,10 +58,16 @@
           "url": "/add-project",
           "name": "Add Project",
           "slug": "add-project"
-          },        {
-            "url": "#",
+          },
+          {
+            "url": "/fund-project",
             "name": "Fund Project",
             "slug": "fund-project"
+          },
+          {
+            "url": "/project-report",
+            "name": "Project Reports",
+            "slug": "project-report"
           }
 
         ]
@@ -162,6 +168,43 @@
       },
 
       {
+        "name": "Payee",
+        "icon": "menu-icon tf-icons bx bx-body",
+        "slug": "payee",
+        "submenu": [
+          {
+            "url": "#",
+            "name": "Show Payee",
+            "slug": "layouts-without-menu"
+          },
+          {
+            "url": "#",
+            "name": "Add Payee",
+            "slug": "layouts-without-navbar"
+          }
+
+        ]
+      },
+      {
+        "name": "Contractors",
+        "icon": "menu-icon tf-icons bx bx-group",
+        "slug": "contractors",
+        "submenu": [
+          {
+            "url": "#",
+            "name": "Show Contractors",
+            "slug": "layouts-without-menu"
+          },
+          {
+            "url": "#",
+            "name": "Add Contractor",
+            "slug": "layouts-without-navbar"
+          }
+
+        ]
+      },
+
+      {
         "name": "Settings",
         "icon": "menu-icon tf-icons bx bx-cog",
         "slug": "settings",
@@ -175,6 +218,11 @@
             "url": "/project-types",
             "name": "Project Types",
             "slug": "project-types"
+          },
+          {
+            "url": "/accounting-year",
+            "name": "Accounting Year",
+            "slug": "accounting-year"
           }
         ]
       }

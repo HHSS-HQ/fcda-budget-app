@@ -17,7 +17,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
   </div>
   <div class="toast-body">
-   {{ @session('success') }}  
+   {{ @session('success') }}
   </div>
 </div>
 
@@ -110,23 +110,23 @@
         </div>
         @endif
             </div>
-           
-            {{-- {{$items = App\Models\Role::pluck('id', 'role_name');}} --}}
-            
-  
 
-            <div class="mb-3 col-md-6">
+
+
+
+            {{-- <div class="mb-3 col-md-6">
               <label class="form-label" for="country">Role</label>
-              
+
               <select id="id" class="select2 form-select">
                 <option value="">Select</option>
+                {{$items = App\Models\Role::pluck('id', 'role_name');}}
                 @foreach($items as $item)
                 <option value="{{$item->id}}">{{$item->role_name}}</option>
                 @endforeach
               </select>
-              
-            </div>
-            
+
+            </div> --}}
+
             {{-- <div class="mb-3 col-md-6">
               <label for="language" class="form-label">Language</label>
               <select id="language" class="select2 form-select">
@@ -174,7 +174,7 @@
           </div>
           {{-- <div>
             <button wire:click="submit">Checkout</button>
-         
+
             <div wire:loading.delay.long>
                 Processing Payment...
             </div>

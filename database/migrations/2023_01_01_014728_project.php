@@ -17,11 +17,12 @@ return new class extends Migration
     {
         Schema::create('project', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('project_type_id')->nullable();
             $table->string('project_id')->unique();
             // $table->morphs('tokenable');
             $table->string('project_title');
             $table->string('project_location');
-            $table->string('contractor_name');
+            $table->string('contractor_id')->references('id')->on('contractor')->nullable();
             $table->string('date_of_award')->nullable();
             $table->string('appropriation')->nullable();
             $table->string('contract_sum')->nullable();
@@ -33,13 +34,10 @@ return new class extends Migration
             $table->string('certified_cv_not_paid')->nullable();
             $table->string('year_last_funded')->nullable();
             $table->string('last_funded_date')->nullable();
-            $table->string('observations')->nullable();
-            $table->string('challenges')->nullable();
-            $table->string('recommendations')->nullable();
-            $table->string('project_year')->nullable();
-            $table->string('image_id')->nullable();
+
+            $table->string('project_year')->references('id')->on('accounting_year')->nullable();
+            $table->string('added_by')->references('id')->on('users')->nullable();
             // $table->text('abilities')->nullable();
-            $table->unsignedInteger('project_type_id')->nullable();
             $table->timestamps();
 
 
@@ -50,7 +48,7 @@ return new class extends Migration
          ->onDelete('no action')
          ->onUpdate('no action');
         });
-        
+
     }
 
     /**

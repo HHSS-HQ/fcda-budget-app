@@ -14,16 +14,24 @@ class Projects extends Controller
     return view('content.pages.projects.projects');
   }
 
+  public function fundProjectForm(){
+    return view('content.pages.projects.fund-project');
+  }
+
+  public function reportProjectForm(){
+    return view('content.pages.projects.project-report');
+  }
+
   // public function EditProject()
   // {
   //   return view('content.pages.projects.edit-project');
   // }
 
-  public function EditProject($project_id)  
-{  
+  public function EditProject($project_id)
+{
   $comm = DB::table('project')->where('project_id', '=', $project_id)->get();
   return view('content.pages.projects.edit-project', compact('comm') );
-} 
+}
 
   public function AddProject()
   {
@@ -41,16 +49,17 @@ class Projects extends Controller
             // 'message' => 'required'
          ]);
         //  Store data in database
-        
+
         // \Log::info($request->all());
         // Projects::create($request->all());
         $randomNumber = random_int(100000, 999999);
 
       $project = new Project();
       $project->project_id = $randomNumber;
+      $project->project_type_id = $request->project_type_id;
         $project->project_title = $request->project_title;
         $project->project_location = $request->project_location;
-        $project->contractor_name = $request->contractor_name;
+        $project->contractor_id = $request->contractor_id;
         $project->contract_sum = $request->contract_sum;
         $project->date_of_award = $request->date_of_award;
         $project->appropriation = $request->appropriation;
@@ -59,17 +68,18 @@ class Projects extends Controller
         $project->outstanding_balance = $request->outstanding_balance;
         $project->commencement_date = $request->commencement_date;
         $project->year_last_funded = $request->year_last_funded;
-        $project->observations = $request->observations;
-        $project->recommendations = $request->recommendations;
-        $project->completion_period = $request->completion_period;
+        // $project->observations = $request->observations;
+        // $project->recommendations = $request->recommendations;
+        // $project->completion_period = $request->completion_period;
         $project->amount_paid_till_date = $request->amount_paid_till_date;
         $project->certified_cv_not_paid = $request->certified_cv_not_paid;
         $project->last_funded_date = $request->last_funded_date;
-        $project->challenges = $request->challenges;
+        // $project->challenges = $request->challenges;
         $project->project_year = $request->project_year;
+        $project->added_by = auth()->id();
       $project->save();
 
-        // 
+        //
         if ($project) {
           return back()->with('success', 'Success! Project created');
       }
@@ -95,16 +105,16 @@ class Projects extends Controller
 
 
 
-public function display($project_id)  
-{  
-  return view('content.pages.projects.view_project2')->with('project_id', $project_id);  
-} 
+public function display($project_id)
+{
+  return view('content.pages.projects.view_project2')->with('project_id', $project_id);
+}
 
-public function one_project($project_id)  
-{  
+public function one_project($project_id)
+{
   $users = $comm = DB::table('project')->where('project_id', '=', $project_id)->get();
   return view('content.pages.projects.view_project', compact('users') );
-} 
+}
 
 
 public function updateProject(Request $request, $id)

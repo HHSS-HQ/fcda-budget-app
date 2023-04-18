@@ -22,7 +22,8 @@ return new class extends Migration
         $table->string('head_id')->nullable();
         $table->string('subhead_id')->nullable();
         $table->string('expenditure_item')->nullable();
-        $table->string('payee_id')->nullable();
+        // $table->string('payee_id')->nullable();
+        $table->string('payee_id')->references('id')->on('payee')->nullable();
         $table->string('approved_provision')->nullable();
         $table->string('revised_provision')->nullable();
         $table->string('present_requisition')->nullable();

@@ -17,6 +17,10 @@ use App\Http\Controllers\SubheadController;
 use App\Http\Controllers\ProjectTypeController;
 use App\Http\Controllers\ECFController;
 use App\Http\Controllers\DropdownController;
+use App\Http\Controllers\ContractorController;
+use App\Http\Controllers\FundprojectController;
+use App\Http\Controllers\ProjectReportController;
+use App\Http\Controllers\AccountingYearController;
 // use App\Http\Controllers\ECFController;
 /*
 |--------------------------------------------------------------------------
@@ -110,7 +114,10 @@ Route::get('/tables/basic', $controller_path . '\tables\Basic@index')->name('tab
 Route::get('/projects', $controller_path . '\pages\Projects@AllProjects')->name('projects2');
 Route::get('/add-project', $controller_path . '\pages\Projects@AddProject')->name('projects');
 Route::post('/add-project', $controller_path . '\pages\Projects@ProjectForm')->name('project.store');
-
+Route::get('fund-project', [Projects::class, 'fundProjectForm']);
+Route::post('fund-project', [FundprojectController::class, 'fundProject'])->name('fund-project.store');
+Route::get('project-report', [Projects::class, 'reportProjectForm']);
+Route::post('project-report', [ProjectReportController::class, 'reportProject'])->name('project.report');
 // Route::post('/create-project', [Projects::class, 'ProjectForm'])->name('project.store');
 
 // Route::get('dashboard', [CustomAuthController::class, 'dashboard']);
@@ -187,3 +194,13 @@ Route::get('/ecfs', [ECFController::class, 'AllECF'])->name('ecfs.show');
   // Route::get('dropdown', [DropdownController::class, 'index']);
 Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
 Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
+
+Route::get('print-ecf', [ECFController::class, 'printECF']);
+
+Route::post('change-ecf-status', [ECFController::class, 'changeECFStatus']);
+Route::post('add-contractor-modal', [ContractorController::class, 'addContractorModal'])->name('contractor.store');
+Route::get('contractors', [ContractorController::class, 'getContractors']);
+
+Route::get('accounting-year', [AccountingYearController::class, 'displayYear']);
+Route::get('add-accounting-year', [AccountingYearController::class, 'addAccountingYearForm']);
+Route::post('add-accounting-year', [AccountingYearController::class, 'storeAccountingYear'])->name('accounting-year.store');

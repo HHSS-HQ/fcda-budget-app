@@ -10,6 +10,8 @@ use App\Models\Subhead;
 use App\Models\ECF;
 use App\Models\User;
 
+use Dompdf\Dompdf;
+
 
 class ECFController extends Controller
 {
@@ -114,6 +116,31 @@ class ECFController extends Controller
         $department->save();
         return redirect('/departments')->with('success', "ECF has successfuly been updated.");
     }
+}
+
+
+public function printECF(Request $request)
+{
+
+  $ecfs = ECF::query()
+  ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
+  ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
+  ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
+  ->where('id', '=', $request->id)
+  ->get();
+    $pdf = \PDF::loadView('content.pages.pdf.ecf', compact('ecfs'));
+    // // Stream the PDF to the HTTP response
+    return $pdf->stream();
+}
+
+
+// UPDATE ECF
+
+public function changeECFStatus(Request $request){
+  $update = ECF::where('id', '=', $request->input('id'))
+  ->update(['status' => 'APPROVED']);
+  return redirect()->back()->with('message', 'ECF updated successfully.');
+
 }
 
 }

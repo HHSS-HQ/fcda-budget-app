@@ -17,7 +17,7 @@ return new class extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
-            $table->string('budget_year')->nullable();
+            $table->unsignedBigInteger('budget_year')->nullable();
             $table->string('code')->nullable();
             $table->string('remarks')->nullable();
             $table->double('appropriated_amount')->nullable();
@@ -26,7 +26,13 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
-           
+            $table->index(["budget_year"], 'fk_budget_year_id_4_idx');
+
+            $table->foreign('budget_year', 'fk_budget_year_id_4_idx')
+            ->references('id')->on('accounting_year')
+            ->onDelete('no action')
+            ->onUpdate('no action');
+
             $table->index(["created_by"], 'fk_entered_by_id_3_idx');
 
                 $table->foreign('created_by', 'fk_entered_by_id_3_idx')

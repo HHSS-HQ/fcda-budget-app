@@ -15,8 +15,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\UnitController;
+use App\Http\Controllers\ContractorController;
 
 use App\Http\Controllers\ProjectTypeController;
+// use App\Http\Controllers\Pages\Projects;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -35,7 +37,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom'); 
+Route::post('custom-registration', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 
 Route::get('project/{id}', [Projects::class, 'one_project']);
 
@@ -51,7 +53,7 @@ Route::get('project/{id}', [Projects::class, 'one_project']);
 
 // Route::group(['middleware' => ['auth:api']], function () {
 //     // Route::get('/dashboard', [ProductController::class, 'updateProduct']);
-//     Route::get('/dashboard', 'App\Http\Controllers\dashboard\Analytics@index')->name('dashboard-analytics');  
+//     Route::get('/dashboard', 'App\Http\Controllers\dashboard\Analytics@index')->name('dashboard-analytics');
 // });
 
 // Route::get('/', 'App\Http\Controllers\authentications\LoginBasic@index')->name('auth-login-basic');
@@ -59,22 +61,26 @@ Route::get('project/{id}', [Projects::class, 'one_project']);
 // Route::post('/login', 'LoginController@login')->name('login.perform');
 
 // Route::get('/login', [LoginController::class, 'show'])->name('login.show');
-Route::post('/login', [LoginController::class, 'login'])->name('login.perform'); 
-Route::post('/register', [RegisterController::class, 'register'])->name('register.perform'); 
+Route::post('/login', [LoginController::class, 'login'])->name('login.perform');
+Route::post('/register', [RegisterController::class, 'register'])->name('register.perform');
 
-Route::post('/logout', [LogoutController::class, 'perform'])->name('logout.perform'); 
+Route::post('/logout', [LogoutController::class, 'perform'])->name('logout.perform');
 // Route::get('/register', [RegisterController::class, 'show'])->name('register.show');
 
-Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index'); 
+Route::get('/dashboard-statistics', [DashboardController::class, 'index'])->name('dashboard.index');
 
 
-Route::post('/role', [RoleController::class, 'store'])->name('role.store'); 
-Route::get('/roles', [RoleController::class, 'AllRoles2'])->name('role.store'); 
+Route::post('/role', [RoleController::class, 'store'])->name('role.store');
+Route::get('/roles', [RoleController::class, 'AllRoles2'])->name('role.store');
 
 Route::put('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
-Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show'); 
+Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show');
 
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
-Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store'); 
+Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store');
 
 Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updateProjectType'])->name('project-type.update');
+
+Route::post('contractor', [ContractorController::class, 'addContractorModal'])->name('add-contractor');
+Route::get('contractor', [ContractorController::class, 'getContractors']);
+Route::post('project', [Projects::class, 'ProjectForm']);

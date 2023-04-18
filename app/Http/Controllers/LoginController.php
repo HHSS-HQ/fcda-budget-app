@@ -13,7 +13,7 @@ class LoginController extends Controller
 
     /**
      * Display login page.
-     * 
+     *
      * @return Renderable
      */
     public function show()
@@ -23,9 +23,9 @@ class LoginController extends Controller
 
     /**
      * Handle account login request
-     * 
+     *
      * @param LoginRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function login(LoginRequest $request)
@@ -46,28 +46,29 @@ class LoginController extends Controller
         endif;
 
         return $this->authenticated($request, $user);
+        // return redirect()->intended('/');
                 // return redirect('/register')->with('success', "Account successfully registered.");
 
     }
 
     /**
      * Handle response after user authenticated
-     * 
+     *
      * @param Request $request
      * @param Auth $user
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
-    protected function authenticated(Request $request, $user) 
+    protected function authenticated(Request $request, $user)
     {
         // return redirect()->intended();
         if (Auth::user()->role_id == null) {
             return redirect()->to('/login')->with('error', 'Sorry! Your account has not been activated. Please contact an admin');
-    
+
         } else {
-            
+
             return redirect('/dashboard')->with('success', "Account successfully registered.");
         }
-        
+
         }
 }

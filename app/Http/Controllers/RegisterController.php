@@ -7,12 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests\RegisterRequest;
 use App\Models\RoleController;
 use DB;
+use App\Mail\SignupMail;
+use Illuminate\Support\Facades\Mail;
 
 class RegisterController extends Controller
 {
     /**
      * Display register page.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -42,17 +44,30 @@ class RegisterController extends Controller
     }
     /**
      * Handle account registration request
-     * 
+     *
      * @param RegisterRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
-    public function register(RegisterRequest $request) 
+    public function register(RegisterRequest $request)
     {
-        
-        $user = User::create($request->validated());
+
+
+
+      $push=$request->validated();
+      // $push['username'] = $push['phone_number'];
+      $email=$push['email'];
+      $name=$push['name'];
+      $username=$push['username'];
+      $password=$push['password'];
+      // $phone_number=$push['phone_number'];
+      // $coordinator_id=$push['coordinator_id'];
+
+      // $user = User::create($request->validated());
+        $user = User::create($push);
 
         auth()->login($user);
+        Mail::to($email)->send(new SignupMail($email, $username, $name, $password));
 
         return redirect('/login')->with('success', "Account successfully registered. Pleaae contact admin to activate your account");
     }
