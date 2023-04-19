@@ -22,7 +22,7 @@
   <li style="margin-top:1em">Item of Expenditure: {{$item->expenditure_item}}</li>
   <li style="margin-top:1em">Payee: {{$item['payee']['payee_name']}}</li>
   <li style="margin-top:1em">Approved Provision: {{$item->approved_provision}}</li>
-  <li style="margin-top:1em">Revised Provision: N{{$item->revised_provision}}</li>
+  <li style="margin-top:1em">Revised Provision: N number_format({{$item->revised_provision}})</li>
   <li style="margin-top:1em">Expenditure Till Date: {{$item->expenditure_item}}</li>
   <li style="margin-top:1em">Current Balance: {{$item->expenditure_item}}</li>
   <li style="margin-top:1em">Present Requisition: {{$item->present_requisition}}</li>
