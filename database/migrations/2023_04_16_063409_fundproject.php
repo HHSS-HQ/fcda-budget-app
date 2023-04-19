@@ -17,7 +17,7 @@ return new class extends Migration
           $table->engine = 'InnoDB';
           $table->increments('id');
           $table->string('project_id')->references('id')->on('project')->nullable();
-          // $table->string('department_id', 32)->references('id')->on('department')->nullable();
+          $table->string('budget_id', 32)->references('id')->on('budget')->nullable();
           $table->string('amount')->nullable();
           $table->string('comment')->nullable();
           $table->string('added_by')->references('id')->on('users')->nullable();

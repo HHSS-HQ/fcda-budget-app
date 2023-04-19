@@ -30,9 +30,9 @@
           @forelse($accounting_year as $data)
           <tr>
             <td>{{$data->id}}</td>
-            <td>{{$data->role_name}}</td>
-            <td>{{$data->role_name}}</td>
-            <td>{{$data->role_name}}</td>
+            <td>{{$data->accounting_year_name}}</td>
+            <td>{{ Carbon\Carbon::createFromFormat('Y-m', $data->start_date)->format('F, Y') }}</td>
+            <td>{{ Carbon\Carbon::createFromFormat('Y-m', $data->end_date)->format('F, Y') }}</td>
             <td>
 
               <a data-toggle = "tooltip" title = "Edit This Role"   href="javascript:void(0);"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;

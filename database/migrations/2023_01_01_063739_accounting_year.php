@@ -17,8 +17,8 @@ return new class extends Migration
           $table->engine = 'InnoDB';
           $table->id();
           $table->string('accounting_year_name')->nullable();
-          $table->string('start_month')->nullable();
-          $table->string('end_month')->nullable();
+          $table->string('start_date')->nullable();
+          $table->string('end_date')->nullable();
           $table->string('status')->default('INACTIVE')->nullable();
           $table->string('comment')->nullable();
           $table->string('added_by')->references('id')->on('users')->nullable();

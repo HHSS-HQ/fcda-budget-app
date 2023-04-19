@@ -71,11 +71,29 @@
               @endif
             </div>
 
+
             <div class="mb-3 col-md-6">
-              <label for="remarks" class="form-label">Amount To Fund</label>
-              <input class="form-control {{ $errors->has('amount') ? 'error' : '' }}" type="number" id="amount"
-              name="amount" autofocus placeholder="Amount To Fund"/>
-              {{-- <textarea class="form-control {{ $errors->has('remarks') ? 'error' : '' }}" name="remarks"></textarea> --}}
+              <label for="amount" class="form-label">Amount To Fund</label>
+              <input class="form-control {{ $errors->has('amount') ? 'error' : '' }}" type="text"
+                id="amount" name="amount" autofocus placeholder="Amount To Fund"
+                oninput="this.value = formatNumber(this.value);" onchange="this.value = stripCommas(this.value);">
+
+              <script>
+                function formatNumber(num) {
+                  num = num.replace(/[^\d\.]/g, ''); // remove non-numeric characters except for the decimal point
+                  if (num === '') {
+                    return '';
+                  }
+                  const parts = num.split('.');
+                  parts[0] = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+                  return parts.join('.');
+                }
+
+                function stripCommas(num) {
+                  return num.replace(/,/g, '');
+                }
+              </script>
+              <!-- Error -->
               @if ($errors->has('amount'))
               <div class="error">
                 {{ $errors->first('amount') }}

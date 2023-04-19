@@ -55,8 +55,8 @@
           <div class="row">
             <div class="mb-3 col-md-6">
               <label for="unit_name" class="form-label">Select Project to Report</label>
-              <select id="id" class="select2 form-control" name="project_id">
-                <option value="">Select</option>
+              <select id="id" class="select2 form-control" name="project_id" required>
+                <option value="">Select project to report</option>
                 {{$projects =  App\Models\Project::select('project_title', 'id')->get();}}
                 @forelse($projects as $item)
                 <option value="{{$item->id}}">{{$item->project_title}}</option>
@@ -81,17 +81,29 @@
               @endif
             </div>
           </div>
-
+          <div class="row">
           <div class="mb-3 col-md-6">
-            <label for="remarks" class="form-label">Comments</label>
-            <textarea class="form-control {{ $errors->has('remarks') ? 'error' : '' }}" name="comment"></textarea>
-            @if ($errors->has('comment'))
+            <label for="challenges" class="form-label">Challenges</label>
+            <textarea class="form-control {{ $errors->has('challenges') ? 'error' : '' }}" name="challenges"></textarea>
+            @if ($errors->has('challenges'))
             <div class="error">
-              {{ $errors->first('comment') }}
+              {{ $errors->first('challenges') }}
             </div>
             @endif
           </div>
 
+
+          <div class="mb-3 col-md-6">
+            <label for="recommendations" class="form-label">Recommendations</label>
+            <textarea class="form-control {{ $errors->has('recommendations') ? 'error' : '' }}" name="recommendations"></textarea>
+            @if ($errors->has('recommendations'))
+            <div class="error">
+              {{ $errors->first('recommendations') }}
+            </div>
+            @endif
+          </div>
+
+          </div>
           <div class="mt-2">
             <button type="submit" class="btn btn-primary me-2">Save changes</button>
             <button type="reset" class="btn btn-outline-secondary">Cancel</button>

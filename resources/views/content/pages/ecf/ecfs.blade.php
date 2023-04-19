@@ -3,15 +3,15 @@
 @section('title', 'Departments')
 
 @section('content')
-<a href="/add-ecf" ><button type="button" class="btn btn-primary" style="float: right">[+] New ECF</button></a>
+<a href="/add-ecf"><button type="button" class="btn btn-primary" style="float: right">[+] New ECF</button></a>
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">ECF /</span> All ECFs
 </h4>
 
 @if(session('message'))
-    <div class="alert alert-success">
-        {{ session('message') }}
-    </div>
+<div class="alert alert-success">
+  {{ session('message') }}
+</div>
 @endif
 
 <!-- Bordered Table -->
@@ -47,30 +47,29 @@
             @else
             <td style="color:green;">{{$data->status}}</td>
             @endif
-
-
             @if ($data->status == "PENDING APPROVAL")
-             <td>
-
+            <td>
               <form action="/change-ecf-status" method="POST">
                 @csrf
                 <input type="hidden" name="id" value="{{ $data->id }}">
                 <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal">APPROVE</button>
               </form>
-
             </td>
             @else
             <td>
-              <a data-toggle = "tooltip" title = "Print ECF"   target="_blank" href="/print-ecf?id={{$data->id}}"><i class="bx bx-printer me-1"></i></a>&nbsp;
+              <a data-toggle="tooltip" title="Print ECF" target="_blank" href="/print-ecf?id={{$data->id}}"><i
+                  class="bx bx-printer me-1"></i></a>&nbsp;
               {{-- <a data-toggle = "tooltip" title = "Print ECF"   href="javascript:void(0);"><i class="bx bx-printer me-1"></i> </a> &nbsp; --}}
-              <a data-toggle = "tooltip" title = "Edit This ECF"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
-              <a data-toggle = "tooltip" title = "Delete This ECF"   href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
+              <a data-toggle="tooltip" title="Edit This ECF" href="javascript:void(0);" data-bs-toggle="modal"
+                data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
+              <a data-toggle="tooltip" title="Delete This ECF" href="javascript:void(0);"><i
+                  class="bx bx-trash me-1"></i> </a>
             </td>
             @endif
 
           </tr>
 
-          <form action="{{ route('department.update', [$data->id]) }}" method="PUT" >
+          <form action="{{ route('department.update', [$data->id]) }}" method="PUT">
             <div class="modal fade" id="basicModal-{{$data->id}}" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -83,10 +82,10 @@
                     <div class="row">
                       <div class="col mb-3">
                         <label for="nameBasic" class="form-label">Department</label>
-                        <input type="text" name="department_id" id="nameBasic" class="form-control" value="{{$data->department->dept_name}}">
+                        <input type="text" name="department_id" id="nameBasic" class="form-control"
+                          value="{{$data->department->dept_name}}">
                       </div>
                     </div>
-
 
                   </div>
                   <div class="modal-footer">
@@ -96,14 +95,13 @@
                 </div>
               </div>
             </div>
-            </form>
+          </form>
           @empty
-                <tr>
-                  <td colspan="5" style="color:red">Oops! No ECF created yet</td>
-                </tr>
+          <tr>
+            <td colspan="5" style="color:red">Oops! No ECF created yet</td>
+          </tr>
 
           @endforelse
-
 
         </tbody>
       </table>
@@ -111,7 +109,6 @@
   </div>
 </div>
 <!--/ Bordered Table -->
-
 
 <!--/ Responsive Table -->
 @endsection

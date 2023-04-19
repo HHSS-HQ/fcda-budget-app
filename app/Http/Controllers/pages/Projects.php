@@ -98,7 +98,10 @@ class Projects extends Controller
 
     public function AllProjects( Request $request )
 {
-    $comm = DB::table('project')->get();
+    $comm = DB::table('project')
+    ->select('project.*', 'contractor.*')
+    ->leftjoin('contractor', 'contractor.id', '=', 'project.contractor_id')
+    ->get();
     return view('content.pages.projects.projects', compact('comm') );
 }
 
@@ -112,7 +115,10 @@ public function display($project_id)
 
 public function one_project($project_id)
 {
-  $users = $comm = DB::table('project')->where('project_id', '=', $project_id)->get();
+  $users = $comm = DB::table('project')->where('project_id', '=', $project_id)
+  ->select('project.*', 'contractor.*')
+  ->leftjoin('contractor', 'contractor.id', '=', 'project.contractor_id')
+  ->get();
   return view('content.pages.projects.view_project', compact('users') );
 }
 

@@ -22,6 +22,8 @@ return new class extends Migration
           $table->string('recommendations')->nullable();
           $table->string('image_id')->references('id')->on('project_images')->nullable();
           $table->string('added_by')->references('id')->on('users')->nullable();
+          $table->timestamps();
+          $table->softDeletes();
         });
 
 

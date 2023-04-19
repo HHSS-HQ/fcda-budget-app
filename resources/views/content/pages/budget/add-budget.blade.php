@@ -49,24 +49,48 @@
           @csrf
 
           <div class="row">
-            <div class="mb-3 col-md-6">
-              <label for="budget_year" class="form-label">Budget Year</label>
-              <input class="form-control {{ $errors->has('budget_year') ? 'error' : '' }}" type="number"
-                placeholder="YYYY" min="2022" max="2040" id="budget_year" name="budget_year" autofocus
-                placeholder="Budget Year" />
-              {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
-              <!-- Error -->
-              @if ($errors->has('budget_year'))
-              <div class="error">
-                {{ $errors->first('budget_year') }}
-              </div>
-              @endif
+
+            <div class="col mb-3">
+              <label for="nameBasic" class="form-label">Project Type</label>
+              <select id="project_type_id" class="select2 form-select" name="budget_year">
+                <option value="">Select Project Type</option>
+                {{$accounting_year =  App\Models\AccountingYear::select('accounting_year_name', 'start_date', 'end_date', 'id')->get();}}
+                @forelse($accounting_year as $item)
+                <option value="{{$item->id}}">{{$item->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $item->start_date)->format('F, Y') }}-{{ Carbon\Carbon::createFromFormat('Y-m', $item->end_date)->format('F, Y') }})</option>
+                @empty
+                @endforelse
+              </select>
             </div>
 
             <div class="mb-3 col-md-6">
               <label for="appropriated_amount" class="form-label">Appropriated Amount</label>
-              <input class="form-control {{ $errors->has('appropriated_amount') ? 'error' : '' }}" type="number"
-                id="appropriated_amount" name="appropriated_amount" autofocus placeholder="Appropriated Amount" />
+              <input class="form-control {{ $errors->has('appropriated_amount') ? 'error' : '' }}"
+              type="text"
+              id="appropriated_amount"
+              name="appropriated_amount"
+              autofocus
+              placeholder="Appropriated Amount"
+              oninput="this.value = formatNumber(this.value);"
+              onchange="this.value = stripCommas(this.value);">
+
+       <script>
+         function formatNumber(num) {
+           num = num.replace(/[^\d\.]/g, ''); // remove non-numeric characters except for the decimal point
+           if (num === '') {
+             return '';
+           }
+           const parts = num.split('.');
+           parts[0] = parts[0].replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
+           return parts.join('.');
+         }
+
+         function stripCommas(num) {
+           return num.replace(/,/g, '');
+         }
+       </script>
+
+
+              {{-- <input class="form-control {{ $errors->has('appropriated_amount') ? 'error' : '' }}" type="number"id="appropriated_amount" name="appropriated_amount" autofocus placeholder="Appropriated Amount" /> --}}
               {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
               <!-- Error -->
               @if ($errors->has('appropriated_amount'))

@@ -166,12 +166,12 @@ Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show'
 Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.store');
 Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show');
 Route::any('/update-budget/{id}', [BudgetController::class, 'updateBudget'])->name('budget.update');
+Route::post('update-budget-status', [BudgetController::class, 'setActiveBudget']);
 
 Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.show');
 Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store');
 Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show');
 Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
-
 
 Route::get('/add-project-type', [ProjectTypeController::class, 'show'])->name('project-type.show');
 Route::post('/add-project-type', [ProjectTypeController::class, 'store'])->name('project-type.store');

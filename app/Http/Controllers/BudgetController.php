@@ -11,35 +11,30 @@ class BudgetController extends Controller
         return view('content.pages.budget.add-budget');
     }
 
-    // public function store(UnitRequest $request) 
+    // public function store(UnitRequest $request)
     // {
-        
+
     //     $user = Unit::create($request->validated());
     //     return redirect('/unit')->with('success', "Unit created successfully.");
     // }
 
     public function store(Request $request)
     {
-      $this->validate($request, [
-        'budget_year' => 'required|string',
-        'code' => 'required',
-        'remarks' => 'required|string',
-        'appropriated_amount' => 'required|string'
-      ]);
-  
+
+
       $budgets = new Budget();
-  
+
       $budgets->budget_year = $request->budget_year;
       $budgets->code = $request->code;
       $budgets->remarks = $request->remarks;
       $budgets->appropriated_amount = $request->appropriated_amount;
       $budgets->created_by = auth()->id();
-  
+
       $budgets->save();
-  
+
       return redirect('/budgets')->with('success', "Budget added successfully.");
     }
-  
+
     //   public function AllUnits( Request $request )
     //   {
     //       $units = DB::table('unit')->get();
@@ -48,13 +43,16 @@ class BudgetController extends Controller
 
       public function AllBudgets()
       {
-  
-          $budgets = DB::table('budget')
-          ->select('budget.*')
-            //   ->leftjoin('department', 'department.id', '=', 'unit.department_id')
-              ->get();
+
+        $budgets = DB::table('budget')
+        ->select('budget.*', 'budget.id as budget_id', 'budget.status as budget_status', 'accounting_year.*', DB::raw('SUM(project_funding.amount) as total_funding'))
+        ->leftJoin('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
+        ->leftJoin('project_funding', 'project_funding.budget_id', '=', 'budget.id')
+        ->groupBy('budget.id')
+        ->get();
+
           return view('content.pages.budget.budgets', compact('budgets') );
-  
+
       }
 
       public function updateBudget(Request $request, $id)
@@ -69,4 +67,14 @@ class BudgetController extends Controller
           return redirect('/budgets')->with('success', "Budget has successfuly been updated.");
       }
   }
+
+  public function setActiveBudget(Request $request){
+    Budget::where('status', '=', 'ACTIVE')->update(['status' => 'INACTIVE']);
+    $active_budget = Budget::findOrFail($request->id);
+    $active_budget->status = 'ACTIVE';
+    $active_budget->save();
+    // return "success";
+    return redirect()->back()->with('success', 'Budget status updated successfully.');
+}
+
 }

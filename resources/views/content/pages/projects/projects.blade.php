@@ -15,7 +15,7 @@
   <h5 class="card-header">All Projects</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      
+
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -32,7 +32,7 @@
           <tr>
             <td>{{$data->project_id}}</td>
             <td>{{$data->project_title}}</td>
-            <td>{{$data->contractor_name}}</td>
+            <td>{{$data->company_name}}</td>
             <td>&#8358;{{ number_format($data->contract_sum ? : '0', 2) }}</td>
             <td>&#8358;{{ number_format($data->outstanding_balance ? : '0', 2) }}</td>
             {{-- <td><span class="badge bg-label-primary me-1">Active</span></td> --}}
