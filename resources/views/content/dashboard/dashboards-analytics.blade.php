@@ -31,9 +31,9 @@
           <div class="card-body">
             <h5 class="card-title text-primary">Welcome <b>
               @php
-                $name="{{Auth::user()->name}}"  
+                $name="{{Auth::user()->name}}"
               @endphp
-              
+
               @if ($name!=null)
               {{Auth::user()->name}}
               @else
@@ -73,14 +73,20 @@
                 </div>
               </div> --}}
             </div>
-            <span class="fw-semibold d-block mb-1">Current Budget</span>
-            <h3 class="card-title mb-2">&#8358;12,628</h3>
+            <span class="fw-semibold d-block mb-1">Current Budget Allocation</span>
+              <h3 class="card-title mb-2">&#8358;
+              @php
+              $current_budget = App\Models\Budget::select('appropriated_amount')->where('status', '=', 'ACTIVE')->first();
+              $current_budget_figure = $current_budget->appropriated_amount;
+            @endphp
+            {{ number_format($current_budget_figure ? : '0', 2) }}
+          </h3>
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small> --}}
           </div>
         </div>
       </div>
-      
-      
+
+
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
           <div class="card-body">
@@ -99,13 +105,23 @@
               </div> --}}
             </div>
             <span>Total Expenditures</span>
-            <h3 class="card-title text-nowrap mb-1">&#8358;4,679</h3>
+            @php
+            $budget_utilization = App\Models\Fundproject::selectRaw('SUM(project_funding.amount) as total_funding')
+              ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
+              ->where('budget.status', '=', 'ACTIVE')
+              ->first();
+            $current_budget_utilization = $budget_utilization ? $budget_utilization->total_funding : 0;
+          @endphp
+
+          <h3 class="card-title text-nowrap mb-1">&#8358;{{ number_format($current_budget_utilization, 2) }}</h3>
+
+
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small> --}}
           </div>
         </div>
       </div>
 
-      
+
     </div>
   </div>
   <!-- Total Revenue -->
