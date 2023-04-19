@@ -62,9 +62,8 @@
             </td>
             @else
             <td>
-              <img src="tick.png" width="20%"/>
-              {{-- <img src="{{asset('tick.jpeg')}}" width="20%" /> --}}
-              <img src="tick.jpeg" style="width:20%;" />
+
+              <img src="{{asset('assets/img/illustrations/tick.jpeg')}}" style="width:20%;" />
               {{-- <a data-toggle="tooltip" title="Print ECF" target="_blank" href="/print-ecf?id={{$data->id}}"><i
                   class="bx bx-printer me-1"></i></a>&nbsp;
               <a data-toggle="tooltip" title="Edit This ECF" href="javascript:void(0);" data-bs-toggle="modal"
