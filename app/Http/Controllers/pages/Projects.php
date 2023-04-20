@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade;
 
 class Projects extends Controller
 {
