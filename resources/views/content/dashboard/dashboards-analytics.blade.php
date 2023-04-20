@@ -222,7 +222,23 @@
               </div> --}}
             </div>
             <span class="fw-semibold d-block mb-1">Completed Projects</span>
-            <h3 class="card-title mb-2">14,857</h3>
+            <h3 class="card-title mb-2">0
+{{-- @php
+
+              $amount_paid = App\Models\Fundproject::selectRaw('SUM(amount) as total_amount')->where('project_id', '=', $project_id)->first();
+$total_amount_paid = $amount_paid ? $amount_paid->total_amount : 0;
+
+$percentage_payment_made = ($total_amount_paid / $contract_sum) * 100;
+
+$count_completed_projects = 0;
+if ($percentage_payment_made >= 100) {
+    $count_completed_projects = App\Models\Fundproject::where('id', '=', $project_id)
+                                            ->where('status', '=', 'COMPLETED')
+                                            ->count();
+}
+@endphp --}}
+
+            </h3>
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.14%</small> --}}
           </div>
         </div>

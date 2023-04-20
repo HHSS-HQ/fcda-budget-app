@@ -5,8 +5,9 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Dompdf\Dompdf;
-use Barryvdh\DomPDF\Facade;
+// use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade as PDF;
+
 
 class Projects extends Controller
 {

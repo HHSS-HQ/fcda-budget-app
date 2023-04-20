@@ -10,7 +10,7 @@ use App\Models\Subhead;
 use App\Models\ECF;
 use App\Models\User;
 
-use Dompdf\Dompdf;
+use Barryvdh\DomPDF\Facade as PDF;
 
 
 class ECFController extends Controller
