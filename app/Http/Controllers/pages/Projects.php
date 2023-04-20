@@ -5,7 +5,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Dompdf\Dompdf;
 
 class Projects extends Controller
 {
@@ -151,6 +151,7 @@ public function printProjectReport(Request $request)
   $projects = Project::select('project.*', 'project_type.project_type', 'contractor.company_name')
   ->join('project_type', 'project_type.id', '=', 'project.project_type_id')
   ->join('contractor', 'contractor.id', '=', 'project.contractor_id')
+
   ->where('project_id', '=', $request->project_id)
   ->get();
     $pdf = \PDF::loadView('content.pages.pdf.project-report', compact('projects'));
