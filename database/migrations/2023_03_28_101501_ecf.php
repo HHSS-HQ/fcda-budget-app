@@ -32,21 +32,26 @@ return new class extends Migration
         $table->string('status')->default('PENDING APPROVAL');
         $table->unsignedBigInteger('checked_by')->nullable();
         $table->unsignedBigInteger('prepared_by')->nullable();
+        $table->unsignedBigInteger('budget_id')->nullable();
         $table->timestamps();
         $table->softDeletes();
 
 
         $table->index(["prepared_by"], 'fk_prepared_by_id_4_idx');
-
-            $table->foreign('prepared_by', 'fk_prepared_by_id_4_idx')
+        $table->foreign('prepared_by', 'fk_prepared_by_id_4_idx')
             ->references('id')->on('users')
             ->onDelete('no action')
             ->onUpdate('no action');
 
             $table->index(["checked_by"], 'fk_checked_by_id_4_idx');
-
             $table->foreign('checked_by', 'fk_checked_by_id_4_idx')
             ->references('id')->on('users')
+            ->onDelete('no action')
+            ->onUpdate('no action');
+
+            $table->index(["budget_id"], 'fk_budget_id_id_4_idx');
+            $table->foreign('budget_id', 'fk_budget_id_id_4_idx')
+            ->references('id')->on('budget')
             ->onDelete('no action')
             ->onUpdate('no action');
 

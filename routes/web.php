@@ -196,6 +196,7 @@ Route::post('api/fetch-states', [DropdownController::class, 'fetchState']);
 Route::post('api/fetch-cities', [DropdownController::class, 'fetchCity']);
 
 Route::get('print-ecf', [ECFController::class, 'printECF']);
+Route::get('print-project-report', [Projects::class, 'printProjectReport']);
 
 Route::post('change-ecf-status', [ECFController::class, 'changeECFStatus']);
 Route::post('add-contractor-modal', [ContractorController::class, 'addContractorModal'])->name('contractor.store');

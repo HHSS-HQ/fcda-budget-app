@@ -77,11 +77,11 @@
               <h3 class="card-title mb-2">&#8358;
               @php
               $current_budget = App\Models\Budget::select('appropriated_amount')->where('status', '=', 'ACTIVE')->first();
-              $current_budget_figure = $current_budget->appropriated_amount;
+              $current_budget_figure = $current_budget ? $current_budget->appropriated_amount : 0;
             @endphp
             {{ number_format($current_budget_figure ? : '0', 2) }}
           </h3>
-            {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small> --}}
+            <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>
           </div>
         </div>
       </div>
@@ -110,10 +110,17 @@
               ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
               ->where('budget.status', '=', 'ACTIVE')
               ->first();
+
+              $ecf_utilization = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as total_ecf')
+              ->join('budget', 'budget.id', '=', 'ecf.budget_id')
+              ->where('budget.status', '=', 'ACTIVE')
+              ->first();
+
             $current_budget_utilization = $budget_utilization ? $budget_utilization->total_funding : 0;
+            $current_ecf_utilization = $ecf_utilization ? $ecf_utilization->total_ecf: 0;
           @endphp
 
-          <h3 class="card-title text-nowrap mb-1">&#8358;{{ number_format($current_budget_utilization, 2) }}</h3>
+          <h3 class="card-title text-nowrap mb-1">&#8358;{{ number_format($current_budget_utilization+$current_ecf_utilization, 2) }}</h3>
 
 
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small> --}}
@@ -184,18 +191,15 @@
               <div class="avatar flex-shrink-0">
                 <img src="{{asset('assets/img/icons/unicons/paypal.png')}}" alt="Credit Card" class="rounded">
               </div>
-              {{-- <div class="dropdown">
-                <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </button>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                  <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                  <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                </div>
-              </div> --}}
-            </div>
+             </div>
             <span class="d-block mb-1">Total  Projects</span>
-            <h3 class="card-title text-nowrap mb-2">2,456</h3>
+            <h3 class="card-title text-nowrap mb-2">
+              @php
+                $project_count = App\Models\Fundproject::selectRaw('COUNT(project_funding.id) as projects')->join('budget', 'budget.id', '=', 'project_funding.budget_id')->where('budget.status', '=', 'ACTIVE')->first();
+                $total_projects = $project_count ? $project_count->projects : 0;
+              @endphp
+            {{$total_projects}}
+            </h3>
             {{-- <small class="text-danger fw-semibold"><i class='bx bx-down-arrow-alt'></i> -14.82%</small> --}}
           </div>
         </div>

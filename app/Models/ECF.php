@@ -11,7 +11,7 @@ class ECF extends Model
 {
     use HasFactory;
     protected $table = 'ecf';
-    public $fillable = ['id', 'subhead_id', 'department_id', 'head_id', 'expenditure_item', 'payee_id', 'approved_provision', 'revised_provision', 'status', 'checked_by', 'prepared_by'];
+    public $fillable = ['id', 'subhead_id', 'department_id', 'head_id', 'expenditure_item', 'payee_id', 'approved_provision', 'revised_provision', 'status', 'checked_by', 'prepared_by', 'budget_id'];
 
 
     public function department(): HasOne
@@ -33,6 +33,17 @@ class ECF extends Model
     {
         return $this->HasOne(User::class, 'id', 'payee_id');
     }
+
+    public function ecf_prepared_by(): HasOne
+    {
+        return $this->HasOne(User::class, 'id', 'prepared_by');
+    }
+
+    public function ecf_checked_by(): HasOne
+    {
+        return $this->HasOne(User::class, 'id', 'checked_by');
+    }
+
 }
 
 

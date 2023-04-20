@@ -136,5 +136,27 @@ public function updateProject(Request $request, $id)
 }
 }
 
+public function printProjectReport(Request $request)
+{
+
+  // $ecfs = Project::query()
+  // ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
+  // ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
+  // ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
+  // ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
+  // ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
+  // ->where('id', '=', $request->id)
+  // ->get();
+
+  $projects = Project::select('project.*', 'project_type.project_type', 'contractor.company_name')
+  ->join('project_type', 'project_type.id', '=', 'project.project_type_id')
+  ->join('contractor', 'contractor.id', '=', 'project.contractor_id')
+  ->where('project_id', '=', $request->project_id)
+  ->get();
+    $pdf = \PDF::loadView('content.pages.pdf.project-report', compact('projects'));
+    // // Stream the PDF to the HTTP response
+    return $pdf->stream();
+}
+
 
   }

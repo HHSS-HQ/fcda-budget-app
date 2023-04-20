@@ -22,22 +22,37 @@
   <li style="margin-top:1em">Item of Expenditure: {{$item->expenditure_item}}</li>
   <li style="margin-top:1em">Payee: {{$item['payee']['payee_name']}}</li>
   <li style="margin-top:1em">Approved Provision: {{$item->approved_provision}}</li>
-  <li style="margin-top:1em">Revised Provision: N number_format({{$item->revised_provision}})</li>
+  <li style="margin-top:1em">Revised Provision: N{{number_format(($item->revised_provision), 2)}}</li>
   <li style="margin-top:1em">Expenditure Till Date: {{$item->expenditure_item}}</li>
-  <li style="margin-top:1em">Current Balance: {{$item->expenditure_item}}</li>
-  <li style="margin-top:1em">Present Requisition: {{$item->present_requisition}}</li>
+  <li style="margin-top:1em">Current Balance: N{{number_format(($item->revised_provision), 2)}}</li>
+  <li style="margin-top:1em">Present Requisition: N{{number_format(($item->present_requisition), 2)}}</li>
   <li style="margin-top:1em">Balance Carried Forward: {{$item->expenditure_item}}</li>
   </ul>
-<table width="100%">
+<table width="100%" >
+
   <tr>
-    <td>Prepared by: .........................</td>
-    <td>Checked by: .........................</td>
+    <td colspan="4"><br/><br/></td>
+  </tr>
+
+  <tr>
+    <td style="width:15%">Prepared by: </td>
+    <td style=" border-bottom: 2px dotted #000; text-decoration: none;"></td>
+    <td style="width:15%">Checked by: </td>
+    <td style=" border-bottom: 2px dotted #000; text-decoration: none;"></td>
+  </tr>
+
+  <tr>
+    <td></td>
+    <td style="text-align: center;">{{$item['ecf_prepared_by']['ecf_prepared_by']}}</td>
+    <td></td>
+    <td style="text-align: center;">{{$item['ecf_checked_by']['ecf_checked_by']}}</td>
+  </tr>
+
+  <tr>
+    <td colspan="4"><br/><br/></td>
   </tr>
   <tr>
-    <td><br/><br/></td>
-  </tr>
-  <tr>
-    <td style="text-align:center" colspan="2">Vote Controller .........................</td>
+    <td style="text-align:center" colspan="4">Vote Controller .........................</td>
   </tr>
 </table>
 {{-- {{$item}} --}}

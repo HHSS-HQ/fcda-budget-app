@@ -41,6 +41,13 @@ class ECFController extends Controller
 
     // \Log::info($request->all());
     $ecf = new ECF();
+    $active_budget = DB::table('budget')
+    ->select('budget.id')
+    ->where('status', '=', 'ACTIVE')
+    ->first();
+    if ($active_budget) {
+      $active_budget_id = $active_budget->id;
+    }
 
     $ecf->department_id = $request->department_id;
     $ecf->subhead_id = $request->subhead_id;
@@ -49,6 +56,7 @@ class ECFController extends Controller
     $ecf->approved_provision = $request->approved_provision;
     $ecf->revised_provision = $request->revised_provision;
     $ecf->present_requisition = $request->present_requisition;
+    $ecf->budget_id = $active_budget_id;
     $ecf->prepared_by = auth()->id();
 
     $ecf->save();
@@ -124,6 +132,8 @@ public function printECF(Request $request)
 
   $ecfs = ECF::query()
   ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
+  ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
+  ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
   ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
   ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
   ->where('id', '=', $request->id)
@@ -138,7 +148,7 @@ public function printECF(Request $request)
 
 public function changeECFStatus(Request $request){
   $update = ECF::where('id', '=', $request->input('id'))
-  ->update(['status' => 'APPROVED']);
+  ->update(['status' => 'APPROVED', 'checked_by' => auth()->id()]);
   return redirect()->back()->with('message', 'ECF updated successfully.');
 
 }

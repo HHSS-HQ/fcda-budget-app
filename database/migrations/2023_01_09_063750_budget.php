@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->id();
             $table->unsignedBigInteger('budget_year')->nullable();
             $table->string('code')->nullable();
             $table->string('remarks')->nullable();
