@@ -151,6 +151,8 @@ Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register
 // Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
 Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
 
+// Route::get('/budget-utilization', [DepartmentController::class, 'budget_utilization']);
+Route::get('/budget-utilization', [DepartmentController::class, 'budget_utilization2']);
 Route::get('/add-department', [DepartmentController::class, 'show'])->name('department.show');
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
 Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');

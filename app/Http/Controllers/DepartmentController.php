@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Department;
 use App\Http\Requests\DepartmentRequest;
 use DB;
-
+use App\Models\ECF;
 class DepartmentController extends Controller
 {
 
@@ -21,6 +21,11 @@ class DepartmentController extends Controller
         return view('content.pages.department.add-department');
     }
 
+
+    // public function budget_utilization()
+    // {
+    //     return view('content.pages.department.budget-utilization');
+    // }
 
 
     public function store(Request $request)
@@ -49,6 +54,22 @@ class DepartmentController extends Controller
     {
         $departments = DB::table('department')->get();
         return view('content.pages.department.departments', compact('departments') );
+    }
+
+    public function budget_utilization2(Request $request)
+    {
+      // return "ok";
+        // $budget_utilization = DB::table('ecf')->where('department_id', '=', $request->id)->get();
+        // return $budget_utilization;
+
+        $budget_utilization = ECF::query()
+        ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
+        ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
+        ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
+        ->get();
+
+        return view('content.pages.department.budget-utilization', compact('budget_utilization') );
+          // return view('content.pages.ecf.ecfs', compact('ecfs') );
     }
 
     public function updateDepartment(Request $request, $id)

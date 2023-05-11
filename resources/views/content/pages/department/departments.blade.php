@@ -15,7 +15,7 @@
   <h5 class="card-header">All Departments</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      
+
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -32,9 +32,9 @@
             <td>{{$data->department_name}}</td>
 
             <td>
-
-              <a data-toggle = "tooltip" title = "See Units"   href="javascript:void(0);"><i class="bx bx-grid me-1"></i> </a> &nbsp;
-              <a data-toggle = "tooltip" title = "Edit This Department"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
+              <a data-toggle = "tooltip" title = "See Budget utilization"   href="/budget-utilization?id={{$data->id}}"><i class="bx bx-search me-1"></i>Budget Utilization </a> &nbsp;
+              <a data-toggle = "tooltip" title = "See Units"   href="javascript:void(0);"><i class="bx bx-grid me-1"></i> Units</a> &nbsp;
+              <a data-toggle = "tooltip" title = "Edit This Department"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> Edit</a> &nbsp;
               <a data-toggle = "tooltip" title = "Delete This Department"   href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
             </td>
           </tr>
@@ -44,7 +44,7 @@
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">
-                    
+
                     <h5 class="modal-title" id="exampleModalLabel1">Department Edit Form</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                   </div>
@@ -55,8 +55,8 @@
                         <input type="text" name="department_name" id="nameBasic" class="form-control" value="{{$data->department_name}}">
                       </div>
                     </div>
-         
-       
+
+
                   </div>
                   <div class="modal-footer">
                     <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>

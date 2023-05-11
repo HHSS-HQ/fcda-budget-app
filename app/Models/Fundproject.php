@@ -10,4 +10,11 @@ class Fundproject extends Model
     use HasFactory;
     protected $table = 'project_funding';
     public $fillable = ['project_id', 'amount', 'comment'];
+
+
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
 }

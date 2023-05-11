@@ -21,8 +21,6 @@
 {{$data->project_title}}
 @endforeach --}}
 
-
-
 <div class="row">
   <div class="col-lg-6 mb-4 order-0">
     <div class="card">
@@ -30,25 +28,28 @@
         <div class="col-sm-6">
           <div class="card-body">
             <h5 class="card-title text-primary">Welcome <b>
-              @php
+                @php
                 $name="{{Auth::user()->name}}"
-              @endphp
+                @endphp
 
-              @if ($name!=null)
-              {{Auth::user()->name}}
-              @else
-              <script type="text/javascript">
-                window.location = "/login";
-              </script>
-              @endif</b> 🎉</h5>
-            <p class="mb-4">Welcome to the OpenBudgetCT Application. Use this software to manage budget records across the FCT.</p>
+                @if ($name!=null)
+                {{Auth::user()->name}}
+                @else
+                <script type="text/javascript">
+                  window.location = "/login";
+                </script>
+                @endif</b> 🎉</h5>
+            <p class="mb-4">Welcome to the OpenBudgetCT Application. Use this software to manage budget records across
+              the FCT.</p>
 
             <a href="/projects" class="btn btn-sm btn-outline-primary">View All Projects</a>
           </div>
         </div>
         <div class="col-sm-6 text-center text-sm-left">
           <div class="card-body pb-0 px-0 px-md-4">
-            <img src="{{asset('assets/img/illustrations/man-with-laptop-light.png')}}" height="140" alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png" data-app-light-img="illustrations/man-with-laptop-light.png">
+            <img src="{{asset('assets/img/illustrations/man-with-laptop-light.png')}}" height="140"
+              alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
+              data-app-light-img="illustrations/man-with-laptop-light.png">
           </div>
         </div>
       </div>
@@ -74,18 +75,18 @@
               </div> --}}
             </div>
             <span class="fw-semibold d-block mb-1">Current Budget Allocation</span>
-              <h3 class="card-title mb-2">&#8358;
+            <h3 class="card-title mb-2">&#8358;
               @php
-              $current_budget = App\Models\Budget::select('appropriated_amount')->where('status', '=', 'ACTIVE')->first();
+              $current_budget = App\Models\Budget::select('appropriated_amount')->where('status', '=',
+              'ACTIVE')->first();
               $current_budget_figure = $current_budget ? $current_budget->appropriated_amount : 0;
-            @endphp
-            {{ number_format($current_budget_figure ? : '0', 2) }}
-          </h3>
+              @endphp
+              {{ number_format($current_budget_figure ? : '0', 2) }}
+            </h3>
             <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>
           </div>
         </div>
       </div>
-
 
       <div class="col-lg-6 col-md-12 col-6 mb-4">
         <div class="card">
@@ -107,27 +108,26 @@
             <span>Total Expenditures</span>
             @php
             $budget_utilization = App\Models\Fundproject::selectRaw('SUM(project_funding.amount) as total_funding')
-              ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
-              ->where('budget.status', '=', 'ACTIVE')
-              ->first();
+            ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
+            ->where('budget.status', '=', 'ACTIVE')
+            ->first();
 
-              $ecf_utilization = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as total_ecf')
-              ->join('budget', 'budget.id', '=', 'ecf.budget_id')
-              ->where('budget.status', '=', 'ACTIVE')
-              ->first();
+            $ecf_utilization = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as total_ecf')
+            ->join('budget', 'budget.id', '=', 'ecf.budget_id')
+            ->where('budget.status', '=', 'ACTIVE')
+            ->first();
 
             $current_budget_utilization = $budget_utilization ? $budget_utilization->total_funding : 0;
             $current_ecf_utilization = $ecf_utilization ? $ecf_utilization->total_ecf: 0;
-          @endphp
+            @endphp
 
-          <h3 class="card-title text-nowrap mb-1">&#8358;{{ number_format($current_budget_utilization+$current_ecf_utilization, 2) }}</h3>
-
+            <h3 class="card-title text-nowrap mb-1">
+              &#8358;{{ number_format($utilization = $current_budget_utilization+$current_ecf_utilization, 2) }}</h3>
 
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small> --}}
           </div>
         </div>
       </div>
-
 
     </div>
   </div>
@@ -143,9 +143,10 @@
           <div class="card-body">
             <div class="text-center">
               <div class="dropdown">
-                <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{-- <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button" id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   2023
-                </button>
+                </button> --}}
+                <h4 class="card-header m-0 me-2 pb-3">Summary Utilization</h4>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
                   <a class="dropdown-item" href="javascript:void(0);">2023</a>
                   <a class="dropdown-item" href="javascript:void(0);">2022</a>
@@ -159,23 +160,33 @@
 
           <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
             <div class="d-flex">
-              <div class="me-2">
+              {{-- <div class="me-2">
                 <span class="badge bg-label-primary p-2">&#8358;</span>
-              </div>
+              </div> --}}
               <div class="d-flex flex-column">
-                <small>2023</small>
-                <h6 class="mb-0">&#8358;32.5k</h6>
+                <h5>2023</h5>
+                {{-- <h6 class="mb-0">&#8358;32.5k</h6> --}}
+                <h6>
+                  @php
+                  $percentage_utilization = ($utilization / $current_budget_figure) * 100;
+                  @endphp
+                  &#8358;{{number_format(($utilization),2)}}<br />
+                  {{number_format(($percentage_utilization),4)}}%
+
+                </h6>
               </div>
             </div>
+
             <div class="d-flex">
-              <div class="me-2">
-                <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
-              </div>
-              <div class="d-flex flex-column">
-                <small>2022</small>
-                <h6 class="mb-0">&#8358;41.2k</h6>
-              </div>
+              {{-- @php
+                $project = Project::findOrFail($id);
+                <h1>Project {{ $project->id }}</h1>
+<p>Contract Sum: {{ $project->contract_sum }}</p>
+<p>Total Funding Received: {{ $project->totalFunded() }}</p>
+<p>Funding Percentage: {{ $project->fundingPercentage }}%</p>
+              @endphp --}}
             </div>
+
           </div>
         </div>
       </div>
@@ -191,14 +202,16 @@
               <div class="avatar flex-shrink-0">
                 <img src="{{asset('assets/img/icons/unicons/paypal.png')}}" alt="Credit Card" class="rounded">
               </div>
-             </div>
-            <span class="d-block mb-1">Total  Projects</span>
+            </div>
+            <span class="d-block mb-1">Total Projects</span>
             <h3 class="card-title text-nowrap mb-2">
               @php
-                $project_count = App\Models\Fundproject::selectRaw('COUNT(project_funding.id) as projects')->join('budget', 'budget.id', '=', 'project_funding.budget_id')->where('budget.status', '=', 'ACTIVE')->first();
-                $total_projects = $project_count ? $project_count->projects : 0;
+              $project_count = App\Models\Fundproject::selectRaw('COUNT(project_funding.id) as
+              projects')->join('budget', 'budget.id', '=', 'project_funding.budget_id')->where('budget.status', '=',
+              'ACTIVE')->first();
+              $total_projects = $project_count ? $project_count->projects : 0;
               @endphp
-            {{$total_projects}}
+              {{$total_projects}}
             </h3>
             {{-- <small class="text-danger fw-semibold"><i class='bx bx-down-arrow-alt'></i> -14.82%</small> --}}
           </div>
@@ -223,20 +236,21 @@
             </div>
             <span class="fw-semibold d-block mb-1">Completed Projects</span>
             <h3 class="card-title mb-2">0
-{{-- @php
+              {{-- @php
 
-              $amount_paid = App\Models\Fundproject::selectRaw('SUM(amount) as total_amount')->where('project_id', '=', $project_id)->first();
-$total_amount_paid = $amount_paid ? $amount_paid->total_amount : 0;
+              $amount_paid = App\Models\Fundproject::selectRaw('SUM(amount) as total_amount')->where('project_id', '=',
+              $project_id)->first();
+              $total_amount_paid = $amount_paid ? $amount_paid->total_amount : 0;
 
-$percentage_payment_made = ($total_amount_paid / $contract_sum) * 100;
+              $percentage_payment_made = ($total_amount_paid / $contract_sum) * 100;
 
-$count_completed_projects = 0;
-if ($percentage_payment_made >= 100) {
-    $count_completed_projects = App\Models\Fundproject::where('id', '=', $project_id)
-                                            ->where('status', '=', 'COMPLETED')
-                                            ->count();
-}
-@endphp --}}
+              $count_completed_projects = 0;
+              if ($percentage_payment_made >= 100) {
+              $count_completed_projects = App\Models\Fundproject::where('id', '=', $project_id)
+              ->where('status', '=', 'COMPLETED')
+              ->count();
+              }
+              @endphp --}}
 
             </h3>
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.14%</small> --}}
@@ -364,7 +378,9 @@ if ($percentage_payment_made >= 100) {
       <div class="card-header">
         <ul class="nav nav-pills" role="tablist">
           <li class="nav-item">
-            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab" data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income" aria-selected="true">Income</button>
+            <button type="button" class="nav-link active" role="tab" data-bs-toggle="tab"
+              data-bs-target="#navs-tabs-line-card-income" aria-controls="navs-tabs-line-card-income"
+              aria-selected="true">Income</button>
           </li>
           <li class="nav-item">
             <button type="button" class="nav-link" role="tab">Expenses</button>
@@ -413,7 +429,7 @@ if ($percentage_payment_made >= 100) {
   <div class="col-md-6 col-lg-4 order-2 mb-4">
     <div class="card h-100">
       <div class="card-header d-flex align-items-center justify-content-between">
-        <h5 class="card-title m-0 me-2">Latest Projects</h5>
+        <h5 class="card-title m-0 me-2">Latest ECFs</h5>
         {{-- <div class="dropdown">
           <button class="btn p-0" type="button" id="transactionID" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <i class="bx bx-dots-vertical-rounded"></i>
@@ -428,94 +444,116 @@ if ($percentage_payment_made >= 100) {
       <div class="card-body">
         <ul class="p-0 m-0">
           <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
+            {{-- <div class="avatar flex-shrink-0 me-3">
               <img src="{{asset('assets/img/icons/unicons/paypal.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Finance Dept</small>
-                <h6 class="mb-0">300 boxes of 3ply masks bought</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">82.6</h6> <span class="text-muted">&#8358;</span>
-              </div>
-            </div>
-          </li>
-          {{-- <li class="d-flex mb-4 pb-1">
+      </div> --}}
+      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+        <div class="me-2">
+          {{-- <small class="text-muted d-block mb-1">Finance Dept</small> --}}
+          @php
+          $latest_ecfs = App\Models\ECF::latest()->take(10)->get();
+
+          // $all_latest =
+          @endphp
+          @foreach ($latest_ecfs as $data)
+          <table>
+            <tr>
+              <td>
+                <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}" target="_blank">@php $i="1"; echo $i++;
+                    @endphp.</a></h6>
+              </td>
+              <td>
+                <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}" target="_blank">{{$data->expenditure_item}}</a>
+                </h6>
+              </td>
+              {{-- <td><h6 class="mb-0">{{number_format(($data->present_requisition),2)}}</h6>
+              </td> --}}
+            </tr>
+          </table>
+
+        </div>
+        <div class="user-progress d-flex align-items-center gap-1">
+          <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}"
+              target="_blank">&#8358;{{number_format(($data->present_requisition),2)}}</a></h6>
+        </div>
+        @endforeach
+      </div>
+      </li>
+      {{-- <li class="d-flex mb-4 pb-1">
             <div class="avatar flex-shrink-0 me-3">
               <img src="{{asset('assets/img/icons/unicons/wallet.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Wallet</small>
-                <h6 class="mb-0">Mac'D</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">+270.69</h6> <span class="text-muted">USD</span>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-              <img src="{{asset('assets/img/icons/unicons/chart.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Transfer</small>
-                <h6 class="mb-0">Refund</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">+637.91</h6> <span class="text-muted">USD</span>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-              <img src="{{asset('assets/img/icons/unicons/cc-success.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Credit Card</small>
-                <h6 class="mb-0">Ordered Food</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">-838.71</h6> <span class="text-muted">USD</span>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex mb-4 pb-1">
-            <div class="avatar flex-shrink-0 me-3">
-              <img src="{{asset('assets/img/icons/unicons/wallet.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Wallet</small>
-                <h6 class="mb-0">Starbucks</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">+203.33</h6> <span class="text-muted">USD</span>
-              </div>
-            </div>
-          </li>
-          <li class="d-flex">
-            <div class="avatar flex-shrink-0 me-3">
-              <img src="{{asset('assets/img/icons/unicons/cc-warning.png')}}" alt="User" class="rounded">
-            </div>
-            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-              <div class="me-2">
-                <small class="text-muted d-block mb-1">Mastercard</small>
-                <h6 class="mb-0">Ordered Food</h6>
-              </div>
-              <div class="user-progress d-flex align-items-center gap-1">
-                <h6 class="mb-0">-92.45</h6> <span class="text-muted">USD</span>
-              </div>
-            </div>
-          </li> --}}
-        </ul>
+    </div>
+    <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+      <div class="me-2">
+        <small class="text-muted d-block mb-1">Wallet</small>
+        <h6 class="mb-0">Mac'D</h6>
+      </div>
+      <div class="user-progress d-flex align-items-center gap-1">
+        <h6 class="mb-0">+270.69</h6> <span class="text-muted">USD</span>
       </div>
     </div>
+    </li>
+    <li class="d-flex mb-4 pb-1">
+      <div class="avatar flex-shrink-0 me-3">
+        <img src="{{asset('assets/img/icons/unicons/chart.png')}}" alt="User" class="rounded">
+      </div>
+      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+        <div class="me-2">
+          <small class="text-muted d-block mb-1">Transfer</small>
+          <h6 class="mb-0">Refund</h6>
+        </div>
+        <div class="user-progress d-flex align-items-center gap-1">
+          <h6 class="mb-0">+637.91</h6> <span class="text-muted">USD</span>
+        </div>
+      </div>
+    </li>
+    <li class="d-flex mb-4 pb-1">
+      <div class="avatar flex-shrink-0 me-3">
+        <img src="{{asset('assets/img/icons/unicons/cc-success.png')}}" alt="User" class="rounded">
+      </div>
+      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+        <div class="me-2">
+          <small class="text-muted d-block mb-1">Credit Card</small>
+          <h6 class="mb-0">Ordered Food</h6>
+        </div>
+        <div class="user-progress d-flex align-items-center gap-1">
+          <h6 class="mb-0">-838.71</h6> <span class="text-muted">USD</span>
+        </div>
+      </div>
+    </li>
+    <li class="d-flex mb-4 pb-1">
+      <div class="avatar flex-shrink-0 me-3">
+        <img src="{{asset('assets/img/icons/unicons/wallet.png')}}" alt="User" class="rounded">
+      </div>
+      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+        <div class="me-2">
+          <small class="text-muted d-block mb-1">Wallet</small>
+          <h6 class="mb-0">Starbucks</h6>
+        </div>
+        <div class="user-progress d-flex align-items-center gap-1">
+          <h6 class="mb-0">+203.33</h6> <span class="text-muted">USD</span>
+        </div>
+      </div>
+    </li>
+    <li class="d-flex">
+      <div class="avatar flex-shrink-0 me-3">
+        <img src="{{asset('assets/img/icons/unicons/cc-warning.png')}}" alt="User" class="rounded">
+      </div>
+      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+        <div class="me-2">
+          <small class="text-muted d-block mb-1">Mastercard</small>
+          <h6 class="mb-0">Ordered Food</h6>
+        </div>
+        <div class="user-progress d-flex align-items-center gap-1">
+          <h6 class="mb-0">-92.45</h6> <span class="text-muted">USD</span>
+        </div>
+      </div>
+    </li> --}}
+    </ul>
   </div>
-  <!--/ Transactions -->
+</div>
+</div>
+<!--/ Transactions -->
 </div>
 @endsection
 @else
@@ -523,4 +561,3 @@ if ($percentage_payment_made >= 100) {
   window.location = "/login";
 </script>
 @endif
-

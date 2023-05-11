@@ -57,9 +57,7 @@
             </td>
             @else
             <td>
-              <a data-toggle="tooltip" title="Print ECF" target="_blank" href="/print-ecf?id={{$data->id}}"><i
-                  class="bx bx-printer me-1"></i></a>&nbsp;
-              {{-- <a data-toggle = "tooltip" title = "Print ECF"   href="javascript:void(0);"><i class="bx bx-printer me-1"></i> </a> &nbsp; --}}
+              <a data-toggle="tooltip" title="Print ECF" target="_blank" href="/print-ecf?id={{$data->id}}"><i class="bx bx-printer me-1"></i></a>&nbsp;
               <a data-toggle="tooltip" title="Edit This ECF" href="javascript:void(0);" data-bs-toggle="modal"
                 data-bs-target="#basicModal-{{$data->id}}"><i class="bx bx-edit-alt me-1"></i> </a> &nbsp;
               <a data-toggle="tooltip" title="Delete This ECF" href="javascript:void(0);"><i
