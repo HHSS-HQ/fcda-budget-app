@@ -21,7 +21,8 @@ use App\Http\Controllers\ContractorController;
 use App\Http\Controllers\FundprojectController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\AccountingYearController;
-// use App\Http\Controllers\ECFController;
+use App\Http\Controllers\PayeeController;
+// use App\Http\Controllers\ContractorController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -207,3 +208,13 @@ Route::get('contractors', [ContractorController::class, 'getContractors']);
 Route::get('accounting-year', [AccountingYearController::class, 'displayYear']);
 Route::get('add-accounting-year', [AccountingYearController::class, 'addAccountingYearForm']);
 Route::post('add-accounting-year', [AccountingYearController::class, 'storeAccountingYear'])->name('accounting-year.store');
+
+Route::get('/add-payee', [PayeeController::class, 'showPayeeForm']);
+Route::post('/add-payee', [PayeeController::class, 'addPayee'])->name('payee.store');
+Route::get('/payees', [PayeeController::class, 'showPayees']);
+Route::put('/payees', [PayeeController::class, 'showPayees'])->name('payee.update');
+
+Route::get('/add-contractor', [ContractorController::class, 'addContractor']);
+Route::get('/contractors', [ContractorController::class, 'showContractors']);
+Route::get('/add-contractor', [ContractorController::class, 'showContractorForm']);
+Route::post('/add-contractor', [ContractorController::class, 'addContractor'])->name('contractor.store');

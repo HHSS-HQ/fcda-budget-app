@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use App\Models\Contractor;
+use DB;
 
 class ContractorController extends Controller
 {
@@ -25,13 +26,36 @@ class ContractorController extends Controller
       // return view('content.pages.projects.add-project', compact('latestContractor'));
     }
 
-    public function getContractors(){
-      $contractor = Contractor::all();
-      return view('content.pages.projects.add-project', compact('contractor'));
-      // return Response::json($contractor);
-      // $latestContractor = Contractor::latest()->first();
-      // return $latestContractor;
 
+
+
+  public function showContractorForm()
+  {
+      return view('content.pages.contractor.add-contractor');
+  }
+
+    public function showContractors()
+    {
+
+        $contractor = DB::table('contractor')
+        ->select('contractor.*')
+        ->get();
+        return view('content.pages.contractor.contractors', compact('contractor') );
+
+    }
+
+    public function addPayee(Request $request){
+      $payee = new Payee();
+      $payee->payee_name = $request->payee_name;
+      $payee->payee_account_number = $request->payee_account_number;
+      $payee->payee_account_name = $request->payee_account_name;
+      $payee->payee_bank = $request->payee_bank;
+      $payee->payee_phone_number = $request->payee_phone_number;
+      $payee->alternate_phone_number = $request->alternate_phone_number;
+
+      $payee->added_by = auth()->id();
+      $payee->save();
+      return redirect()->back()->with('success', 'Payee added successfully.');
 
     }
 }

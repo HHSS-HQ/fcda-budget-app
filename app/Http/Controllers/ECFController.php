@@ -135,7 +135,7 @@ public function printECF(Request $request)
   ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
   ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
   ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
-  ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
+  ->with(['payee' => function ($query) {$query->select('id', 'payee_name');}])
   ->where('id', '=', $request->id)
   ->get();
     $pdf = \PDF::loadView('content.pages.pdf.ecf', compact('ecfs'));

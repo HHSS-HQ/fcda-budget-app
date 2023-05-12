@@ -107,9 +107,9 @@
               <label for="revised_provision" class="form-label">Payee</label>
                 <select id="id" class="select2 form-select" name="payee_id">
                 <option value="">---Select Payee---</option>
-                {{$departments =  App\Models\User::select('name', 'id')->get();}}
-                @forelse($departments as $item)
-                <option value="{{$item->id}}">{{$item->name}}</option>
+                {{$payees =  App\Models\Payee::select('payee_name', 'id')->get();}}
+                @forelse($payees as $item)
+                <option value="{{$item->id}}">{{$item->payee_name}}</option>
                 @empty
                 @endforelse
               </select>

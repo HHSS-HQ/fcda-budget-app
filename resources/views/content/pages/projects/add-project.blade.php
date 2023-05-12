@@ -143,7 +143,7 @@
             placeholder="Completion Period" />
         </div>
 
-        <div class="mb-3 col-md-6">
+        {{-- <div class="mb-3 col-md-6">
           <label for="percentage_complete" class="form-label">Percentage Complete</label>
           <input type="number" class="form-control" id="percentage_completion" name="percentage_completion"
             placeholder="%" maxlength="6" />
@@ -159,7 +159,7 @@
           <label for="outstanding_balance" class="form-label">Outstanding Balance </label>
           <input type="number" class="form-control" id="outstanding_balance" name="outstanding_balance"
             placeholder="0.00" maxlength="9" />
-        </div>
+        </div> --}}
 
         <div class="mb-3 col-md-6">
           <label for="certified_cv_not_paid" class="form-label">Certified CV Not Paid</label>
@@ -172,12 +172,12 @@
           <input type="date" class="form-control" id="year_last_funded" name="year_last_funded" />
         </div>
 
-        <div class="mb-3 col-md-6">
+        {{-- <div class="mb-3 col-md-6">
           <label for="last_funded_date" class="form-label">Last Funded Date</label>
           <input type="date" class="form-control" id="last_funded_date" name="last_funded_date" />
-        </div>
+        </div> --}}
 
-        <div class="mb-3 col-md-6">
+        {{-- <div class="mb-3 col-md-6">
           <label for="observations" class="form-label">Observations</label>
           <textarea class="form-control" id="observations" name="observations"></textarea>
         </div>
@@ -192,7 +192,7 @@
         <div class="mb-3 col-md-6">
           <label for="zipCode" class="form-label">Recommendations</label>
           <textarea class="form-control" id="recommendations" name="recommendations"></textarea>
-        </div>
+        </div> --}}
 
         <div class="mb-3 col-md-6">
           <label for="project_year" class="form-label">Project Year</label>

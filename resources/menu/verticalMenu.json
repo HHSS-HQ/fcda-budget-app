@@ -173,12 +173,12 @@
         "slug": "payee",
         "submenu": [
           {
-            "url": "#",
-            "name": "Show Payee",
+            "url": "/payees",
+            "name": "Show Payees",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "#",
+            "url": "/add-payee",
             "name": "Add Payee",
             "slug": "layouts-without-navbar"
           }
@@ -191,12 +191,12 @@
         "slug": "contractors",
         "submenu": [
           {
-            "url": "#",
+            "url": "/contractors",
             "name": "Show Contractors",
             "slug": "layouts-without-menu"
           },
           {
-            "url": "#",
+            "url": "/add-contractor",
             "name": "Add Contractor",
             "slug": "layouts-without-navbar"
           }
