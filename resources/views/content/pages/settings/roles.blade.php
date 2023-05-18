@@ -15,8 +15,9 @@
   <h5 class="card-header">All Roles</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-      
+
       <table class="table table-bordered">
+        @php $i=1; @endphp
         <thead>
           <tr>
             <th>Role ID</th>
@@ -28,7 +29,7 @@
         <tbody>
           @forelse($roles as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->role_name}}</td>
 
             <td>

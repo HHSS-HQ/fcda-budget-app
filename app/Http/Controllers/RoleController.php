@@ -11,7 +11,7 @@ class RoleController extends Controller
 {
     /**
      * Display register page.
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
     public function show()
@@ -21,16 +21,17 @@ class RoleController extends Controller
 
     /**
      * Handle account registration request
-     * 
+     *
      * @param RegisterRequest $request
-     * 
+     *
      * @return \Illuminate\Http\Response
      */
-    public function store(RoleRequest $request) 
+    public function store(RoleRequest $request)
     {
-        
+
         $user = Role::create($request->validated());
-         return redirect('/role')->with('success', "Role successfully added.");
+        //  return redirect('/role')->with('success', "Role successfully added.");
+         return redirect()->back()->with('success', 'Role successfully added.');
     }
 
     public function AllRoles( Request $request )
@@ -45,7 +46,7 @@ class RoleController extends Controller
         $roles =  Role::select('role_name', 'id')->get();
         return view('content.pages.users.users', compact('roles') );
     }
-    
+
     // public function id()
     // {
     //     return $this->belongsTo(Role::class);

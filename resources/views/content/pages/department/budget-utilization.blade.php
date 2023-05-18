@@ -31,6 +31,7 @@
 
 
       <table class="table table-bordered">
+        @php $i=1; @endphp
         <thead>
           <tr>
             <th>ECF ID</th>
@@ -46,7 +47,7 @@
         <tbody>
           @forelse($budget_utilization as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->expenditure_item}}</td>
             <td>{{$data->department->dept_name}}</td>
             <td>{{$data->subhead->subhead_name}}</td>

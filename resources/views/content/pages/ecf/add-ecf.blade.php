@@ -52,7 +52,6 @@
                 </option>
                 @endforeach
               </select>
-
             </div>
 
             <div class="mb-3 col-md-6">
@@ -111,13 +110,28 @@
               <label for="present_requisition" class="form-label">Present Requisition</label>
               <input class="form-control {{ $errors->has('present_requisition') ? 'error' : '' }}" type="number"
                 id="present_requisition" name="present_requisition" autofocus placeholder="Present Requisition" />
-              {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
-              <!-- Error -->
               @if ($errors->has('present_requisition'))
               <div class="error">
                 {{ $errors->first('present_requisition') }}
               </div>
               @endif
+            </div>
+            <?php
+            $expenditure_till_date = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as expenditure_till_date')->get();
+            ?>
+
+
+
+            <div class="mb-3 col-md-6">
+              <ul>
+                <li>Expenditure Till Date: <b></b></li>
+                {{-- <li>Expenditure Till Date: <b>N{{number_format($expenditure_till_date->first()->expenditure_till_date, 2)}}</b></li> --}}
+                <li>Current Balance: </li>
+                <li>Balance Carried Forward: </li>
+              </ul>
+
+
+              </select>
             </div>
 
             <div class="mt-2">
@@ -155,7 +169,7 @@
           $('#subhead_dropdown').html('<option value="">-- Select Subhead --</option>');
           $.each(result.subheads, function(key, value) {
             $("#subhead_dropdown").append('<option value="' + value
-              .id + '">' + value.subhead_name + ' &nbsp;[' + value.subhead_code + ']' + '</option>');
+              .id + '">' + '[' + value.subhead_code + ']&nbsp; - &nbsp;' + value.subhead_name  + '</option>');
           });
           $('#approved_provision').html('None found');
         }
@@ -206,6 +220,25 @@
     }
   });
 });
+
+// Get the id of the selected department
+var departmentId = $('#department_dropdown').val();
+
+// Run a query to get the expenditure till date for that department
+$.ajax({
+  url: "{{url('fetch-expenditure-till-date')}}",
+  type: "POST",
+  data: {
+    department_id: departmentId,
+    _token: '{{csrf_token()}}'
+  },
+  dataType: 'json',
+  success: function(res) {
+    // Display the expenditure till date beside the expenditure till date list
+    $('#expenditure_till_date').text(res.expenditure_till_date);
+  }
+});
+
 
   });
 </script>

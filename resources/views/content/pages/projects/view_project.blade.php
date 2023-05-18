@@ -16,8 +16,8 @@
   <div class="card mb-4">
     <div class="card-header d-flex align-items-center justify-content-between">
 
-        
-    
+
+
     </div>
     <div class="card-body"><h4 style="text-align: right; color:blue;">PID: {{$item->project_id}}</h4>
       {{-- <img src="images/fcta-logo.png"/> --}}
@@ -64,12 +64,12 @@
 </tr>
 
 </table>
-    </div>    
+    </div>
   </div>
 </div>
 
 <!--/ Bordered Table -->
 
-@endforeach  
+@endforeach
 <!--/ Responsive Table -->
 @endsection

@@ -48,7 +48,7 @@
       <tr>
         <td>@php echo $i++    @endphp</td>
         <td>Revised Provision:</td>
-        <td>N{{number_format(($item->revised_provision ?? null), 2)}}</td>
+        <td>N{{number_format(($item->revised_provision ?? '0'), 2)}}</td>
       </tr>
 
       <tr>
@@ -76,15 +76,7 @@
       </tr>
     </table>
 
-  {{-- <li style="margin-top:1em">Item of Expenditure: {{$item->expenditure_item}}</li> --}}
-  {{-- <li style="margin-top:1em">Payee: {{$item['payee']['payee_name'] ?? null}}</li> --}}
-  {{-- <li style="margin-top:1em">Approved Provision: {{$item->approved_provision ?? null}}</li> --}}
-  {{-- <li style="margin-top:1em">Revised Provision: N{{number_format(($item->revised_provision ?? null), 2)}}</li> --}}
-  {{-- <li style="margin-top:1em">Expenditure Till Date: {{$item->expenditure_item ?? null}}</li> --}}
-  {{-- <li style="margin-top:1em">Current Balance: N{{number_format(($item->revised_provision ?? null), 2)}}</li> --}}
-  {{-- <li style="margin-top:1em">Present Requisition: N{{number_format(($item->present_requisition ?? null), 2)}}</li> --}}
-  {{-- <li style="margin-top:1em">Balance Carried Forward: {{$item->expenditure_item ?? null}}</li> --}}
-  {{-- </ul> --}}
+
 <table width="100%" >
 
   <tr>
@@ -112,8 +104,7 @@
     <td style="text-align:center" colspan="4">Vote Controller .........................</td>
   </tr>
 </table>
-{{-- {{$item}} --}}
-  @endforeach
+@endforeach
 </body>
 </html>
 

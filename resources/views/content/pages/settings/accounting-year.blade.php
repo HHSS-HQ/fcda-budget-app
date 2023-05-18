@@ -17,6 +17,7 @@
     <div class="table-responsive text-nowrap">
 
       <table class="table table-bordered">
+        @php $i=1; @endphp
         <thead>
           <tr>
             <th>Year ID</th>
@@ -29,7 +30,7 @@
         <tbody>
           @forelse($accounting_year as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->accounting_year_name}}</td>
             <td>{{ Carbon\Carbon::createFromFormat('Y-m', $data->start_date)->format('F, Y') }}</td>
             <td>{{ Carbon\Carbon::createFromFormat('Y-m', $data->end_date)->format('F, Y') }}</td>

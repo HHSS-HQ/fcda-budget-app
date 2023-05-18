@@ -21,6 +21,7 @@
     <div class="table-responsive text-nowrap">
 
       <table class="table table-bordered">
+        @php $i=1; @endphp
         <thead>
           <tr>
             <th>Payee ID</th>
@@ -37,7 +38,7 @@
         <tbody>
           @forelse($payee as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->payee_name ?? null}}</td>
             <td>{{$data->payee_account_number ?? null}}</td>
             <td>{{$data->payee_account_name ?? null}}</td>

@@ -13,7 +13,7 @@
   <h5 class="card-header">All Budgets</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-
+@php $i=1; @endphp
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -30,7 +30,7 @@
         <tbody>
           @forelse($budgets as $data)
           <tr>
-            <td>{{$data->budget_id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $data->start_date)->format('F, Y') }}-{{ Carbon\Carbon::createFromFormat('Y-m', $data->end_date)->format('F, Y') }})</td>
             <td style="color:green">&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td>
             <td>&#8358;{{ number_format($data->total_funding ? : '0', 2) }}</td>

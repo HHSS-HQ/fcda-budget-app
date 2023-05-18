@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Project Report</title>
+<script>
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+  }
+
+  th {
+    background-color: lightgray;
+  }
+  </script>
 </head>
 <body>
   {{-- <img src="{{asset('assets/img/FCT-logo.png')}}" /> --}}
@@ -15,12 +30,14 @@
 
   <p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT INFORMATION</u></p>
 
+
   @foreach ($projects as $item)
 
-  <table width="100%" >
+  <table>
+
     <tr>
       <td style="width:20%">Project Type: </td>
-      <td>{{$item->project_type ?? null}}</td>
+      <td>{{$item->project_type ?? null}} </td>
     </tr>
 
     <tr>
@@ -123,7 +140,7 @@
     ->where('project_funding.project_id', '=', $project_id)->get();
   @endphp
   <th>Date</th>
-  <th>Project ID</th>
+  <th>Project Title</th>
   <th>Budget Year</th>
   <th>Amount Funded</th>
 
@@ -155,7 +172,7 @@
     ->where('project_report.project_id', '=', $project_id)->get();
   @endphp
   <th>Date</th>
-  <th>Project ID</th>
+  <th>Project Title</th>
   <th>Observations</th>
   <th>Challenges</th>
   <th>Recommendations</th>

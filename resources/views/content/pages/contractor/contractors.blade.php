@@ -19,7 +19,7 @@
   <h5 class="card-header">All Payees</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-
+      @php $i=1; @endphp
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -37,7 +37,7 @@
         <tbody>
           @forelse($contractor as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->company_name ?? null}}</td>
             <td>{{$data->contractor_name ?? null}}</td>
             <td>{{$data->contractor_account_number ?? null}}</td>

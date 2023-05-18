@@ -156,6 +156,8 @@ public function printProjectReport(Request $request)
 
   ->where('project_id', '=', $request->project_id)
   ->get();
+  // return $projects;
+
     $pdf = \PDF::loadView('content.pages.pdf.project-report', compact('projects'));
     // // Stream the PDF to the HTTP response
     return $pdf->stream();

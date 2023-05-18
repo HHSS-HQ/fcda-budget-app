@@ -17,6 +17,7 @@
     <div class="table-responsive text-nowrap">
 
       <table class="table table-bordered">
+        @php $i=1; @endphp
         <thead>
           <tr>
             <th>Project ID</th>
@@ -30,7 +31,7 @@
         <tbody>
           @forelse($comm as $data)
           <tr>
-            <td>{{$data->project_id}}</td>
+            <td>{{$i++}}</td>
             <td>{{$data->project_title}}</td>
             <td>{{$data->company_name}}</td>
             <td>&#8358;{{ number_format($data->contract_sum ? : '0', 2) }}</td>
