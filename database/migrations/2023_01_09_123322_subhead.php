@@ -18,8 +18,12 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('subhead_code')->nullable();
+            $table->unique(['subhead_code', 'department_id']);
             $table->string('subhead_name')->nullable();
-            $table->string('department_id', 32)->references('id')->on('department')->nullable();
+
+            $table->unsignedInteger('department_id');
+
+
             $table->string('approved_provision')->nullable();
             $table->string('revised_provision')->nullable();
             $table->string('remarks')->nullable();
@@ -33,6 +37,13 @@ return new class extends Migration
 
                 $table->foreign('created_by', 'fk_entered_by_id_4_idx')
                 ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+
+                $table->index(["department_id"], 'fk_department_id_4_idx');
+
+                $table->foreign('department_id', 'fk_department_id_4_idx')
+                ->references('id')->on('department')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 

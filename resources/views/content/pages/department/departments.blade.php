@@ -19,18 +19,21 @@
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>Department ID</th>
+            <th>SN</th>
             <th>Department Name</th>
-
+            <th>Department Code</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
+          @php
+            $i="1";
+          @endphp
           @forelse($departments as $data)
           <tr>
-            <td>{{$data->id}}</td>
+            <td>@php echo $i++ @endphp</td>
             <td>{{$data->department_name}}</td>
-
+            <td>{{$data->department_code ?? null}}</td>
             <td>
               <a data-toggle = "tooltip" title = "See Budget utilization"   href="/budget-utilization?id={{$data->id}}"><i class="bx bx-search me-1"></i>Budget Utilization </a> &nbsp;
               <a data-toggle = "tooltip" title = "See Units"   href="javascript:void(0);"><i class="bx bx-grid me-1"></i> Units</a> &nbsp;

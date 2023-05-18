@@ -51,9 +51,9 @@
           <div class="row">
 
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Project Type</label>
+              <label for="nameBasic" class="form-label">Accounting Year</label>
               <select id="project_type_id" class="select2 form-select" name="budget_year">
-                <option value="">Select Project Type</option>
+                <option value="">Select Accounting Year</option>
                 {{$accounting_year =  App\Models\AccountingYear::select('accounting_year_name', 'start_date', 'end_date', 'id')->get();}}
                 @forelse($accounting_year as $item)
                 <option value="{{$item->id}}">{{$item->accounting_year_name}}

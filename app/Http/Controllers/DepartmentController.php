@@ -42,6 +42,7 @@ class DepartmentController extends Controller
     $departments = new Department();
 
     $departments->department_name = $request->department_name;
+    $departments->department_code = $request->department_code;
     $departments->remarks = $request->remarks;
     $departments->created_by = auth()->id();
 
@@ -65,7 +66,7 @@ class DepartmentController extends Controller
         $budget_utilization = ECF::query()
         ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
         ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
-        ->with(['payee' => function ($query) {$query->select('id', 'name as payee_name');}])
+        ->with(['payee' => function ($query) {$query->select('id', 'payee_name as payee_name');}])
         ->get();
 
         return view('content.pages.department.budget-utilization', compact('budget_utilization') );

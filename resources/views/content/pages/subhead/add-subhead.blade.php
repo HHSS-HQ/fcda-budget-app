@@ -20,8 +20,23 @@
    {{ @session('success') }}
   </div>
 </div>
-
 @endif
+
+@if(session('error'))
+<div style="  position: -webkit-sticky; position: sticky; top: 0; float: right;" class="bs-toast toast fade show bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
+  {{-- <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"> --}}
+  <div class="toast-header">
+    <i class='bx bx-bell me-2'></i>
+    <div class="me-auto fw-semibold">Error</div>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+   {{ @session('error') }}
+  </div>
+</div>
+@endif
+
+
 @section('content')
 @livewireScripts
 <a href="/subheads" ><button type="button" class="btn btn-primary" style="float: right">←Back To Subheads</button></a>
@@ -56,6 +71,21 @@
               </select> --}}
 
           <div class="row">
+
+            <div class="mb-3 col-md-6">
+              <label for="subhead_code" class="form-label">Budget Year</label>
+         <select id="id" class="select2 form-select" name="department_id">
+                {{-- <option value="">Select</option> --}}
+                {{$departments =  App\Models\AccountingYear::select('accounting_year_name', 'start_date', 'end_date', 'id')->where('status', '=', 'ACTIVE')->get();}}
+                @forelse($departments as $item)
+                <option value="{{$item->id}}">{{$item->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $item->start_date)->format('F, Y') }}-{{ Carbon\Carbon::createFromFormat('Y-m', $item->end_date)->format('F, Y') }}) </option>
+                @empty
+                @endforelse
+              </select>
+              <span style="color:red">Current active budget automatically selected. Click dropdown to select a different year</span>
+            </div>
+
+
             <div class="mb-3 col-md-6">
               <label for="subhead_code" class="form-label">Department</label>
          <select id="id" class="select2 form-select" name="department_id">
@@ -93,6 +123,17 @@
             </div>
 
 
+            <div class="mb-3 col-md-6">
+              <label for="approved_provision" class="form-label">Subhead Appropriation</label>
+              <input class="form-control {{ $errors->has('approved_provision') ? 'error' : '' }}"  type="number"  id="approved_provision" name="approved_provision" autofocus placeholder="Subhead Amount"/>
+              {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}
+              <!-- Error -->
+               @if ($errors->has('approved_provision'))
+              <div class="error">
+                {{ $errors->first('approved_provision') }}
+              </div>
+            @endif
+            </div>
 
 
             <div class="mb-3 col-md-6">

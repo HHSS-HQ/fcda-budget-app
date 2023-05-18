@@ -218,3 +218,6 @@ Route::get('/add-contractor', [ContractorController::class, 'addContractor']);
 Route::get('/contractors', [ContractorController::class, 'showContractors']);
 Route::get('/add-contractor', [ContractorController::class, 'showContractorForm']);
 Route::post('/add-contractor', [ContractorController::class, 'addContractor'])->name('contractor.store');
+
+Route::get('/percentage-budget-utilization', [ECFController::class, 'percentageUtilization']);
+Route::get('/summary-budget-utilization', [ECFController::class, 'budgetGraph']);

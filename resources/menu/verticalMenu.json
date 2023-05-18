@@ -7,19 +7,19 @@
       "slug": "dashboard-analytics"
     },
     {
-      "name": "Heads",
-      "icon": "menu-icon tf-icons bx bx-layout",
-      "slug": "layouts",
+      "name": "Departments",
+      "icon": "menu-icon tf-icons bx bx-git-branch",
+      "slug": "departments",
       "submenu": [
         {
-          "url": "#",
-          "name": "Show Heads",
-          "slug": "layouts-without-menu"
+          "url": "/departments",
+          "name": "View Departments",
+          "slug": "view-departments"
         },
         {
-          "url": "#",
-          "name": "Add Heads",
-          "slug": "layouts-without-navbar"
+          "url": "/add-department",
+          "name": "Add Department",
+          "slug": "add-department"
         }
 
       ]
@@ -72,24 +72,7 @@
 
         ]
       },
-      {
-        "name": "Departments",
-        "icon": "menu-icon tf-icons bx bx-git-branch",
-        "slug": "departments",
-        "submenu": [
-          {
-            "url": "/departments",
-            "name": "View Departments",
-            "slug": "view-departments"
-          },
-          {
-            "url": "/add-department",
-            "name": "Add Department",
-            "slug": "add-department"
-          }
 
-        ]
-      },
 
       {
         "name": "Units",
@@ -223,7 +206,31 @@
             "url": "/accounting-year",
             "name": "Accounting Year",
             "slug": "accounting-year"
+          },
+          {
+            "url": "/logs",
+            "name": "Accounting Year",
+            "slug": "accounting-year"
           }
+        ]
+      },
+
+      {
+        "name": "Logs",
+        "icon": "menu-icon tf-icons bx bx-book",
+        "slug": "logs",
+        "submenu": [
+          {
+            "url": "/#",
+            "name": "Budget Revisions",
+            "slug": "budget-revisions"
+          },
+          {
+            "url": "/#",
+            "name": "User Reviews",
+            "slug": "user-reviews"
+          }
+
         ]
       }
       ]

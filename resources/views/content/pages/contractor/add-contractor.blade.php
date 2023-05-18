@@ -21,8 +21,25 @@
     {{ @session('success') }}
   </div>
 </div>
-
 @endif
+
+
+@if(session('error'))
+<div style="  position: -webkit-sticky; position: sticky; top: 0; float: right;"
+  class="bs-toast toast fade show bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
+  {{-- <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"> --}}
+  <div class="toast-header">
+    <i class='bx bx-bell me-2'></i>
+    <div class="me-auto fw-semibold">Error</div>
+    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+  </div>
+  <div class="toast-body">
+    {{ @session('error') }}
+  </div>
+</div>
+@endif
+
+
 @section('content')
 @livewireScripts
 <a href="/contractors"><button type="button" class="btn btn-primary" style="float: right">←Back To Contractors</button></a>
@@ -39,27 +56,47 @@
 
       <hr class="my-0">
       <div class="card-body">
-        <form id="formAccountSettings" action="" action="{{ route('payee.store') }}" method="POST">
+        <form id="formAccountSettings" action="" action="{{ route('contractor.store') }}" method="POST">
           @csrf
 
           <div class="row">
 
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Payee Name</label>
-              <input class="form-control {{ $errors->has('payee_name') ? 'error' : '' }}" type="text" id="payee_name" name="payee_name"  autofocus placeholder="Payee Name" />
-            @if ($errors->has('payee_name'))
+              <label for="nameBasic" class="form-label">Company Name</label>
+              <input class="form-control {{ $errors->has('company_name') ? 'error' : '' }}" type="text" id="company_name" name="company_name"  autofocus placeholder="Company Name" />
+            @if ($errors->has('company_name'))
             <div class="error">
-              {{ $errors->first('payee_name') }}
+              {{ $errors->first('company_name') }}
             </div>
             @endif
             </div>
 
             <div class="mb-3 col-md-6">
-              <label for="payee_account_number" class="form-label">Account Number</label>
-              <input class="form-control {{ $errors->has('payee_account_number') ? 'error' : '' }}" type="text" id="payee_account_number" name="payee_account_number" placeholder="Payee Account Number" />
-              @if ($errors->has('payee_account_number'))
+              <label for="contractor_name" class="form-label">Contractor Name</label>
+              <input class="form-control {{ $errors->has('contractor_name') ? 'error' : '' }}" type="text" id="contractor_name" name="contractor_name" placeholder="Contractor Name" />
+              @if ($errors->has('contractor_name'))
               <div class="error">
-                {{ $errors->first('payee_account_number') }}
+                {{ $errors->first('contractor_name') }}
+              </div>
+              @endif
+            </div>
+
+            <div class="mb-3 col-md-6">
+              <label for="code" class="form-label">Contractor Account Number </label>
+              <input class="form-control {{ $errors->has('contractor_account_number') ? 'error' : '' }}" type="text" id="contractor_account_number" name="contractor_account_number" placeholder="Contractor Account Number" />
+              @if ($errors->has('contractor_account_number'))
+              <div class="error">
+                {{ $errors->first('contractor_account_number') }}
+              </div>
+              @endif
+            </div>
+
+            <div class="mb-3 col-md-6">
+              <label for="code" class="form-label">Contractor Account Name </label>
+              <input class="form-control {{ $errors->has('contractor_account_name') ? 'error' : '' }}" type="text" id="contractor_account_name" name="contractor_account_name" placeholder="Contractor Account Name" />
+              @if ($errors->has('contractor_account_name'))
+              <div class="error">
+                {{ $errors->first('contractor_account_name') }}
               </div>
               @endif
             </div>
@@ -116,10 +153,10 @@
 
             <div class="mb-3 col-md-6">
               <label for="code" class="form-label">Primary Phone Number</label>
-              <input class="form-control {{ $errors->has('payee_phone_number') ? 'error' : '' }}" type="text" id="payee_phone_number" name="payee_phone_number" placeholder="Payee Phone Number" />
-              @if ($errors->has('payee_phone_number'))
+              <input class="form-control {{ $errors->has('contractor_phone_number') ? 'error' : '' }}" type="text" id="contractor_phone_number" name="contractor_phone_number" placeholder="Primary Phone Number" />
+              @if ($errors->has('contractor_phone_number'))
               <div class="error">
-                {{ $errors->first('payee_phone_number') }}
+                {{ $errors->first('contractor_phone_number') }}
               </div>
               @endif
             </div>
@@ -127,10 +164,10 @@
 
             <div class="mb-3 col-md-6">
               <label for="code" class="form-label">Alternate Phone Number</label>
-              <input class="form-control {{ $errors->has('payee_phone_number') ? 'error' : '' }}" type="text" id="payee_phone_number" name="alternate_phone_number" placeholder="Payee Alternate Phone Number" />
-              @if ($errors->has('payee_phone_number'))
+              <input class="form-control {{ $errors->has('alternate_phone_number') ? 'error' : '' }}" type="text" id="alternate_phone_number" name="alternate_phone_number" placeholder="Alternate Phone Number" />
+              @if ($errors->has('alternate_phone_number'))
               <div class="error">
-                {{ $errors->first('payee_phone_number') }}
+                {{ $errors->first('alternate_phone_number') }}
               </div>
               @endif
             </div>

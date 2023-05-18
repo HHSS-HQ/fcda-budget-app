@@ -22,6 +22,7 @@ return new class extends Migration
         $table->string('contractor_account_name')->nullable();
         $table->string('contractor_bank')->nullable();
         $table->string('contractor_phone_number')->nullable();
+        $table->string('alternate_phone_number')->nullable();
         $table->string('added_by')->references('id')->on('users')->nullable();
         $table->timestamps();
         $table->softDeletes();

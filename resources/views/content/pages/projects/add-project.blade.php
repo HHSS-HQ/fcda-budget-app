@@ -111,7 +111,7 @@
               @empty
               @endforelse
             </select>
-            <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addContractor" style="color:green">+ Add Contractor</a>
+            {{-- <a href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addContractor" style="color:green">+ Add Contractor</a> --}}
           </div>
         </div>
 

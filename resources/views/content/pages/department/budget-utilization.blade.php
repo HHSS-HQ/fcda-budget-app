@@ -51,7 +51,7 @@
             <td>{{$data->department->dept_name}}</td>
             <td>{{$data->subhead->subhead_name}}</td>
             <td>&#8358;{{$data->present_requisition}}</td>
-            <td>{{$data->payee->payee_name}}</td>
+            <td>{{$data->payee->payee_name ?? null}}</td>
             @if ($data->status == "PENDING APPROVAL")
             <td style="color:red;">{{$data->status}}</td>
             @else

@@ -19,11 +19,13 @@
   <h5 class="card-header">All ECFs</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-
+      @php
+      $i="1";
+    @endphp
       <table class="table table-bordered">
         <thead>
           <tr>
-            <th>ECF ID</th>
+            <th>SN</th>
             <th>Expenditure Item</th>
             <th>Department Name</th>
             <th>Subhead Name</th>
@@ -36,22 +38,22 @@
         <tbody>
           @forelse($ecfs as $data)
           <tr>
-            <td>{{$data->id}}</td>
-            <td>{{$data->expenditure_item}}</td>
-            <td>{{$data->department->dept_name}}</td>
-            <td>{{$data->subhead->subhead_name}}</td>
-            <td>&#8358;{{$data->present_requisition}}</td>
-            <td>{{$data->payee->payee_name}}</td>
+            <td>@php echo $i++ @endphp</td>
+            <td>{{$data->expenditure_item ?? null}}</td>
+            <td>{{$data->department->dept_name ?? null}}</td>
+            <td>[{{$data->subhead->subhead_code ?? null}}] {{$data->subhead->subhead_name ?? null}}</td>
+            <td>&#8358;{{$data->present_requisition ?? null}}</td>
+            <td>{{$data->payee->payee_name ?? null}}</td>
             @if ($data->status == "PENDING APPROVAL")
-            <td style="color:red;">{{$data->status}}</td>
+            <td style="color:red;">{{$data->status ?? null}}</td>
             @else
-            <td style="color:green;">{{$data->status}}</td>
+            <td style="color:green;">{{$data->status ?? null}}</td>
             @endif
             @if ($data->status == "PENDING APPROVAL")
             <td>
               <form action="/change-ecf-status" method="POST">
                 @csrf
-                <input type="hidden" name="id" value="{{ $data->id }}">
+                <input type="hidden" name="id" value="{{ $data->id ?? null}}">
                 <button type="submit" class="btn btn-outline-secondary" data-bs-dismiss="modal">APPROVE</button>
               </form>
             </td>

@@ -18,7 +18,7 @@ use App\Http\Controllers\UnitController;
 use App\Http\Controllers\ContractorController;
 
 use App\Http\Controllers\ProjectTypeController;
-// use App\Http\Controllers\Pages\Projects;
+use App\Http\Controllers\ECFController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -84,3 +84,6 @@ Route::any('/update-project-type/{id}', [ProjectTypeController::class, 'updatePr
 Route::post('contractor', [ContractorController::class, 'addContractorModal'])->name('add-contractor');
 Route::get('contractor', [ContractorController::class, 'getContractors']);
 Route::post('project', [Projects::class, 'ProjectForm']);
+
+
+Route::get('/budget-utilization', [ECFController::class, 'percentageUtilization']);

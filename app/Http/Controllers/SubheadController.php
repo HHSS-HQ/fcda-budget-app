@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Subhead;
 use Illuminate\Http\Request;
 use DB;
-
+use Illuminate\Database\QueryException;
 class SubheadController extends Controller
 {
     public function show()
@@ -26,18 +26,24 @@ class SubheadController extends Controller
         'subhead_name' => 'required|string',
         'remarks' => 'required|string',
         'department_id' => 'required|string',
+        'approved_provision' => 'required|string'
       ]);
 
-      $subhead = new Subhead();
-
-      $subhead->subhead_code = $request->subhead_code;
-      $subhead->subhead_name = $request->subhead_name;
-      $subhead->remarks = $request->remarks;
-      $subhead->department_id = $request->department_id;
-      $subhead->created_by = auth()->id();
-      $subhead->save();
 
 
+      try {
+        $subhead = new Subhead();
+
+        $subhead->subhead_code = $request->subhead_code;
+        $subhead->subhead_name = $request->subhead_name;
+        $subhead->remarks = $request->remarks;
+        $subhead->department_id = $request->department_id;
+        $subhead->approved_provision = $request->approved_provision;
+        $subhead->created_by = auth()->id();
+        $subhead->save();
+      } catch (QueryException $exception) {
+        return redirect()->back()->with('error', 'An error occurred while saving the subhead.');
+    }
 
       return redirect('/subheads')->with('success', "Subhead added successfully.");
     }
@@ -52,8 +58,9 @@ class SubheadController extends Controller
       {
 
           $subheads = DB::table('subhead')
-          ->select('subhead.*')
-            //   ->leftjoin('department', 'department.id', '=', 'unit.department_id')
+          ->select('subhead.*', 'department.department_name', 'users.name')
+              ->leftjoin('department', 'department.id', '=', 'subhead.department_id')
+              ->leftjoin('users', 'users.id', '=', 'subhead.created_by')
               ->get();
           return view('content.pages.subhead.subheads', compact('subheads') );
 

@@ -136,7 +136,7 @@
     <div class="card">
       <div class="row row-bordered g-0">
         <div class="col-md-8">
-          <h5 class="card-header m-0 me-2 pb-3">Budget utilization/Expenditures</h5>
+          <h5 class="card-header m-0 me-2 pb-3">Budget Utilization/Expenditures</h5>
           <div id="totalRevenueChart" class="px-2"></div>
         </div>
         <div class="col-md-4">
@@ -147,11 +147,11 @@
                   2023
                 </button> --}}
                 <h4 class="card-header m-0 me-2 pb-3">Summary Utilization</h4>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
+                {{-- <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
                   <a class="dropdown-item" href="javascript:void(0);">2023</a>
                   <a class="dropdown-item" href="javascript:void(0);">2022</a>
-                  {{-- <a class="dropdown-item" href="javascript:void(0);">2019</a> --}}
-                </div>
+                  <a class="dropdown-item" href="javascript:void(0);">2019</a>
+                </div> --}}
               </div>
             </div>
           </div>
@@ -168,10 +168,10 @@
                 {{-- <h6 class="mb-0">&#8358;32.5k</h6> --}}
                 <h6>
                   @php
-                  $percentage_utilization = ($utilization / $current_budget_figure) * 100;
+                  $percentage_utilization = ($utilization ?? null / $current_budget_figure ?? null) * 100;
                   @endphp
-                  &#8358;{{number_format(($utilization),2)}}<br />
-                  {{number_format(($percentage_utilization),4)}}%
+                  &#8358;{{number_format(($utilization ?? null),2)}}<br />
+                  {{-- {{number_format(($percentage_utilization ?? null),4)}}% --}}
 
                 </h6>
               </div>
@@ -442,43 +442,21 @@
         </div> --}}
       </div>
       <div class="card-body">
-        <ul class="p-0 m-0">
-          <li class="d-flex mb-4 pb-1">
-            {{-- <div class="avatar flex-shrink-0 me-3">
-              <img src="{{asset('assets/img/icons/unicons/paypal.png')}}" alt="User" class="rounded">
-      </div> --}}
-      <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
-        <div class="me-2">
-          {{-- <small class="text-muted d-block mb-1">Finance Dept</small> --}}
-          @php
-          $latest_ecfs = App\Models\ECF::latest()->take(10)->get();
+          @php $latest_ecfs = App\Models\ECF::latest()->take(10)->get(); @endphp
 
-          // $all_latest =
-          @endphp
-          @foreach ($latest_ecfs as $data)
-          <table>
-            <tr>
-              <td>
-                <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}" target="_blank">@php $i="1"; echo $i++;
-                    @endphp.</a></h6>
-              </td>
-              <td>
-                <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}" target="_blank">{{$data->expenditure_item}}</a>
-                </h6>
-              </td>
-              {{-- <td><h6 class="mb-0">{{number_format(($data->present_requisition),2)}}</h6>
-              </td> --}}
-            </tr>
+          @php $i="1"; @endphp
+
+          <table  width="100%">
+            @foreach ($latest_ecfs as $data)
+              <tr>
+                <td><a href="/print-ecf?id={{$data->id}}" target="_blank">{{ $i++ }}.</a></td>
+                <td><a href="/print-ecf?id={{$data->id}}" target="_blank">{{$data->expenditure_item}}</a></td>
+                <td><a href="/print-ecf?id={{$data->id}}" target="_blank">&#8358;{{number_format(($data->present_requisition),2)}}</a></td>
+              </tr>
+            @endforeach
           </table>
 
-        </div>
-        <div class="user-progress d-flex align-items-center gap-1">
-          <h6 class="mb-0"><a href="/print-ecf?id={{$data->id}}"
-              target="_blank">&#8358;{{number_format(($data->present_requisition),2)}}</a></h6>
-        </div>
-        @endforeach
-      </div>
-      </li>
+
       {{-- <li class="d-flex mb-4 pb-1">
             <div class="avatar flex-shrink-0 me-3">
               <img src="{{asset('assets/img/icons/unicons/wallet.png')}}" alt="User" class="rounded">

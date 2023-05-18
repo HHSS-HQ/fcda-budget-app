@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use App\Models\Contractor;
 use DB;
+use Illuminate\Database\QueryException;
 
 class ContractorController extends Controller
 {
@@ -18,12 +19,32 @@ class ContractorController extends Controller
       $contractor->contractor_account_name = $request->contractor_account_name;
       $contractor->contractor_bank = $request->contractor_bank;
       $contractor->contractor_phone_number = $request->contractor_phone_number;
-      // $contractor->added_by = auth()->id();
+      $contractor->contractor_phone_number = $request->alternate_phone_number;
+      $contractor->added_by = auth()->id();
       $contractor->save();
       // return view('content.pages.projects.add-project', compact('contractor'));
       // return $contractor;
       // $latestContractor = Contractor::latest()->first();
       // return view('content.pages.projects.add-project', compact('latestContractor'));
+    }
+
+    public function addContractor(Request $request){
+  try {
+        $contractor = new Contractor();
+        $contractor->company_name = $request->company_name;
+        $contractor->contractor_name = $request->contractor_name;
+        $contractor->contractor_account_number = $request->contractor_account_number;
+        $contractor->contractor_account_name = $request->contractor_account_name;
+        $contractor->contractor_bank = $request->contractor_bank;
+        $contractor->contractor_phone_number = $request->contractor_phone_number;
+        $contractor->contractor_phone_number = $request->alternate_phone_number;
+        $contractor->added_by = auth()->id();
+        $contractor->save();
+      } catch (QueryException $exception) {
+        return redirect()->back()->with('error', 'This contractor already exists.');
+    }
+
+      return redirect()->back()->with('success', 'Contractor added successfully.');
     }
 
 
