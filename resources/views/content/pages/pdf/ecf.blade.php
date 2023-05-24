@@ -8,7 +8,7 @@
 </head>
 <body>
   {{-- <img src="{{asset('assets/img/FCT-logo.png')}}" /> --}}
-  <center><img src="FCT-logo.png" style="width:17%;" /></center>
+  <center><img src="https://budget.littlefingers.ng/FCT-logo.png" style="width:17%;" /></center>
   <p style="text-align: center; font-size:26px; font-weight:bolder; margin-top:0em; margin-bottom:0em;">FEDERAL CAPITAL TERRITORY ADMINISTRATION</p>
   <p style="text-align: center; font-size:20px; margin-top:0em; margin-bottom:0em;">PHARMACY DEPARTMENT</p>
   <p style="text-align: center; font-size:22px; margin-top:0em; margin-bottom:0em;"><u>RECURRENT EXPENDITURE CONTROL FORM</u></p>
