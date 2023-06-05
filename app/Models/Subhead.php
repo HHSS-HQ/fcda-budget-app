@@ -9,5 +9,5 @@ class Subhead extends Model
 {
     use HasFactory;
     protected $table = 'subhead';
-    public $fillable = ['id', 'subhead_code', 'approved_provision', 'subhead_name', 'department_id', 'status', 'remarks', 'created_by'];
+    public $fillable = ['id', 'head_id', 'subhead_code', 'approved_provision', 'subhead_name', 'department_id', 'status', 'remarks', 'created_by'];
 }

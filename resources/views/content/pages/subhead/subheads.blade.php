@@ -21,12 +21,12 @@
           <tr>
             <th>SN</th>
             <th>Department</th>
+            <th>Head </th>
             <th>Subhead Code</th>
             <th>Subhead Name</th>
             <th>Appropriation </th>
-            {{-- <th>Status </th> --}}
             <th>Created By </th>
-            <th>Created At </th>
+            {{-- <th>Created At </th> --}}
 
             <th>Actions</th>
           </tr>
@@ -39,12 +39,12 @@
           <tr>
             <td>@php echo $i++; @endphp</td>
             <td>{{$data->department_name}}</td>
+            <td>{{$data->head_code ?? null}} - {{$data->head_name ?? null}}</td>
             <td>{{$data->subhead_code}}</td>
             <td>{{$data->subhead_name}}</td>
-            <td>N{{number_format($data->approved_provision ?? '0')}}</td>
+            <td>N{{number_format(($data->approved_provision ?? '0'),2)}}</td>
             <td>{{$data->name ?? null}}</td>
-            <td>{{$data->created_at ?? null}}</td>
-            {{-- <td>{{$data->entered_by ?? null}}</td> --}}
+            {{-- <td>{{$data->created_at ?? null}}</td> --}}
             {{-- <td>&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td> --}}
 
             <td>

@@ -95,10 +95,10 @@
         <td>{{$percentage_payment_made ?? 0}}%</td>
       </tr>
 
-      <tr>
+      {{-- <tr>
         <td style="width:25%">Percentage Complete: </td>
         <td>{{$percentage_complete ?? 0}}%</td>
-      </tr>
+      </tr> --}}
 
     <tr>
       <td style="width:25%">Amount Paid Till Date: </td>
@@ -115,18 +115,18 @@
       <td>{{$certified_cv_not_paid ?? null}}</td>
     </tr>
 
-    <tr>
+    {{-- <tr>
       <td style="width:25%">Year Last Funded: </td>
       <td>{{$item->certified_cv_not_paid ?? null}}</td>
     </tr>
     @php
     $date = \Carbon\Carbon::parse($item->last_funded_date, 'UTC')->setTimezone('Africa/Lagos');
     $last_funded_date = $date->isoFormat('Do MMMM, YYYY');
-  @endphp
-    <tr>
+  @endphp --}}
+    {{-- <tr>
       <td style="width:25%">Last Funded Date: </td>
       <td>{{$last_funded_date ?? null}}</td>
-    </tr>
+    </tr> --}}
 
 </table>
 <br/>
@@ -162,16 +162,16 @@
 
 {{-- Project Report --}}
 <br/>
-<p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT REPORT</u></p>
+<p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT MONITORING REPORT</u></p>
 <table width="100%" border="1px" style="border-collapse:collapse">
   @php
-    $project_report = App\Models\ProjectReport::select('project_report.*')
-    // ->join('project', 'project.id', '=', 'project_funding.project_id')
+    $project_report = App\Models\ProjectReport::select('project_report.*', 'project.project_title')
+    ->join('project', 'project.id', '=', 'project_report.project_id')
     // ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
     // ->join('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
     ->where('project_report.project_id', '=', $project_id)->get();
   @endphp
-  <th>Date</th>
+  <th>Visit Date</th>
   <th>Project Title</th>
   <th>Observations</th>
   <th>Challenges</th>
@@ -185,7 +185,7 @@
 
     <tr>
       <td>{{ $formatted_date}}</td>
-      <td>{{$report_list->project_id}}</td>
+      <td>{{$report_list->project_title}}</td>
       <td>{{$report_list->observations}}</td>
       <td>{{$report_list->challenges}}</td>
       <td>{{$report_list->recommendations}}</td>

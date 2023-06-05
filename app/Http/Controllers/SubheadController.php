@@ -33,7 +33,7 @@ class SubheadController extends Controller
 
       try {
         $subhead = new Subhead();
-
+        $subhead->head_id = $request->head_id;
         $subhead->subhead_code = $request->subhead_code;
         $subhead->subhead_name = $request->subhead_name;
         $subhead->remarks = $request->remarks;
@@ -58,9 +58,10 @@ class SubheadController extends Controller
       {
 
           $subheads = DB::table('subhead')
-          ->select('subhead.*', 'department.department_name', 'users.name')
+          ->select('subhead.*', 'department.department_name', 'users.name', 'head.*')
               ->leftjoin('department', 'department.id', '=', 'subhead.department_id')
               ->leftjoin('users', 'users.id', '=', 'subhead.created_by')
+              ->leftjoin('head', 'head.id', '=', 'subhead.head_id')
               ->get();
           return view('content.pages.subhead.subheads', compact('subheads') );
 

@@ -35,7 +35,7 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/units"><button type="button" class="btn btn-primary" style="float: right">←Back To Units</button></a>
+<a href="/projects"><button type="button" class="btn btn-primary" style="float: right">←Back To Projects</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Projects /</span> Fund Project
@@ -73,7 +73,7 @@
 
 
             <div class="mb-3 col-md-6">
-              <label for="amount" class="form-label">Amount To Fund</label>
+              <label for="amount" class="form-label">Amount Released</label>
               <input class="form-control {{ $errors->has('amount') ? 'error' : '' }}" type="text"
                 id="amount" name="amount" autofocus placeholder="Amount To Fund"
                 oninput="this.value = formatNumber(this.value);" onchange="this.value = stripCommas(this.value);">

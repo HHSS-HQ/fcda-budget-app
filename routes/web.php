@@ -11,7 +11,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DepartmentController;
-use App\Http\Controllers\UnitController;
+use App\Http\Controllers\HeadController;
 use App\Http\Controllers\BudgetController;
 use App\Http\Controllers\SubheadController;
 use App\Http\Controllers\ProjectTypeController;
@@ -158,11 +158,15 @@ Route::get('/add-department', [DepartmentController::class, 'show'])->name('depa
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
 Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');
 Route::any('/update-department/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
+Route::post('/add-department-budget', [DepartmentController::class, 'budget_store'])->name('department_budget.store');
+Route::any('/update-department-budget/{id}', [DepartmentController::class, 'budget_update'])->name('department_budget.update');
 
-Route::get('/add-unit', [UnitController::class, 'show'])->name('unit.show');
-Route::post('/add-unit', [UnitController::class, 'store'])->name('unit.store');
-Route::get('/units', [UnitController::class, 'AllUnits'])->name('units.show');
-Route::any('/update-unit/{id}', [UnitController::class, 'updateUnit'])->name('unit.update');
+
+
+Route::get('/add-head', [HeadController::class, 'show'])->name('head.show');
+Route::post('/add-head', [HeadController::class, 'store'])->name('head.store');
+Route::get('/heads', [HeadController::class, 'AllHeads'])->name('heads.show');
+Route::any('/update-head/{id}', [HeadController::class, 'updateHeads'])->name('head.update');
 
 
 Route::get('/add-budget', [BudgetController::class, 'show'])->name('budget.show');
@@ -186,6 +190,10 @@ Route::get('/add-ecf', [ECFController::class, 'index'])->name('ecf.show');
 Route::post('fetch-subhead', [ECFController::class, 'fetchSubhead']);
 Route::post('fetch-approved-provision', [ECFController::class, 'fetchApprovedProvision']);
 Route::post('fetch-revised-provision', [ECFController::class, 'fetchRevisedProvision']);
+Route::post('fetch-department-budget', [ECFController::class, 'fetchDepartmentBudget']);
+Route::post('fetch-department-budget-id', [ECFController::class, 'fetchDepartmentBudgetID']);
+
+
 
 Route::post('/add-ecf', [ECFController::class, 'store'])->name('ecf.store');
 Route::get('/ecfs', [ECFController::class, 'AllECF'])->name('ecfs.show');
@@ -221,3 +229,10 @@ Route::post('/add-contractor', [ContractorController::class, 'addContractor'])->
 
 Route::get('/percentage-budget-utilization', [ECFController::class, 'percentageUtilization']);
 Route::get('/summary-budget-utilization', [ECFController::class, 'budgetGraph']);
+
+
+// Route::get('/departments/export/excel', 'DepartmentController@exportExcel')->name('departments.export.excel');
+// Route::get('/departments/export/pdf', 'DepartmentController@exportPDF')->name('departments.export.pdf');
+
+Route::get('/departments/export/excel', [DepartmentController::class, 'exportExcel'])->name('departments.export.excel');
+Route::get('/departments/export/pdf', [DepartmentController::class, 'exportPDF'])->name('departments.export.pdf');

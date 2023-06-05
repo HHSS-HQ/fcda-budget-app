@@ -26,6 +26,25 @@
     },
 
     {
+      "name": "Head",
+      "icon": "menu-icon tf-icons bx bx-box",
+      "slug": "head",
+      "submenu": [
+        {
+          "url": "/heads",
+          "name": "View Heads",
+          "slug": "heads"
+        },
+        {
+          "url": "/add-head",
+          "name": "Add Head",
+          "slug": "add-heads"
+        }
+
+      ]
+    },
+
+    {
       "name": "SubHeads",
       "icon": "menu-icon tf-icons bx bx-outline",
       "slug": "subheads",
@@ -74,24 +93,7 @@
       },
 
 
-      {
-        "name": "Units",
-        "icon": "menu-icon tf-icons bx bx-git-branch",
-        "slug": "unit",
-        "submenu": [
-          {
-            "url": "/units",
-            "name": "View Units",
-            "slug": "units"
-          },
-          {
-            "url": "/add-unit",
-            "name": "Add Unit",
-            "slug": "add-units"
-          }
 
-        ]
-      },
 
       {
         "name": "Annual Budget",

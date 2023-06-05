@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('code')->nullable();
             $table->string('remarks')->nullable();
             $table->double('appropriated_amount')->nullable();
+            $table->double('budget_utlization')->nullable();
             $table->string('status')->default('INACTIVE');
             $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();

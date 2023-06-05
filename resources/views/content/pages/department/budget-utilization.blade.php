@@ -35,9 +35,10 @@
         <thead>
           <tr>
             <th>ECF ID</th>
-            <th>Expenditure Item</th>
             <th>Department Name</th>
+            <th>Head </th>
             <th>Subhead Name</th>
+            <th>Description</th>
             <th>Present Requisition</th>
             <th>Payee </th>
             <th>Status </th>
@@ -48,10 +49,11 @@
           @forelse($budget_utilization as $data)
           <tr>
             <td>{{$i++}}</td>
-            <td>{{$data->expenditure_item}}</td>
-            <td>{{$data->department->dept_name}}</td>
-            <td>{{$data->subhead->subhead_name}}</td>
-            <td>&#8358;{{$data->present_requisition}}</td>
+            <td>{{$data->department->dept_name ?? null}}</td>
+            <td>{{$data->department->department_code ?? null}}-{{$data->subhead->id ?? null}}</td>
+            <td>{{$data->subhead->subhead_name ?? null}}</td>
+            <td>{{$data->expenditure_item ?? null}}</td>
+            <td>&#8358;N{{number_format(($data->present_requisition ?? null),2)}}</td>
             <td>{{$data->payee->payee_name ?? null}}</td>
             @if ($data->status == "PENDING APPROVAL")
             <td style="color:red;">{{$data->status}}</td>
@@ -92,7 +94,7 @@
                       <div class="col mb-3">
                         <label for="nameBasic" class="form-label">Department</label>
                         <input type="text" name="department_id" id="nameBasic" class="form-control"
-                          value="{{$data->department->dept_name}}">
+                          value="{{$data->department->dept_name ?? null}}">
                       </div>
                     </div>
 
@@ -107,7 +109,7 @@
           </form>
           @empty
           <tr>
-            <td colspan="5" style="color:red">Oops! No ECF created yet</td>
+            <td colspan="5" style="color:red">Oops! No Budget utilization has been recorded for this department yet</td>
           </tr>
 
           @endforelse

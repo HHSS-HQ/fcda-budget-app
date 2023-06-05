@@ -99,6 +99,18 @@
             </div>
 
             <div class="mb-3 col-md-6">
+              <label for="subhead_code" class="form-label">Head</label>
+         <select id="id" class="select2 form-select" name="head_id">
+                <option value="">Select</option>
+                {{$departments =  App\Models\Head::select('head_name', 'id')->get();}}
+                @forelse($departments as $item)
+                <option value="{{$item->id}}">{{$item->head_name}}</option>
+                @empty
+                @endforelse
+              </select>
+            </div>
+
+            <div class="mb-3 col-md-6">
               <label for="subhead_code" class="form-label">Subhead Code</label>
               <input class="form-control {{ $errors->has('subhead_code') ? 'error' : '' }}"  type="text"  id="subhead_code" name="subhead_code" autofocus placeholder="Subhead Code"/>
               {{-- <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span> --}}

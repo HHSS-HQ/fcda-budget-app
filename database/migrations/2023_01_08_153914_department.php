@@ -16,22 +16,21 @@ return new class extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->id();
             $table->string('department_name')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->string('department_code')->nullable();
             $table->string('remarks')->nullable();
+            $table->unsignedBigInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(["created_by"], 'fk_entered_by_id_1_idx');
-
-            $table->foreign('created_by', 'fk_entered_by_id_1_idx')
-            ->references('id')->on('users')
-            ->onDelete('no action')
-            ->onUpdate('no action');
-
-                  });
+            $table->foreign('created_by')
+                ->references('id')->on('users')
+                ->onDelete('no action')
+                ->onUpdate('no action');
+        });
     }
+
 
     /**
      * Reverse the migrations.

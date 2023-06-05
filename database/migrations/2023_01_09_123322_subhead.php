@@ -17,11 +17,12 @@ return new class extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->increments('id');
+            $table->unsignedInteger('head_id');
             $table->string('subhead_code')->nullable();
             $table->unique(['subhead_code', 'department_id']);
             $table->string('subhead_name')->nullable();
 
-            $table->unsignedInteger('department_id');
+            $table->unsignedBigInteger('department_id');
 
 
             $table->string('approved_provision')->nullable();
@@ -33,20 +34,23 @@ return new class extends Migration
             $table->softDeletes();
 
 
-            $table->index(["created_by"], 'fk_entered_by_id_4_idx');
-
+                $table->index(["created_by"], 'fk_entered_by_id_4_idx');
                 $table->foreign('created_by', 'fk_entered_by_id_4_idx')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
                 $table->index(["department_id"], 'fk_department_id_4_idx');
-
                 $table->foreign('department_id', 'fk_department_id_4_idx')
                 ->references('id')->on('department')
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
+                $table->index(["head_id"], 'fk_head_idx');
+                $table->foreign('head_id', 'fk_head_idx')
+                ->references('id')->on('head')
+                ->onDelete('no action')
+                ->onUpdate('no action');
             });
     }
 

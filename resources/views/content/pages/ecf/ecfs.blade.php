@@ -26,9 +26,10 @@
         <thead>
           <tr>
             <th>SN</th>
-            <th>Expenditure Item</th>
             <th>Department Name</th>
+            <th>Head</th>
             <th>Subhead Name</th>
+            <th>Expenditure Item <br/>(Description)</th>
             <th>Present Requisition</th>
             <th>Payee </th>
             <th>Status </th>
@@ -39,10 +40,11 @@
           @forelse($ecfs as $data)
           <tr>
             <td>@php echo $i++ @endphp</td>
-            <td>{{$data->expenditure_item ?? null}}</td>
             <td>{{$data->department->dept_name ?? null}}</td>
+            <td>[{{$data->head->head_code ?? null}}] {{$data->head->head_name ?? null}}</td>
             <td>[{{$data->subhead->subhead_code ?? null}}] {{$data->subhead->subhead_name ?? null}}</td>
-            <td>&#8358;{{$data->present_requisition ?? null}}</td>
+            <td>{{$data->expenditure_item ?? null}}</td>
+            <td>&#8358;{{number_format(($data->present_requisition ?? null),2)}}</td>
             <td>{{$data->payee->payee_name ?? null}}</td>
             @if ($data->status == "PENDING APPROVAL")
             <td style="color:red;">{{$data->status ?? null}}</td>
@@ -83,7 +85,7 @@
                       <div class="col mb-3">
                         <label for="nameBasic" class="form-label">Department</label>
                         <input type="text" name="department_id" id="nameBasic" class="form-control"
-                          value="{{$data->department->dept_name}}">
+                          value="{{$data->department->dept_name ?? null}}">
                       </div>
                     </div>
 

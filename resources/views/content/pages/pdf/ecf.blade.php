@@ -18,13 +18,23 @@
   $i="a";
 @endphp
   @foreach ($ecfs as $item)
+<?php
+  $department_budget = App\Models\DepartmentBudget::select('budgetary_allocation', 'budget_utilization')->first();
+
+  ?>
 <br/>
   {{-- <ul type="i"> --}}
     <table border="1" style="border-collapse: collapse; align:left;" width="100%">
       <tr>
         <td>@php echo $i++    @endphp</td>
+        <td>Department:</td>
+        <td>{{$item['department']['dept_name'] ?? null}}</td>
+      </tr>
+
+      <tr>
+        <td>@php echo $i++    @endphp</td>
         <td width="30%">Head and Subhead:</td>
-        <td width="65%">{{$item['department']['dept_name'] ??  null}}/{{$item['subhead']['subhead_name'] ?? null}}</td>
+        <td width="65%">{{$item['head']['head_name'] ??  null}}/{{$item['subhead']['subhead_name'] ?? null}}</td>
       </tr>
 
       <tr>
@@ -42,7 +52,7 @@
       <tr>
         <td>@php echo $i++    @endphp</td>
         <td>Approved Provision:</td>
-        <td>{{$item->approved_provision ?? null}}</td>
+        <td>N{{number_format(($department_budget->budgetary_allocation ?? null),2)}}</td>
       </tr>
 
       <tr>
@@ -59,8 +69,8 @@
 
       <tr>
         <td>@php echo $i++    @endphp</td>
-        <td>Current Balance:</td>
-        <td>N{{number_format(($item->revised_provision ?? null), 2)}}</td>
+        <td>Current Balance: </td>
+        <td>N{{number_format(($department_budget->budgetary_allocation-$department_budget->budget_utilization), 2)}}</td>
       </tr>
 
       <tr>
@@ -72,7 +82,7 @@
       <tr>
         <td>@php echo $i++    @endphp</td>
         <td>Balance Carried Forward:</td>
-        <td>{{$item->expenditure_item ?? null}}</td>
+        <td>N{{number_format(($department_budget->budgetary_allocation-$department_budget->budget_utilization), 2)}}</td>
       </tr>
     </table>
 

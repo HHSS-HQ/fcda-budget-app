@@ -13,6 +13,7 @@ use App\Models\Fundproject;
 use App\Models\Budget;
 use App\Http\Controllers\response;
 use Carbon\Carbon;
+use App\Models\DepartmentBudget;
 
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -55,11 +56,13 @@ class ECFController extends Controller
 
     $ecf->department_id = $request->department_id;
     $ecf->subhead_id = $request->subhead_id;
+    $ecf->head_id = $request->head_id;
     $ecf->expenditure_item = $request->expenditure_item;
     $ecf->payee_id = $request->payee_id;
     $ecf->approved_provision = $request->approved_provision;
     $ecf->revised_provision = $request->revised_provision;
     $ecf->present_requisition = $request->present_requisition;
+    $ecf->department_budget_id = $request->department_budget_id;
     $ecf->budget_id = $active_budget_id;
     $ecf->prepared_by = auth()->id();
 
@@ -79,7 +82,7 @@ class ECFController extends Controller
 
   public function fetchSubhead(Request $request)
   {
-      $data['subheads'] = Subhead::where("department_id", "$request->department_id")
+      $data['subheads'] = Subhead::where("department_id", "$request->department_id")->where('head_id', "$request->head_id")
                               ->get(["subhead_name", "subhead_code", "id"]);
 
       return response()->json($data);
@@ -102,6 +105,26 @@ class ECFController extends Controller
       return response()->json($data);
   }
 
+  public function fetchDepartmentBudget(Request $request)
+  {
+      $budgetaryAllocation = DepartmentBudget::where('department_id', $request->department_id)
+          ->pluck('budgetary_allocation')
+          ->first();
+
+      return response()->json($budgetaryAllocation);
+  }
+
+  public function fetchDepartmentBudgetID(Request $request)
+  {
+      $departmentBudgetId = DepartmentBudget::where('department_id', $request->department_id)
+          ->pluck('id')
+          ->first();
+
+      return response()->json($departmentBudgetId);
+  }
+
+
+
 
     public function AllECF( Request $request )
     {
@@ -110,6 +133,7 @@ class ECFController extends Controller
       ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
       ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name', 'subhead_code');}])
       ->with(['payee' => function ($query) {$query->select('id', 'payee_name as payee_name');}])
+      ->with(['head' => function ($query) {$query->select('id', 'head_name', 'head_code');}])
       ->get();
         // $ecfs = DB::select('select * from ecf')->get();
         return view('content.pages.ecf.ecfs', compact('ecfs') );
@@ -139,6 +163,7 @@ public function printECF(Request $request)
   ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
   ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
   ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
+  ->with(['head' => function ($query) {$query->select('id', 'head_name');}])
   ->with(['payee' => function ($query) {$query->select('id', 'payee_name');}])
   ->where('id', '=', $request->id)
   ->get();
@@ -151,9 +176,28 @@ public function printECF(Request $request)
 // UPDATE ECF
 
 public function changeECFStatus(Request $request){
-  $update = ECF::where('id', '=', $request->input('id'))
-  ->update(['status' => 'APPROVED', 'checked_by' => auth()->id()]);
-  return redirect()->back()->with('message', 'ECF updated successfully.');
+  // $update = ECF::where('id', '=', $request->input('id'))
+  // ->update(['status' => 'APPROVED', 'checked_by' => auth()->id()]);
+
+  $ecf_id = $request->input('id');
+  // $department_budget_id = $request->input('department_budget_id');
+  if (ECF::where('id', $ecf_id)->exists()) {
+    $update_ecf = ECF::find($ecf_id);
+    $update_ecf->status = "APPROVED";
+    $update_ecf->checked_by = auth()->id();
+
+    $present_requisition = $update_ecf->present_requisition;
+
+    $department_budget_id = $update_ecf->department_budget_id;
+    $update_budget = DepartmentBudget::find($department_budget_id);
+    // $department_budget = DepartmentBudget::find($department_budget_id);
+    $update_budget->budget_utilization = floatval($update_budget->budget_utilization) + floatval($present_requisition);
+
+    $update_ecf->save();
+    $update_budget->save();
+  }
+
+  return redirect()->back()->with('message', 'ECF status changed successfully.');
 
 }
 

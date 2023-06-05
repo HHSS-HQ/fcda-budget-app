@@ -10,7 +10,7 @@ class Department extends Model
     use HasFactory;
 
     protected $table = 'department';
-    public $fillable = ['id', 'department_name', 'department_code', 'created_by', 'remarks'];
+    public $fillable = ['id', 'department_name', 'department_code', 'created_by', 'remarks', 'department_code'];
 
     // public function department(): BelongsTo
     // {
