@@ -79,8 +79,8 @@
           "slug": "add-project"
           },
           {
-            "url": "/fund-project",
-            "name": "Fund Project",
+            "url": "/releases",
+            "name": "Releases",
             "slug": "fund-project"
           },
           {

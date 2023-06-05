@@ -107,6 +107,14 @@ class Projects extends Controller
     return view('content.pages.projects.projects', compact('comm') );
 }
 
+public function AllReleases( Request $request )
+{
+    $comm = DB::table('project_funding')
+    ->select('project_funding.*', 'project.*')
+    ->leftjoin('project', 'project.id', '=', 'project_funding.project_id')
+    ->get();
+    return view('content.pages.projects.releases', compact('comm') );
+}
 
 
 

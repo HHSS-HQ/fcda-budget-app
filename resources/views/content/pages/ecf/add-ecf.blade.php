@@ -130,6 +130,20 @@
               </div>
               @endif
             </div>
+
+
+            <div class="mb-3 col-md-6">
+              <label for="present_requisition" class="form-label">Capture Date</label>
+              <input class="form-control {{ $errors->has('uploaded_date') ? 'error' : '' }}" type="date"
+                id="uploaded_date" name="uploaded_date"  />
+              @if ($errors->has('uploaded_date'))
+              <div class="error">
+                {{ $errors->first('uploaded_date') }}
+              </div>
+              @endif
+            </div>
+
+
             <?php
             $expenditure_till_date = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as expenditure_till_date')->get();
             ?>

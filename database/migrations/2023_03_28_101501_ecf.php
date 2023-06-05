@@ -33,6 +33,8 @@ return new class extends Migration
         $table->unsignedBigInteger('checked_by')->nullable();
         $table->unsignedBigInteger('prepared_by')->nullable();
         $table->unsignedBigInteger('budget_id')->nullable();
+        $table->unsignedBigInteger('department_budget_id')->references('id')->on('department_budget')->nullable();
+        $table->dateTime('uploaded_date')->nullable();
         $table->timestamps();
         $table->softDeletes();
 

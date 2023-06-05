@@ -64,6 +64,7 @@ class ECFController extends Controller
     $ecf->present_requisition = $request->present_requisition;
     $ecf->department_budget_id = $request->department_budget_id;
     $ecf->budget_id = $active_budget_id;
+    $ecf->uploaded_date = $request->uploaded_date;
     $ecf->prepared_by = auth()->id();
 
     $ecf->save();
@@ -162,8 +163,8 @@ public function printECF(Request $request)
   ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
   ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
   ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
-  ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
-  ->with(['head' => function ($query) {$query->select('id', 'head_name');}])
+  ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name', 'subhead_code');}])
+  ->with(['head' => function ($query) {$query->select('id', 'head_name', 'head_code');}])
   ->with(['payee' => function ($query) {$query->select('id', 'payee_name');}])
   ->where('id', '=', $request->id)
   ->get();

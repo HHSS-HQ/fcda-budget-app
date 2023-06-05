@@ -113,6 +113,7 @@ Route::get('/form/layouts-horizontal', $controller_path . '\form_layouts\Horizon
 // tables
 Route::get('/tables/basic', $controller_path . '\tables\Basic@index')->name('tables-basic');
 Route::get('/projects', $controller_path . '\pages\Projects@AllProjects')->name('projects2');
+Route::get('/releases', $controller_path . '\pages\Projects@AllReleases')->name('releases');
 Route::get('/add-project', $controller_path . '\pages\Projects@AddProject')->name('projects');
 Route::post('/add-project', $controller_path . '\pages\Projects@ProjectForm')->name('project.store');
 Route::get('fund-project', [Projects::class, 'fundProjectForm']);

@@ -11,7 +11,7 @@ class ECF extends Model
 {
     use HasFactory;
     protected $table = 'ecf';
-    public $fillable = ['id', 'subhead_id', 'department_id', 'head_id', 'expenditure_item', 'payee_id', 'approved_provision', 'revised_provision', 'status', 'checked_by', 'prepared_by', 'budget_id', 'department_budget_id'];
+    public $fillable = ['id', 'uploaded_date', 'subhead_id', 'department_id', 'head_id', 'expenditure_item', 'payee_id', 'approved_provision', 'revised_provision', 'status', 'checked_by', 'prepared_by', 'budget_id', 'department_budget_id'];
 
 
     public function department(): HasOne

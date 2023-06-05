@@ -35,7 +35,7 @@
 @endif
 @section('content')
 @livewireScripts
-<a href="/projects"><button type="button" class="btn btn-primary" style="float: right">←Back To Projects</button></a>
+<a href="/releases"><button type="button" class="btn btn-primary" style="float: right">←Back To Projects</button></a>
 
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Projects /</span> Fund Project
@@ -45,7 +45,6 @@
   <div class="col-md-12">
 
     <div class="card mb-4">
-      {{-- <h5 class="card-header">Unit Capture Form</h5> --}}
 
       <hr class="my-0">
       <div class="card-body">

@@ -25,6 +25,16 @@
 <br/>
   {{-- <ul type="i"> --}}
     <table border="1" style="border-collapse: collapse; align:left;" width="100%">
+      @php
+      $date = \Carbon\Carbon::parse($item->uploaded_date, 'UTC')->setTimezone('Africa/Lagos');
+      $uploaded_date = $date->isoFormat('Do MMMM, YYYY');
+    @endphp
+      <tr>
+        <td>@php echo $i++    @endphp</td>
+        <td>Date Captured:</td>
+        <td>{{$uploaded_date ?? null}}</td>
+      </tr>
+
       <tr>
         <td>@php echo $i++    @endphp</td>
         <td>Department:</td>
@@ -34,12 +44,12 @@
       <tr>
         <td>@php echo $i++    @endphp</td>
         <td width="30%">Head and Subhead:</td>
-        <td width="65%">{{$item['head']['head_name'] ??  null}}/{{$item['subhead']['subhead_name'] ?? null}}</td>
+        <td width="65%">{{$item['head']['head_code'] ??  null}}/{{$item['subhead']['subhead_code'] ?? null}} - {{$item['head']['head_name'] ??  null}}/{{$item['subhead']['subhead_name'] ?? null}}</td>
       </tr>
 
       <tr>
         <td>@php echo $i++    @endphp</td>
-        <td>Item of Expenditure:</td>
+        <td>Item of Expenditure (Description):</td>
         <td>{{$item->expenditure_item ?? null}}</td>
       </tr>
 
