@@ -1,5 +1,6 @@
 @extends('layouts/contentNavbarLayout')
 
+{{-- <link href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap4.min.css" rel="stylesheet"> --}}
 @section('title', 'Subhead')
 
 @section('content')
@@ -9,13 +10,12 @@
 </h4>
 
 
-
 <!-- Bordered Table -->
 <div class="card">
   <h5 class="card-header">All Subheads</h5>
   <div class="card-body">
     <div class="table-responsive text-nowrap">
-
+      {{-- <table id="subheadsTable" class="table table-bordered"> --}}
       <table class="table table-bordered">
         <thead>
           <tr>
@@ -25,7 +25,7 @@
             <th>Subhead Code</th>
             <th>Subhead Name</th>
             <th>Appropriation </th>
-            <th>Created By </th>
+            {{-- <th>Created By </th> --}}
             {{-- <th>Created At </th> --}}
 
             <th>Actions</th>
@@ -43,7 +43,7 @@
             <td>{{$data->subhead_code}}</td>
             <td>{{$data->subhead_name}}</td>
             <td>N{{number_format(($data->approved_provision ?? '0'),2)}}</td>
-            <td>{{$data->name ?? null}}</td>
+            {{-- <td>{{$data->name ?? null}}</td> --}}
             {{-- <td>{{$data->created_at ?? null}}</td> --}}
             {{-- <td>&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td> --}}
 
@@ -107,22 +107,44 @@
             </div>
             </form>
 
+            @empty
+            <tr>
+              <td colspan="5" style="color:red">Oops! No Subhead registered yet</td>
+            </tr>
 
-          @empty
-                <tr>
-                  <td colspan="5" style="color:red">Oops! No Subhead registered yet</td>
-                </tr>
+            @endforelse
 
-          @endforelse
-
+            <tr>
+              <td colspan="8">
+                {{ $subheads->links('pagination::default') }}
+                </td>
+            </tr>
 
         </tbody>
       </table>
     </div>
   </div>
 </div>
+@endsection
 <!--/ Bordered Table -->
 
 
+
+{{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+
+
 <!--/ Responsive Table -->
-@endsection
+<script>
+  $(document).ready(function () {
+      $('#subheadsTable').DataTable({
+          searching: true,
+          paging: true,
+          lengthChange: false,
+          info: false,
+          // Add any other DataTables options you want here
+      });
+  });
+
+</script> --}}

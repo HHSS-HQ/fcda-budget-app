@@ -54,18 +54,18 @@ class SubheadController extends Controller
     //       return view('content.pages.unit.units', compact('units') );
     //   }
 
-      public function AllSubheads()
-      {
+    public function AllSubheads()
+    {
+        $subheads = DB::table('subhead')
+            ->select('subhead.*', 'department.department_name', 'users.name', 'head.*')
+            ->leftjoin('department', 'department.id', '=', 'subhead.department_id')
+            ->leftjoin('users', 'users.id', '=', 'subhead.created_by')
+            ->leftjoin('head', 'head.id', '=', 'subhead.head_id')
+            ->paginate(20); // You can change the number '10' to the desired number of items per page.
 
-          $subheads = DB::table('subhead')
-          ->select('subhead.*', 'department.department_name', 'users.name', 'head.*')
-              ->leftjoin('department', 'department.id', '=', 'subhead.department_id')
-              ->leftjoin('users', 'users.id', '=', 'subhead.created_by')
-              ->leftjoin('head', 'head.id', '=', 'subhead.head_id')
-              ->get();
-          return view('content.pages.subhead.subheads', compact('subheads') );
+        return view('content.pages.subhead.subheads', compact('subheads'));
+    }
 
-      }
 
       public function updateSubhead(Request $request, $id)
       {
