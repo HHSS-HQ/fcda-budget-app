@@ -367,7 +367,7 @@ fetch('/percentage-budget-utilization')
   console.log(growth)
     const growthChartOptions = {
       series: [growth],
-      labels: ['Growth'],
+      labels: ['Utilized'],
       chart: {
         height: 240,
         type: 'radialBar'
