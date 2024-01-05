@@ -164,6 +164,7 @@ return [
     Illuminate\Validation\ValidationServiceProvider::class,
     Illuminate\View\ViewServiceProvider::class,
     Barryvdh\DomPDF\ServiceProvider::class,
+    Inertia\ServiceProvider::class,
 
     /*
          * Package Service Providers...
@@ -177,6 +178,7 @@ return [
     // App\Providers\BroadcastServiceProvider::class,
     App\Providers\EventServiceProvider::class,
     App\Providers\RouteServiceProvider::class,
+        App\Providers\FortifyServiceProvider::class,
     App\Providers\MenuServiceProvider::class,
 
   ],
@@ -195,6 +197,7 @@ return [
   'aliases' => Facade::defaultAliases()->merge([
     // ...
     'PDF' => Barryvdh\DomPDF\Facade::class,
+    'Inertia' => Inertia\InertiaFacade::class,
 
   ])->toArray(),
 

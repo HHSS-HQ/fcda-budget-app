@@ -29,7 +29,20 @@
           <!-- /Logo -->
           <h4 class="mb-2">Forgot Password? 🔒</h4>
           <p class="mb-4">Enter your email and we'll send you instructions to reset your password</p>
-          <form id="formAuthentication" class="mb-3" action="javascript:void(0)" method="GET">
+          @if(session('success'))
+          <div class="alert alert-success" role="alert">
+            {{ @session('success') }}  
+          </div>
+          @endif
+          @if(session('error'))
+          <div class="alert alert-danger" role="alert">
+            {{ @session('error') }}  
+          </div>
+          @endif
+          {{-- <form id="formAuthentication" class="mb-3" action="javascript:void(0)" method="GET"> --}}
+            <form id="formAuthentication" class="mb-3" action="{{ route('password.email') }}" method="POST">
+              @csrf
+                          {{-- <input type="hidden" name="token" value="{{ $token }}"> --}}
             <div class="mb-3">
               <label for="email" class="form-label">Email</label>
               <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" autofocus>

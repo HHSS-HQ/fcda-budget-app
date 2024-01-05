@@ -22,6 +22,13 @@ use App\Http\Controllers\FundprojectController;
 use App\Http\Controllers\ProjectReportController;
 use App\Http\Controllers\AccountingYearController;
 use App\Http\Controllers\PayeeController;
+use App\Http\Controllers\authentications\ForgotPasswordController;
+use App\Http\Controllers\authentications\ResetPasswordController;
+
+use App\Notifications\CustomResetPasswordNotification;
+use Illuminate\Support\Facades\Password;
+
+
 // use App\Http\Controllers\ContractorController;
 /*
 |--------------------------------------------------------------------------
@@ -34,7 +41,40 @@ use App\Http\Controllers\PayeeController;
 |
 */
 
+
+Route::get('/password/reset', [ForgotPasswordController::class, 'showForgetPasswordForm'])->name('password.request');
+Route::post('/password/email', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('password.email');
+Route::get('/password/reset/{token}', [ForgotPasswordController::class,'showResetPasswordForm'])->name('password.reset');
+Route::post('/password/reset', [ForgotPasswordController::class, 'submitResetPasswordForm'])->name('action.password.reset');
+
+
+// Route::post('/forgot-password', function (Request $request) {
+//   $request->validate(['email' => 'required|email']);
+
+//   $status = Password::sendResetLink(
+//       $request->only('email')
+//   );
+
+//   return $status === Password::RESET_LINK_SENT
+//               ? back()->with(['status' => __($status)])
+//               : back()->withErrors(['email' => __($status)]);
+// })->middleware('guest')->name('password.email');
+
 $controller_path = 'App\Http\Controllers';
+
+
+// Route::post('/forgot-password', function (Request $request) {
+//   $request->validate(['email' => 'required|email']);
+
+//   $status = Password::sendResetLink(
+//       $request->only('email'),
+//       new CustomResetPasswordNotification() // Use the custom notification
+//   );
+
+//   return $status === Password::RESET_LINK_SENT
+//       ? back()->with(['status' => __($status)])
+//       : back()->withErrors(['email' => __($status)]);
+// })->middleware('guest')->name('password.email');
 
 // Main Page Route
 Route::get('/dashboard', $controller_path . '\dashboard\Analytics@index')->name('dashboard-analytics');

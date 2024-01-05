@@ -30,7 +30,16 @@
           <!-- /Logo -->
           <h4 class="mb-2">Register on the app to get started</h4>
           <p class="mb-4">We'll request a few details. Once registered, an admin will have to approve you.</p>
-
+          @if(session('success'))
+          <div class="alert alert-success" role="alert">
+            {{ @session('success') }}  
+          </div>
+          @endif
+          @if(session('error'))
+          <div class="alert alert-danger" role="alert">
+            {{ @session('error') }}  
+          </div>
+          @endif
           {{-- <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET"> --}}
             {{-- <form id="formAuthentication" class="mb-3" action="{{ route('register.custom') }}" method="POST"  > --}}
               <form id="formAuthentication" class="mb-3" action="" action="{{ route('register.perform') }}" method="POST">
