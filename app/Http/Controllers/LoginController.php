@@ -39,7 +39,7 @@ class LoginController extends Controller
 
         // Perform any additional actions upon successful login
 
-        return redirect()->route('home'); // Adjust the route as needed
+        return redirect()->route('dashboard-analytics'); // Adjust the route as needed
     } else {
         // Authentication failed
         return redirect()->to('/login')
