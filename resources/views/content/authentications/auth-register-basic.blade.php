@@ -18,14 +18,18 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="{{url('/')}}" class="app-brand-link gap-2">
+            {{-- <a href="{{url('/')}}" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">@include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])</span>
               <span class="app-brand-text demo text-body fw-bolder">{{config('variables.templateName')}}</span>
+            </a> --}}
+            <a href="{{url('/')}}" class="app-brand-link gap-2">
+              <img src="{{asset('storage/images/fcta-logo.png')}}" alt="" style=" width:20%;" />
+              <span class="app-brand-text demo  fw-bold ms-2 " style="text-transform:none;">OpenBudgetCT</span>
             </a>
           </div>
           <!-- /Logo -->
-          <h4 class="mb-2">Adventure starts here 🚀</h4>
-          <p class="mb-4">Make your app management easy and fun!</p>
+          <h4 class="mb-2">Register on the app to get started</h4>
+          <p class="mb-4">We'll request a few details. Once registered, an admin will have to approve you.</p>
 
           {{-- <form id="formAuthentication" class="mb-3" action="{{url('/')}}" method="GET"> --}}
             {{-- <form id="formAuthentication" class="mb-3" action="{{ route('register.custom') }}" method="POST"  > --}}
@@ -80,7 +84,7 @@
         @endif
             </div>
 
-            <div class="mb-3">
+            {{-- <div class="mb-3">
               <div class="form-check">
                 <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms">
                 <label class="form-check-label" for="terms-conditions">
@@ -88,7 +92,7 @@
                   <a href="javascript:void(0);">privacy policy & terms</a>
                 </label>
               </div>
-            </div>
+            </div> --}}
             <button class="btn btn-primary d-grid w-100">
               Sign up
             </button>

@@ -17,9 +17,13 @@
         <div class="card-body">
           <!-- Logo -->
           <div class="app-brand justify-content-center">
-            <a href="{{url('/')}}" class="app-brand-link gap-2">
+            {{-- <a href="{{url('/')}}" class="app-brand-link gap-2">
               <span class="app-brand-logo demo">@include('_partials.macros',['width'=>25,'withbg' => "#696cff"])</span>
               <span class="app-brand-text demo text-body fw-bolder">{{ config('variables.templateName') }}</span>
+            </a> --}}
+            <a href="{{url('/')}}" class="app-brand-link gap-2">
+              <img src="{{asset('storage/images/fcta-logo.png')}}" alt="" style=" width:20%;" />
+              <span class="app-brand-text demo  fw-bold ms-2 " style="text-transform:none;">OpenBudgetCT</span>
             </a>
           </div>
           <!-- /Logo -->
@@ -33,7 +37,7 @@
             <button class="btn btn-primary d-grid w-100">Send Reset Link</button>
           </form>
           <div class="text-center">
-            <a href="{{url('auth/login-basic')}}" class="d-flex align-items-center justify-content-center">
+            <a href="{{url('/')}}" class="d-flex align-items-center justify-content-center">
               <i class="bx bx-chevron-left scaleX-n1-rtl bx-sm"></i>
               Back to login
             </a>

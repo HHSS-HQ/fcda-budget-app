@@ -19,13 +19,14 @@
           <!-- Logo -->
           <div class="app-brand justify-content-center">
             <a href="{{url('/')}}" class="app-brand-link gap-2">
-              {{-- <span class="app-brand-logo demo"><img src="{{asset('storage/images/fcta-logo.png')}}" alt="" style=" width:2%;" /></span> --}}
+              <img src="{{asset('storage/images/fcta-logo.png')}}" alt="" style=" width:20%;" />
               <span class="app-brand-text demo  fw-bold ms-2 " style="text-transform:none;">OpenBudgetCT</span>
             </a>
 
 
           </div>
           <!-- /Logo -->
+
           <h4 class="mb-2">Welcome back! 👋</h4>
           <p class="mb-4">Please sign-in to your account</p>
           @if(session('success'))

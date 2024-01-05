@@ -29,27 +29,24 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(LoginRequest $request)
-    {
-        $credentials = $request->getCredentials();
+{
+    $credentials = $request->getCredentials();
 
-        if(!Auth::validate($credentials)):
-            return redirect()->to('/login')
-                ->withErrors(trans('auth.failed'));
-        endif;
+    // Attempt to authenticate the user
+    if (Auth::attempt($credentials, $request->filled('remember'))) {
+        // Authentication successful
+        $user = Auth::user();
 
-        $user = Auth::getProvider()->retrieveByCredentials($credentials);
+        // Perform any additional actions upon successful login
 
-        Auth::login($user, $request->get('remember'));
-
-        if($request->get('remember')):
-            $this->setRememberMeExpiration($user);
-        endif;
-
-        return $this->authenticated($request, $user);
-        // return redirect()->intended('/');
-                // return redirect('/register')->with('success', "Account successfully registered.");
-
+        return redirect()->route('home'); // Adjust the route as needed
+    } else {
+        // Authentication failed
+        return redirect()->to('/login')
+            ->withInput($request->except('password'))
+            ->withErrors(['username' => trans('auth.failed')]);
     }
+}
 
     /**
      * Handle response after user authenticated
