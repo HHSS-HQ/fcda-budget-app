@@ -20,6 +20,7 @@ $navbarDetached = ($navbarDetached ?? '');
           <span class="app-brand-logo demo">
             @include('_partials.macros',["width"=>25,"withbg"=>'#696cff'])
           </span>
+          
           <span class="app-brand-text demo menu-text fw-bolder">{{config('variables.templateName')}}</span>
         </a>
       </div>
@@ -36,12 +37,12 @@ $navbarDetached = ($navbarDetached ?? '');
 
       <div class="navbar-nav-right d-flex align-items-center" id="navbar-collapse">
         <!-- Search -->
-        <div class="navbar-nav align-items-center">
+        {{-- <div class="navbar-nav align-items-center">
           <div class="nav-item d-flex align-items-center">
             <i class="bx bx-search fs-4 lh-0"></i>
             <input type="text" class="form-control border-0 shadow-none" placeholder="Search..." aria-label="Search...">
           </div>
-        </div>
+        </div> --}}
         <!-- /Search -->
         <ul class="navbar-nav flex-row align-items-center ms-auto">
 
