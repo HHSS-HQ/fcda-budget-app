@@ -11,6 +11,7 @@ use Mail;
 use Hash;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use App\Jobs\SendPasswordResetEmail;
 // use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
@@ -36,27 +37,54 @@ class ForgotPasswordController extends Controller
        *
        * @return response()
        */
-      public function sendResetLinkEmail(Request $request)
-      {
-          $request->validate([
-              'email' => 'required|email|exists:users',
-          ]);
+    //   public function sendResetLinkEmail(Request $request)
+    //   {
+    //       $request->validate([
+    //           'email' => 'required|email|exists:users',
+    //       ]);
   
-          $token = Str::random(64);
+    //       $token = Str::random(64);
   
-          DB::table('password_resets')->insert([
-              'email' => $request->email, 
-              'token' => $token, 
-              'created_at' => Carbon::now()
-            ]);
+    //       DB::table('password_resets')->insert([
+    //           'email' => $request->email, 
+    //           'token' => $token, 
+    //           'created_at' => Carbon::now()
+    //         ]);
   
-          Mail::send('email.password-reset', ['token' => $token], function($message) use($request){
-              $message->to($request->email);
-              $message->subject('Reset Password');
-          });
+    //       Mail::send('email.password-reset', ['token' => $token], function($message) use($request){
+    //           $message->to($request->email);
+    //           $message->subject('Reset Password');
+    //       });
   
-          return back()->with('success', 'We have e-mailed your password reset link!');
-      }
+    //       return back()->with('success', 'We have e-mailed your password reset link!');
+    //   }
+
+
+
+
+   
+
+public function sendResetLinkEmail(Request $request)
+{
+    $request->validate([
+        'email' => 'required|email|exists:users',
+    ]);
+
+    $token = Str::random(64);
+
+    DB::table('password_resets')->insert([
+        'email' => $request->email, 
+        'token' => $token, 
+        'created_at' => now(),
+    ]);
+
+    // Dispatch the job to send the password reset email
+    dispatch(new SendPasswordResetEmail($request->email, $token));
+
+    return back()->with('success', 'We have queued your password reset email!');
+}
+
+
       /**
        * Write code on Method
        *

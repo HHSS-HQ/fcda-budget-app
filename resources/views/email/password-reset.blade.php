@@ -1,4 +1,6 @@
+<img  src="{{asset('assets/img/FCT-logo.png')}}" alt="OpenBudgetCT" width="20%"><br/><br/>
 <h2>Password Reset Link</h2>
+
    
 {{-- You can reset password from below link:
 <a href="{{ route('password.reset', $token) }}">Reset Password</a> --}}

@@ -1,4 +1,4 @@
-<img  src="{{asset('assets/images/Gogetit-logo2.png')}}" alt="OpenBudgetCT" width="200px"><br/><br/>
+<img  src="{{asset('assets/img/FCT-logo.png')}}" alt="OpenBudgetCT" width="20%"><br/><br/>
 
 Hi {{$name}}  👋, <br/><br/>
 
