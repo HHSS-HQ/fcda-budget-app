@@ -16,28 +16,32 @@
   <div class="card-body">
     <div class="table-responsive text-nowrap">
       {{-- <table id="subheadsTable" class="table table-bordered"> --}}
-      <table class="table table-bordered">
-        <thead>
-          <tr>
-            <th>SN</th>
-            <th>Department</th>
-            <th>Head </th>
-            <th>Subhead Code</th>
-            <th>Subhead Name</th>
-            <th>Appropriation </th>
-            {{-- <th>Created By </th> --}}
-            {{-- <th>Created At </th> --}}
 
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          @php
+        <div class="mb-3">
+          <label for="globalSearch" class="form-label">Global Search:</label>
+          <input type="text" class="form-control" id="globalSearch">
+      </div>
+
+      
+        <table class="table table-bordered" id="subheadsTable">
+          <thead>
+              <tr>
+                  <th>SN</th>
+                  <th>Department</th>
+                  <th>Head</th>
+                  <th>Subhead Code</th>
+                  <th>Subhead Name</th>
+                  <th>Appropriation</th>
+                  <th>Actions</th>
+              </tr>
+          </thead>
+          <tbody>
+          {{-- @php
             $i="1";
-          @endphp
+          @endphp --}}
           @forelse($subheads as $data)
           <tr>
-            <td>@php echo $i++; @endphp</td>
+            <td></td>
             <td>{{$data->department_name}}</td>
             <td>{{$data->head_code ?? null}} - {{$data->head_name ?? null}}</td>
             <td>{{$data->subhead_code}}</td>
@@ -122,29 +126,31 @@
 
         </tbody>
       </table>
+
+   
     </div>
   </div>
 </div>
 @endsection
-<!--/ Bordered Table -->
 
-
-
+@section('scripts')
 {{-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
-
-
-<!--/ Responsive Table -->
+<script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script> --}}
 <script>
-  $(document).ready(function () {
-      $('#subheadsTable').DataTable({
-          searching: true,
-          paging: true,
-          lengthChange: false,
-          info: false,
-          // Add any other DataTables options you want here
-      });
-  });
+    $(document).ready(function () {
+        var dataTable = $('#subheadsTable').DataTable({
+            "paging": true,
+            "searching": true, // Enable searching
+            "ordering": true,
+            "info": true,
+        });
 
-</script> --}}
+        // Add global search functionality
+        $('#globalSearch').on('keyup', function () {
+            dataTable.search(this.value).draw();
+        });
+    });
+</script>
+@endsection
+
+

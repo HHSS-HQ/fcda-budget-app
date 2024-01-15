@@ -99,6 +99,7 @@ return array(
     'App\\Http\\Requests\\RegisterRequest' => $baseDir . '/app/Http/Requests/RegisterRequest.php',
     'App\\Http\\Requests\\RoleRequest' => $baseDir . '/app/Http/Requests/RoleRequest.php',
     'App\\Http\\Requests\\UnitRequest' => $baseDir . '/app/Http/Requests/UnitRequest.php',
+    'App\\Jobs\\SendPasswordResetEmail' => $baseDir . '/app/Jobs/SendPasswordResetEmail.php',
     'App\\Mail\\SignupMail' => $baseDir . '/app/Mail/SignupMail.php',
     'App\\Models\\AccountingYear' => $baseDir . '/app/Models/AccountingYear.php',
     'App\\Models\\Budget' => $baseDir . '/app/Models/Budget.php',

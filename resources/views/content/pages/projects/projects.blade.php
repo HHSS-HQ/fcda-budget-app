@@ -60,6 +60,13 @@
 </div>
 <!--/ Bordered Table -->
 
+@section('scripts')
+<script>
+    $(document).ready(function () {
+        $('.table').DataTable();
+    });
+</script>
+@endsection
 
 <!--/ Responsive Table -->
 @endsection

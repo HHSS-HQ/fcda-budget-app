@@ -730,6 +730,7 @@ class ComposerStaticInitc76bac0a2dcb7e33d722d998aafdef01
         'App\\Http\\Requests\\RegisterRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RegisterRequest.php',
         'App\\Http\\Requests\\RoleRequest' => __DIR__ . '/../..' . '/app/Http/Requests/RoleRequest.php',
         'App\\Http\\Requests\\UnitRequest' => __DIR__ . '/../..' . '/app/Http/Requests/UnitRequest.php',
+        'App\\Jobs\\SendPasswordResetEmail' => __DIR__ . '/../..' . '/app/Jobs/SendPasswordResetEmail.php',
         'App\\Mail\\SignupMail' => __DIR__ . '/../..' . '/app/Mail/SignupMail.php',
         'App\\Models\\AccountingYear' => __DIR__ . '/../..' . '/app/Models/AccountingYear.php',
         'App\\Models\\Budget' => __DIR__ . '/../..' . '/app/Models/Budget.php',

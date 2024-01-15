@@ -24,6 +24,11 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
 
+            
+            // $table->string('sda_id');
+            $table->string('sda_id', 20)->references('sda_id')->on('sda');
+            
+
             $table->foreign('created_by')
                 ->references('id')->on('users')
                 ->onDelete('no action')
