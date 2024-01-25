@@ -100,6 +100,34 @@
           @endif
         </div>
 
+
+
+        <div class="mb-3 col-md-6">
+          <label for="company_RC_number" class="form-label">Company RC Number</label>
+          <input class="form-control {{ $errors->has('company_RC_number') ? 'error' : '' }}" type="text" id="company_RC_number"
+            name="company_RC_number" autofocus placeholder="Company RC Number" />
+          <!-- Error -->
+          @if ($errors->has('company_RC_number'))
+          <div class="error">
+            {{ $errors->first('company_RC_number') }}
+          </div>
+          @endif
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="file_number" class="form-label">File Number</label>
+          <input class="form-control {{ $errors->has('file_number') ? 'error' : '' }}" type="text"
+            name="file_number" id="file_number" placeholder="File Number" />
+          <!-- Error -->
+          @if ($errors->has('file_number'))
+          <div class="error">
+            {{ $errors->first('file_number') }}
+          </div>
+          @endif
+        </div>
+
+
+
         <div class="row">
           <div class="col mb-3">
             <label for="nameBasic" class="form-label">Contractor Name</label>

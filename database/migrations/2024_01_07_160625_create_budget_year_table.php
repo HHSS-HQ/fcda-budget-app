@@ -15,8 +15,8 @@ return new class extends Migration
 
         Schema::create('budget_year', function (Blueprint $table) {
             $table->id();
-            // $table->string('sda_id', 20)->nullable();
-            $table->string('sda_id')->references('sda_id')->on('sda')->nullable();
+            $table->unsignedBigInteger('sda_id')->nullable();
+            // $table->foreign('sda_id')->references('sda_id')->on('sda')->nullable();
             $table->string('year')->nullable();
             $table->bigInteger('yearAppropriatedSum')->nullable();
             $table->bigInteger('yearAdjustedSum')->nullable();
@@ -27,9 +27,15 @@ return new class extends Migration
             $table->foreign('updated_by')->references('id')->on('users');
             // Change the next line to use unsignedBigInteger
             $table->unsignedBigInteger('year_id');
-            
+        
+            $table->index(["sda_id"], 'fk_budget_year_sda_id_idx'); // Updated the index name
+            $table->foreign('sda_id', 'fk_budget_year_sda_id_idx') // Updated the foreign key name
+                ->references('sda_id')->on('sda')
+                ->onDelete('no action')
+                ->onUpdate('no action');
             // $table->timestamp('updated_at');
         });
+        
         
 
         Schema::enableForeignKeyConstraints();

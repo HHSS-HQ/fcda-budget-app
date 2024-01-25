@@ -70,8 +70,8 @@ class Projects extends Controller
         $project->outstanding_balance = $request->outstanding_balance;
         $project->commencement_date = $request->commencement_date;
         $project->year_last_funded = $request->year_last_funded;
-        // $project->observations = $request->observations;
-        // $project->recommendations = $request->recommendations;
+        $project->company_RC_number = $request->company_RC_number;
+        $project->file_number = $request->file_number;
         // $project->completion_period = $request->completion_period;
         $project->amount_paid_till_date = $request->amount_paid_till_date;
         $project->certified_cv_not_paid = $request->certified_cv_not_paid;

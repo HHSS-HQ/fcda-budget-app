@@ -58,6 +58,11 @@
           "url": "/add-subhead",
           "name": "Add SubHead",
           "slug": "add-subhead"
+        },
+        {
+          "url": "/upload-bulk-subheads",
+          "name": "Bulk Upload SubHeads",
+          "slug": "bulk-upload-subheads"
         }
 
       ]
@@ -96,10 +101,15 @@
 
 
       {
-        "name": "Annual Budget",
+        "name": "Budget",
         "icon": "menu-icon tf-icons bx bx-wallet",
-        "slug": "annual-budget",
+        "slug": "budget",
         "submenu": [
+          {
+            "url": "/budget-year",
+            "name": "Budget Year",
+            "slug": "layouts-without-menu"
+          },
           {
             "url": "/budgets",
             "name": "View Annual Budget",

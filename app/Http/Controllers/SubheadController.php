@@ -5,11 +5,22 @@ use App\Models\Subhead;
 use Illuminate\Http\Request;
 use DB;
 use Illuminate\Database\QueryException;
+
 class SubheadController extends Controller
 {
     public function show()
     {
         return view('content.pages.subhead.add-subhead');
+    }
+
+    public function upload_bulk_subheads()
+    {
+        return view('content.pages.subhead.upload-bulk-subheads');
+    }
+
+    public function upload_subheads()
+    {
+        return view('content.pages.subhead.upload-bulk-subheads');
     }
 
     // public function store(UnitRequest $request)

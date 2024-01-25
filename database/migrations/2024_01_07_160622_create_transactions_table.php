@@ -22,7 +22,6 @@ return new class extends Migration
             $table->foreign('payee_id')->references('id')->on('users');
             $table->string('narration', 500)->nullable();
             $table->string('project_id', 255)->nullable();
-            $table->foreign('project_id')->references('project_id')->on('project');
             $table->date('transaction_date')->nullable();
             $table->string('payee_bank', 20)->nullable();
             $table->string('payee_account_number', 10)->nullable();
@@ -30,6 +29,8 @@ return new class extends Migration
             $table->softDeletes();
             $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users');
+            $table->foreign('project_id')->references('project_id')->on('project');
+            
             $table->index(['payee_id', 'narration']);
         });
 

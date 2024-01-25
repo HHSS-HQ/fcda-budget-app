@@ -24,6 +24,7 @@ use App\Http\Controllers\AccountingYearController;
 use App\Http\Controllers\PayeeController;
 use App\Http\Controllers\authentications\ForgotPasswordController;
 use App\Http\Controllers\authentications\ResetPasswordController;
+use App\Http\Controllers\ExcelImportController;
 
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Password;
@@ -215,6 +216,10 @@ Route::post('/add-budget', [BudgetController::class, 'store'])->name('budget.sto
 Route::get('/budgets', [BudgetController::class, 'AllBudgets'])->name('budgets.show');
 Route::any('/update-budget/{id}', [BudgetController::class, 'updateBudget'])->name('budget.update');
 Route::post('update-budget-status', [BudgetController::class, 'setActiveBudget']);
+
+Route::get('/upload-bulk-subheads', [SubheadController::class, 'upload_bulk_subheads'])->name('subhead.upload_bulk_subheads');
+Route::get('/upload-subheads', [SubheadController::class, 'upload_ubheads'])->name('import.upload_subheads');
+Route::post('/import-excel', [ExcelImportController::class, 'import'])->name('import.excel');
 
 Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.show');
 Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store');

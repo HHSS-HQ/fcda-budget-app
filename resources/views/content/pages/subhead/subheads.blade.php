@@ -4,7 +4,10 @@
 @section('title', 'Subhead')
 
 @section('content')
-<a href="/add-subhead" ><button type="button" class="btn btn-primary" style="float: right">[+] New Subhead</button></a>
+<div>
+
+<span><a href="/add-subhead" ><button type="button" class="btn btn-primary" >[+] New Subhead</button></a> </span>
+<span> <a href="/upload-bulk-subheads" ><button type="button" class="btn btn-danger" >[^] Upload Bulk Subheads</button></a></span>
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Subhead /</span> All Subheads
 </h4>
@@ -17,10 +20,10 @@
     <div class="table-responsive text-nowrap">
       {{-- <table id="subheadsTable" class="table table-bordered"> --}}
 
-        <div class="mb-3">
+        {{-- <div class="mb-3">
           <label for="globalSearch" class="form-label">Global Search:</label>
           <input type="text" class="form-control" id="globalSearch">
-      </div>
+      </div> --}}
 
       
         <table class="table table-bordered" id="subheadsTable">
@@ -36,12 +39,14 @@
               </tr>
           </thead>
           <tbody>
-          {{-- @php
+          @php
             $i="1";
-          @endphp --}}
+          @endphp
           @forelse($subheads as $data)
           <tr>
-            <td></td>
+            <td> @php
+              echo $i++;
+            @endphp</td>
             <td>{{$data->department_name}}</td>
             <td>{{$data->head_code ?? null}} - {{$data->head_name ?? null}}</td>
             <td>{{$data->subhead_code}}</td>
