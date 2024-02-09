@@ -28,6 +28,7 @@ use App\Http\Controllers\ExcelImportController;
 
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Password;
+use App\Http\Controllers\DataTablesController;
 
 
 // use App\Http\Controllers\ContractorController;
@@ -189,7 +190,7 @@ Route::get('/add-role', [RoleController::class, 'show'])->name('role.show');
 Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
 Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show');
 
-Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show');
+// Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show');
 Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show');
 // Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
 Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
@@ -282,3 +283,11 @@ Route::get('/summary-budget-utilization', [ECFController::class, 'budgetGraph'])
 
 Route::get('/departments/export/excel', [DepartmentController::class, 'exportExcel'])->name('departments.export.excel');
 Route::get('/departments/export/pdf', [DepartmentController::class, 'exportPDF'])->name('departments.export.pdf');
+
+
+
+Route::get('subheads', [DataTablesController::class, 'index']);
+Route::get('subheads/list', [DataTablesController::class, 'getSubheads'])->name('subheads.list');
+
+Route::get('users', [DataTablesController::class, 'index_users']);
+Route::get('users/list', [DataTablesController::class, 'getUsers'])->name('users.list');

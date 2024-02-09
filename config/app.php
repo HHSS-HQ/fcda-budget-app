@@ -166,6 +166,8 @@ return [
     Barryvdh\DomPDF\ServiceProvider::class,
     Inertia\ServiceProvider::class,
     Maatwebsite\Excel\ExcelServiceProvider::class,
+    Yajra\DataTables\DataTablesServiceProvider::class,
+    Yajra\DataTables\ButtonsServiceProvider::class,
     /*
          * Package Service Providers...
          */
@@ -199,6 +201,7 @@ return [
     'PDF' => Barryvdh\DomPDF\Facade::class,
     'Inertia' => Inertia\InertiaFacade::class,
     'Excel' => Maatwebsite\Excel\Facades\Excel::class,
+    'DataTables' => Yajra\DataTables\Facades\DataTables::class,
 
   ])->toArray(),
 

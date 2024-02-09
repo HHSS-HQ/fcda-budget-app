@@ -22,7 +22,9 @@
     "maatwebsite/excel": "*",
     "php-open-source-saver/jwt-auth": "^2.0",
     "phpoffice/phpexcel": "^1.8",
-    "tightenco/ziggy": "^1.0"
+    "tightenco/ziggy": "^1.0",
+    "yajra/laravel-datatables-buttons": "*",
+    "yajra/laravel-datatables-oracle": "*"
   },
   "require-dev": {
     "fakerphp/faker": "^1.9.1",

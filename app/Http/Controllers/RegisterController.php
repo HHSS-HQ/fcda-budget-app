@@ -35,8 +35,9 @@ class RegisterController extends Controller
         // ->join->on ('role', 'role.id', '=', 'users.role_id');
 
         $users = DB::table('users')
-        ->select('users.*', 'role.role_name')
+        ->select('users.*', 'role.role_name', 'department.department_name')
             ->leftjoin('role', 'role.id', '=', 'users.role_id')
+            ->leftjoin('department', 'department.id', '=', 'users.department_id')
             ->get();
 // return $users;
         return view('content.pages.users.users', compact('users') );

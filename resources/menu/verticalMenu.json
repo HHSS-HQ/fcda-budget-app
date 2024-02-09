@@ -69,6 +69,13 @@
     },
 
     {
+      "name": "Transactions",
+      "icon": "menu-icon tf-icons bx bx-outline",
+      "slug": "transactions",
+      "url": "/projects"
+    },
+
+    {
       "name": "Projects",
       "icon": "menu-icon tf-icons bx bx-spreadsheet",
       "slug": "projects",
