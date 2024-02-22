@@ -17,16 +17,16 @@ return new class extends Migration
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->unsignedInteger('head_id');
-            $table->string('subhead_code')->nullable();
-            $table->unique(['subhead_code', 'department_id']);
+            $table->unsignedInteger('head_id')->nullable();
+            $table->unsignedBigInteger('subhead_code')->nullable();
+            $table->unique('subhead_code');
             $table->string('subhead_name')->nullable();
 
-            $table->unsignedBigInteger('department_id');
+            // $table->unsignedBigInteger('department_id');
 
 
-            $table->string('approved_provision')->nullable();
-            $table->string('revised_provision')->nullable();
+            // $table->string('approved_provision')->nullable();
+            // $table->string('revised_provision')->nullable();
             $table->string('remarks')->nullable();
             $table->string('status')->default('ACTIVE');
             $table->unsignedBigInteger('created_by')->nullable();
@@ -40,11 +40,11 @@ return new class extends Migration
                 ->onDelete('no action')
                 ->onUpdate('no action');
 
-                $table->index(["department_id"], 'fk_department_id_4_idx');
-                $table->foreign('department_id', 'fk_department_id_4_idx')
-                ->references('id')->on('department')
-                ->onDelete('no action')
-                ->onUpdate('no action');
+                // $table->index(["department_id"], 'fk_department_id_4_idx');
+                // $table->foreign('department_id', 'fk_department_id_4_idx')
+                // ->references('id')->on('department')
+                // ->onDelete('no action')
+                // ->onUpdate('no action');
 
                 $table->index(["head_id"], 'fk_head_idx');
                 $table->foreign('head_id', 'fk_head_idx')

@@ -17,4 +17,9 @@ class Department extends Model
     //     return $this->belongsTo(ECF::class, 'department_id', 'id');
     // }
 
+    // public function subheadAllocation2()
+    // {
+    //     return $this->belongsTo(SubheadAllocation::class);
+    // }
+
 }

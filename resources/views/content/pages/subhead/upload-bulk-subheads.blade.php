@@ -7,9 +7,13 @@
 <script src="{{asset('assets/js/ui-toasts.js')}}"></script>
 @livewireStyles
 
+
+
+
 @endsection
+
 @if(session('success'))
-<div style="  position: -webkit-sticky; position: sticky; top: 0; float: right;" class="bs-toast toast fade show bg-primary" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
+<div style="   top: 5; float: right;" class="bs-toast toast fade show bg-primary" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
   {{-- <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"> --}}
   <div class="toast-header">
     <i class='bx bx-bell me-2'></i>
@@ -23,7 +27,7 @@
 @endif
 
 @if(session('error'))
-<div style="  position: -webkit-sticky; position: sticky; top: 0; float: right;" class="bs-toast toast fade show bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
+<div style="  position: -webkit-sticky;  top: 0; float: right;" class="bs-toast toast fade show bg-danger" role="alert" aria-live="assertive" aria-atomic="true" data-delay="1500">
   {{-- <div class="bs-toast toast toast-placement-ex m-2" role="alert" aria-live="assertive" aria-atomic="true" data-delay="2000"> --}}
   <div class="toast-header">
     <i class='bx bx-bell me-2'></i>
@@ -36,10 +40,13 @@
 </div>
 @endif
 
-
 @section('content')
 @livewireScripts
 <a href="/subheads" ><button type="button" class="btn btn-primary" style="float: right">←Back To Subheads</button></a>
+
+
+
+
 
 <h4 class="fw-bold py-3 mb-4">
   <span class="text-muted fw-light">Subheads /</span> Upload Bulk Subheads
@@ -60,7 +67,7 @@
         
         <form action="{{ route('import.excel') }}" method="POST" enctype="multipart/form-data">
           @csrf
-
+{{-- 
           <div class="mb-3 col-md-6">
             <label for="unit_name" class="form-label">Select Head</label>
             <select id="id" class="select2 form-control" name="head_id" required>
@@ -77,10 +84,10 @@
               {{ $errors->first('project_title') }}
             </div>
             @endif
-          </div>
+          </div> --}}
 
 
-          <div class="mb-3 col-md-6">
+          {{-- <div class="mb-3 col-md-6">
             <label for="department_name" class="form-label">Select Department</label>
             <select id="id" class="select2 form-control" name="department_id" required>
               <option value="">Select Department</option>
@@ -96,13 +103,16 @@
               {{ $errors->first('department_name') }}
             </div>
             @endif
-          </div>
+          </div> --}}
 
           <div class="form-group">
             
               <label for="file">Choose Excel File</label>
               <input type="file" name="file" id="file" class="form-control" required>
           </div>
+
+          <input type="text" hidden name="created_by" value="{{ Auth::user()->id }}"/>
+          <input type="text" hidden name="department_id" value="{{ Auth::user()->department_id }}"/>
           <br/>
           <button type="submit" class="btn btn-primary">Import</button>
       </form>

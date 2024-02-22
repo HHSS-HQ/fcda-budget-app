@@ -86,7 +86,7 @@
 
           <p class="text-center">
             <span>New on our platform?</span>
-            <a href="{{ route('register.perform') }}">
+            <a href="{{ route('register.show') }}">
               <span>Create an account</span>
             </a>
           </p>

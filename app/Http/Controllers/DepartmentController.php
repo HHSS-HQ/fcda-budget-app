@@ -103,6 +103,21 @@ class DepartmentController extends Controller
 
     }
 
+
+    public function AllDepartmentsBudget( Request $request )
+    {
+      $departments = DB::table('department')
+        ->select('department.*', 'budget.id as budget_id')
+        ->leftJoin('department_budget', 'department_budget.parent_budget_id', '=', 'department_budget.department_id')
+        ->leftJoin('budget', 'department_budget.parent_budget_id', '=', 'budget.id')
+        ->get();
+
+        return view('content.pages.department.departments-budget', compact('departments') );
+
+    }
+
+    
+
     public function budget_utilization2(Request $request)
     {
       // return "ok";

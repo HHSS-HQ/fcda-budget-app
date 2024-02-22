@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->increments('id');
+            $table->id();
             $table->string('role_name')->nullable();
             $table->timestamps();
               $table->softDeletes();

@@ -23,6 +23,11 @@ class SubheadController extends Controller
         return view('content.pages.subhead.upload-bulk-subheads');
     }
 
+
+    public function SubheadAllocation()
+    {
+        return view('content.pages.subhead.subhead-allocation');
+    }
     // public function store(UnitRequest $request)
     // {
 

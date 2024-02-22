@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('department_name')->nullable();
             $table->string('department_code')->nullable();
             $table->string('remarks')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedBigInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 

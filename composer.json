@@ -18,10 +18,12 @@
     "laravel/jetstream": "*",
     "laravel/sanctum": "^2.14",
     "laravel/tinker": "^2.7",
+    "laravelcollective/html": "*",
     "livewire/livewire": "^2.11",
     "maatwebsite/excel": "*",
     "php-open-source-saver/jwt-auth": "^2.0",
     "phpoffice/phpexcel": "^1.8",
+    "spatie/laravel-permission": "*",
     "tightenco/ziggy": "^1.0",
     "yajra/laravel-datatables-buttons": "*",
     "yajra/laravel-datatables-oracle": "*"

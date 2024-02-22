@@ -10,4 +10,11 @@ class Subhead extends Model
     use HasFactory;
     protected $table = 'subhead';
     public $fillable = ['id', 'head_id', 'subhead_code', 'approved_provision', 'subhead_name', 'department_id', 'status', 'remarks', 'created_by'];
+
+    public function subheadAllocation()
+    {
+        return $this->hasOne(SubheadAllocation::class, 'subhead_code', 'subhead_code');
+    }
+
+    
 }

@@ -84,6 +84,7 @@ class RegisterController extends Controller
         $user->name = is_null($request->name) ? $user->name : $request->name;
         $user->email = is_null($request->email) ? $user->email : $request->email;
         $user->role_id = is_null($request->role_id) ? $user->role_id : $request->role_id;
+        $user->department_id = is_null($request->department_id) ? $user->department_id : $request->department_id;
         $user->save();
         return redirect('/users')->with('success', "User details successfuly updated.");
     }

@@ -24,6 +24,20 @@
 
       ]
     },
+    {
+      "name": "Departments Budget",
+      "icon": "menu-icon tf-icons bx bx-git-branch",
+      "slug": "departments-budget",
+      "submenu": [
+        {
+          "url": "/departments-budget",
+          "name": "View Departments Budget",
+          "slug": "view-departments-budget"
+        }
+        
+
+      ]
+    },
 
     {
       "name": "Head",
@@ -63,6 +77,18 @@
           "url": "/upload-bulk-subheads",
           "name": "Bulk Upload SubHeads",
           "slug": "bulk-upload-subheads"
+        },
+
+        {
+          "url": "/all-subhead-allocations",
+          "name": "All SubHead Allocations",
+          "slug": "all-subhead-allocations"
+        },
+
+        {
+          "url": "/subhead-allocation",
+          "name": "SubHead Allocations",
+          "slug": "subhead-allocation"
         }
 
       ]

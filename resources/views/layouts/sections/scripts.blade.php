@@ -33,8 +33,8 @@
             {data: 'DT_RowIndex', name: 'DT_RowIndex'},
             {data: 'subhead_code', name: 'subhead_code'},
             {data: 'subhead_name', name: 'subhead_name'},
-            {data: 'department_name', name: 'department_name'},
-            {data: 'approved_provision', name: 'approved_provision'},
+            // {data: 'department_name', name: 'department_name'},
+            // {data: 'approved_provision', name: 'approved_provision'},
             // {data: 'dob', name: 'dob'},
             {
                 data: 'action', 
@@ -49,6 +49,62 @@
 </script>
 
 
+{{-- All Subhead Allocation Table --}}
+<script type="text/javascript">
+    $(function () {
+      
+      var table = $('.all-subhead-allocation').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('all-subhead-allocation.list') }}",
+          columns: [
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data: 'subhead_code', name: 'subhead_code'},
+              {data: 'subhead.subhead_name', name: 'subhead_name'},
+              {data: 'department.department_name', name: 'department_name'},
+              {data: 'approved_provision', name: 'approved_provision'},
+              {data: 'revised_provision', name: 'revised_provision'},
+              // {data: 'dob', name: 'dob'},
+              {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+              },
+          ]
+      });
+      
+    });
+  </script>
+
+  {{-- Subhead Allocation Table --}}
+<script type="text/javascript">
+    $(function () {
+      
+      var table = $('.subhead-allocation').DataTable({
+          processing: true,
+          serverSide: true,
+          ajax: "{{ route('subhead-allocation.list') }}",
+          columns: [
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data: 'subhead_code', name: 'subhead_code'},
+              {data: 'subhead.subhead_name', name: 'subhead_name'},
+              {data: 'department.department_name', name: 'department_name'},
+              {data: 'approved_provision', name: 'approved_provision'},
+              {data: 'revised_provision', name: 'revised_provision'},
+              // {data: 'dob', name: 'dob'},
+              {
+                  data: 'action', 
+                  name: 'action', 
+                  orderable: true, 
+                  searchable: true
+              },
+          ]
+      });
+      
+    });
+  </script>
+
 {{-- Users table --}}
 <script type="text/javascript">
     $(function () {
@@ -60,13 +116,6 @@
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data: 'username', name: 'username'},
-              {
-    data: 'username',
-    name: 'username',
-    render: function(data, type, row) {
-        return '<a href="#" class="edit-btn" data-username="' + data + '"> '+data +'</a>';
-    }
-},
 
               {data: 'name', name: 'name'},
               {data: 'email', name: 'email'},
@@ -94,13 +143,7 @@
     }
 },
 
-{
-    data: 'username',
-    name: 'username',
-    render: function(data, type, row) {
-        return '<a href="#" id="edit-btn2" class="edit-btn2"> Edit </a>';
-    }
-},
+
 
               {
                   data: 'action', 
@@ -115,16 +158,7 @@
   </script>
 
 
-{{-- <script>
-    $(document).ready(function() {
-        $('.edit-btn').click(function(e) {
-            e.preventDefault();
-            var username = $(this).data('username');
-            $('#username').val(username); // Use '#username' as the selector
-            $('#basicModal-2').modal('show');
-        });
-    });
-</script> --}}
+
 
 <script>
     $(document).ready(function() {
@@ -138,16 +172,25 @@
     });
 </script>
 
-{{-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        document.getElementById('edit-btn2').addEventListener('click', function(e) {
-            e.preventDefault();
-            console.log('Edit button clicked');
-            var roleId = this.getAttribute('data-role-id');
-            console.log('Role ID:', roleId);
-            // Other actions you want to perform...
+
+
+
+<script>
+    document.getElementById('copyRecordsBtn').addEventListener('click', function() {
+        // Send an AJAX request to the Laravel route
+        fetch('/copy-subheads', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message); // Show a success message
+        })
+        .catch(error => {
+            console.error('Error:', error); // Handle any errors
         });
     });
-</script> --}}
-
-
+  </script>

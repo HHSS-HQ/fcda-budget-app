@@ -29,6 +29,7 @@ use App\Http\Controllers\ExcelImportController;
 use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\DataTablesController;
+use App\Http\Controllers\SubheadAllocationController;
 
 
 // use App\Http\Controllers\ContractorController;
@@ -109,7 +110,7 @@ Route::get('/pages/misc-error', $controller_path . '\pages\MiscError@index')->na
 Route::get('/pages/misc-under-maintenance', $controller_path . '\pages\MiscUnderMaintenance@index')->name('pages-misc-under-maintenance');
 
 // authentication
-// Route::post('/auth/register-basic', $controller_path . '\CustomAuthController@customRegistration')->name('register.custom');
+Route::post('/auth/register-basic', $controller_path . '\CustomAuthController@customRegistration')->name('register.custom');
 Route::get('/auth/forgot-password-basic', $controller_path . '\authentications\ForgotPasswordBasic@index')->name('auth-reset-password-basic');
 // Route::post('/auth/register-basic', [CustomAuthController::class, 'customRegistration'])->name('register.custom');
 
@@ -191,7 +192,7 @@ Route::post('/add-role', [RoleController::class, 'store'])->name('role.store');
 Route::get('/roles', [RoleController::class, 'AllRoles'])->name('roles.show');
 
 // Route::get('/users', [RegisterController::class, 'allUsers'])->name('users.show');
-Route::get('/add-user', [RegisterController::class, 'add_user'])->name('register.show');
+Route::get('/add-user', [RegisterController::class, 'add_user'])->name('user-register.show');
 // Route::get('/users', [RoleController::class, 'AllRoles2'])->name('role.store');
 Route::any('/update-user/{id}', [RegisterController::class, 'updateUser'])->name('user.update');
 
@@ -200,6 +201,7 @@ Route::get('/budget-utilization', [DepartmentController::class, 'budget_utilizat
 Route::get('/add-department', [DepartmentController::class, 'show'])->name('department.show');
 Route::post('/add-department', [DepartmentController::class, 'store'])->name('department.store');
 Route::get('/departments', [DepartmentController::class, 'AllDepartments'])->name('departments.show');
+Route::get('/departments-budget', [DepartmentController::class, 'AllDepartmentsBudget'])->name('departments-budget.show');
 Route::any('/update-department/{id}', [DepartmentController::class, 'updateDepartment'])->name('department.update');
 Route::post('/add-department-budget', [DepartmentController::class, 'budget_store'])->name('department_budget.store');
 Route::any('/update-department-budget/{id}', [DepartmentController::class, 'budget_update'])->name('department_budget.update');
@@ -226,6 +228,8 @@ Route::get('/add-subhead', [SubheadController::class, 'show'])->name('subhead.sh
 Route::post('/add-subhead', [SubheadController::class, 'store'])->name('subhead.store');
 Route::get('/subheads', [SubheadController::class, 'AllSubheads'])->name('subheads.show');
 Route::any('/update-subhead/{id}', [SubheadController::class, 'updateSubhead'])->name('subhead.update');
+Route::get('/all-subhead-allocations', [SubheadAllocationController::class, 'AllSubheadAllocations']);
+Route::get('/subhead-allocation', [SubheadAllocationController::class, 'SubheadAllocations']);
 
 Route::get('/add-project-type', [ProjectTypeController::class, 'show'])->name('project-type.show');
 Route::post('/add-project-type', [ProjectTypeController::class, 'store'])->name('project-type.store');
@@ -288,6 +292,12 @@ Route::get('/departments/export/pdf', [DepartmentController::class, 'exportPDF']
 
 Route::get('subheads', [DataTablesController::class, 'index']);
 Route::get('subheads/list', [DataTablesController::class, 'getSubheads'])->name('subheads.list');
+Route::get('all-subhead-allocation/list', [DataTablesController::class, 'getAllSubheadAllocations'])->name('all-subhead-allocation.list');
+Route::get('subhead-allocation/list', [DataTablesController::class, 'getSubheadAllocations'])->name('subhead-allocation.list');
+
 
 Route::get('users', [DataTablesController::class, 'index_users']);
 Route::get('users/list', [DataTablesController::class, 'getUsers'])->name('users.list');
+
+
+Route::post('/copy-subheads', 'App\Http\Controllers\SubheadAllocationController@copySubhead');

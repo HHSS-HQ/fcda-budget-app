@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-      Schema::table('ecf', function (Blueprint $table) {
-        // $table->string('department_budget_id')->nullable();
-        $table->unsignedBigInteger('department_budget_id')->references('id')->on('department_budget')->nullable();
-    });
+    //   Schema::table('ecf', function (Blueprint $table) {
+    //     // $table->string('department_budget_id')->nullable();
+    //     $table->unsignedBigInteger('department_budget_id')->references('id')->on('department_budget')->nullable();
+    // });
     }
 
     /**
