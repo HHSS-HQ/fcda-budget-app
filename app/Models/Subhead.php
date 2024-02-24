@@ -13,7 +13,7 @@ class Subhead extends Model
 
     public function subheadAllocation()
     {
-        return $this->hasOne(SubheadAllocation::class, 'subhead_code', 'subhead_code');
+        return $this->hasOne(SubheadAllocation::class, 'id', 'subhead_id');
     }
 
     

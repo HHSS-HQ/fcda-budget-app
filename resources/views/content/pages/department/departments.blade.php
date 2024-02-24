@@ -66,13 +66,23 @@
     $formattedDifference = number_format($difference, 2);
 @endphp
 
-<td>N{{ $formattedDifference }}</td>
+{{-- <td>N{{ $formattedDifference }}</td> --}}
 
-            {{-- <td>{{number_format((($budget_utilization->total ?? 0 /$active_budget->budgetary_allocation ?? 0)*100),2)}}%</td> --}}
+<td>
+  {{
+      number_format(
+          $budget_utilization->total && $budgetaryAllocation
+              ? ($budget_utilization->total / $budgetaryAllocation) * 100
+              : 0,
+          2
+      )
+  }}%
+</td>
+
             {{-- <td></td> --}}
-            {{-- <td>
+            <td>
               <a data-toggle = "tooltip" title = "See Breakdown of Budget utilization"   href="/budget-utilization?id={{$data->id}}">[<i class="bx bx-search me-1"></i>Utilization]</a>&nbsp;
-              @if ($active_budget->budgetary_allocation == NULL)
+              @if ($budgetaryAllocation == NULL)
               <a data-toggle = "tooltip" title = "Add Budget"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addBudget-{{$data->id}}">[<i class="bx bx-plus me-1"></i>Add Budget]</a>&nbsp;
               @else
               <a data-toggle = "tooltip" title = "Update Budget"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateBudget-{{$data->id}}">[<i class="bx bx-plus me-1"></i>Update Budget]</a>&nbsp;
@@ -81,66 +91,10 @@
 
               <a data-toggle = "tooltip" title = "Edit This Department"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#basicModal-{{$data->id}}">[<i class="bx bx-edit-alt me-1"></i>Edit]</a>&nbsp;
               <a data-toggle = "tooltip" title = "Delete This Department"   href="javascript:void(0);"><i class="bx bx-trash me-1"></i> </a>
-            </td> --}}
+            </td>
           </tr>
 
-          {{-- <form action="{{ route('department.update', [$data->id ?? null ]) }}" method="PUT" >
-            <div class="modal fade" id="basicModal-{{$data->id ?? null}}" tabindex="-1" aria-hidden="true">
-              <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                  <div class="modal-header">
 
-                    <h5 class="modal-title" id="exampleModalLabel1">Department Edit Form</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                  </div>
-                  <div class="modal-body">
-                    <div class="row">
-                      <div class="col mb-3">
-                        <label for="nameBasic" class="form-label">Department Name</label>
-                        <input type="text" name="department_name" id="nameBasic" class="form-control" value="{{$data->department_name}}">
-                      </div>
-                    </div>
-
-
-                  </div>
-                  <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                  </div>
-                </div>
-              </div>
-            </div>
-            </form> --}}
-
-
-            {{-- <form action="{{ route('department_budget.update', [$active_budget->id]) }}" method="PUT" >
-              <div class="modal fade" id="updateBudget-{{$data->id}}" tabindex="-1" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                  <div class="modal-content">
-                    <div class="modal-header">
-
-                      <h5 class="modal-title" id="exampleModalLabel1">Department Budget Edit Form</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <div class="row">
-                        <div class="col mb-3">
-                          <label for="nameBasic" class="form-label">Budgetary Allocation</label>
-
-                          <input type="text" name="budgetary_allocation" id="nameBasic" class="form-control" value="{{$active_budget->budgetary_allocation}}">
-                        </div>
-                      </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
-                      <button type="submit" class="btn btn-primary">Save changes</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </form> --}}
 
 
 

@@ -31,7 +31,7 @@ class ECF extends Model
 
     public function payee(): HasOne
     {
-        return $this->HasOne(Payee::class, 'id', 'payee_id');
+        return $this->HasOne(Payee::class, 'payee_id', 'payee_id');
     }
 
     public function ecf_prepared_by(): HasOne

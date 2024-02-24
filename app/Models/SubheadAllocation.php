@@ -13,7 +13,7 @@ class SubheadAllocation extends Model
 
     public function subhead()
     {
-        return $this->belongsTo(Subhead::class, 'subhead_code', 'subhead_code');
+        return $this->belongsTo(Subhead::class, 'subhead_id', 'id');
     }
 
     public function department()

@@ -18,8 +18,9 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->id();
             $table->unsignedInteger('head_id')->nullable();
-            $table->unsignedBigInteger('subhead_code')->nullable();
-            $table->unique('subhead_code');
+            // $table->unsignedBigInteger('subhead_code')->nullable();
+            $table->string('subhead_code');
+            // $table->unique('subhead_code');
             $table->string('subhead_name')->nullable();
 
             // $table->unsignedBigInteger('department_id');

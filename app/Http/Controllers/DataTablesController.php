@@ -47,13 +47,18 @@ class DataTablesController extends Controller
     {
         if ($request->ajax()) {
             // $data = Subhead::latest()->get()
-            $data = SubheadAllocation::with('subhead', 'department')->get();
+            // $data = SubheadAllocation::with('subhead', 'department')->get();
+            $data = DB::table('subhead_allocation')
+            ->select('subhead_allocation.*', 'subhead.subhead_code as subhead_code', 'subhead.subhead_name as subhead_name', 'department.department_name as department_name')
+            ->join('subhead', 'subhead.id', '=', 'subhead_allocation.subhead_id')
+            ->join('department', 'department.id', '=', 'subhead_allocation.department_id')
+            ->get();
           
             return Datatables::of($data)
             // return $dataTable->render('export');
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-3"  data-id="' . $row->id. '"  data-department_id="' . $row->department_id. '"  data-approved_provision="' . $row->approved_provision. '"  data-department_name="' . $row->department_name. '"  data-subhead_name="' . $row->subhead_name. '">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
@@ -66,18 +71,20 @@ class DataTablesController extends Controller
     {
         if ($request->ajax()) {
             // $data = Subhead::latest()->get()
-            $data = SubheadAllocation::with('subhead', 'department')
-            ->where('department_id', auth()->id())
-            ->get();
-            // ->select('subhead_allocation.*', 'subhead.subhead_name')
-            // ->join('subhead', 'subhead.subhead_code', '=', 'subhead.subhead_code')
+            // $data = SubheadAllocation::with('subhead', 'department')
+            // ->where('department_id', auth()->id())
             // ->get();
+            $data = DB::table('subhead_allocation')
+            ->select('subhead_allocation.*', 'subhead.subhead_name', 'department.department_name')
+            ->join('subhead', 'subhead.subhead_code', '=', 'subhead_allocation.subhead_code')
+            ->join('department', 'department.id', '=', 'subhead_allocation.department_id')
+            ->get();
             // return $data;
             return Datatables::of($data)
             // return $dataTable->render('export');
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-id="' . $row->id. '">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])

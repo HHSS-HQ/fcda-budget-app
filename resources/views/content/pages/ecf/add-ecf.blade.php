@@ -41,7 +41,7 @@
         <form id="formAccountSettings" action="" action="{{ route('ecf.store') }}" method="POST">
           @csrf
 
-          <div class="row">
+          {{-- <div class="row">
             <div class="col mb-3">
               <label for="nameBasic" class="form-label">Department</label>
               <select id="department_dropdown" class="select2 form-select" name="department_id">
@@ -54,11 +54,11 @@
               </select>
             </div>
 
-          </div>
+          </div> --}}
 
           <div class="row">
 
-            <div class="mb-3 col-md-6">
+            {{-- <div class="mb-3 col-md-6">
               <label for="head_dropdown" class="form-label">Head</label>
               <select id="head_dropdown" class="select2 form-select" name="head_id">
                 <option value="">---Select Head---</option>
@@ -70,9 +70,9 @@
                 @empty
                 @endforelse
               </select>
-            </div>
+            </div> --}}
 
-            <div class="mb-3 col-md-6">
+            {{-- <div class="mb-3 col-md-6">
               <label for="subhead_dropdown" class="form-label">Subhead</label>
 
               <div class="form-group mb-3">
@@ -80,6 +80,18 @@
                   <option value="">-- Select Subhead --</option>
                 </select>
               </div>
+            </div> --}}
+
+            <div class="col mb-3">
+              <label for="nameBasic" class="form-label">Subhead</label>
+              <select id="subhead_dropdown" class="select2 form-select" name="subhead_id">
+                <option value="">Select</option>
+                {{$items = App\Models\SubheadAllocation::select('subhead_id', 'department_id', 'subhead.*')->join('subhead', 'subhead.id', '=', 'subhead_allocation.subhead_id')->get();}}
+                @foreach($items as $item)
+                <option value="{{$item->id}}" data-department-id="{{$item->department_id}}">{{$item->subhead_code}}-{{$item->subhead_name}}</option>
+                {{-- <option value="{{$item->id}}">{{$item->subhead_code}}-{{$item->subhead_name}}</option> --}}
+                @endforeach
+              </select>
             </div>
 
 
@@ -104,9 +116,9 @@
               <label for="revised_provision" class="form-label">Payee</label>
               <select id="id" class="select2 form-select" name="payee_id">
                 <option value="">---Select Payee---</option>
-                {{$payees =  App\Models\Payee::select('payee_name', 'id')->get();}}
+                {{$payees =  App\Models\Payee::select('payee_name', 'payee_id')->get();}}
                 @forelse($payees as $item)
-                <option value="{{$item->id}}">{{$item->payee_name}}</option>
+                <option value="{{$item->payee_id}}">{{$item->payee_name}}</option>
                 @empty
                 @endforelse
               </select>
@@ -277,7 +289,7 @@ $('#head_dropdown').on('change', function() {
         }
       });
     });
-    $('#subhead_dropdown').on('change', function() {
+  $('#subhead_dropdown').on('change', function() {
   var idState = this.value;
   $("#revised_provision").html('');
   $.ajax({
@@ -294,6 +306,29 @@ $('#head_dropdown').on('change', function() {
         var revisedProvision = value.revised_provision !== null ? value.revised_provision : '0';
         $("#revised_provision").append('<option value="' + revisedProvision + '">' + revisedProvision + '</option>');
       });
+    }
+  });
+});
+
+$('#subhead_dropdown').on('change', function() {
+  var idState = this.value;
+  var departmentId = $(this).find(':selected').data('department-id'); 
+  $("#budgetary_allocation").html('');
+  $.ajax({
+    url: "{{url('fetch-department-budget')}}",
+    type: "POST",
+    data: {
+      department_id: departmentId,
+      _token: '{{csrf_token()}}'
+    },
+    dataType: 'json',
+    success: function(res) {
+      $('#budgetary_allocation').html(res);
+      // $.each(res.budgetary_allocation, function(key, value) {
+      //   // console.log("hi");
+      //   var budgetaryAllocation = value.budgetary_allocation !== null ? value.budgetary_allocation : '0';
+      //   $("#budgetary_allocation").append('<option value="' + budgetaryAllocation + '">' + budgetaryAllocation + '</option>');
+      // });
     }
   });
 });

@@ -120,7 +120,7 @@ class SubheadAllocationController extends Controller
         foreach ($records as $record) {
             // Check if a record with the same data already exists in the destination table
             $existingRecord = SubheadAllocation::
-            where('subhead_code', $record->subhead_code)
+            where('subhead_id', $record->id)
             ->where('department_id', Auth::user()->department_id)
             ->first();
 
@@ -132,7 +132,7 @@ class SubheadAllocationController extends Controller
                 $newRecord = new SubheadAllocation();
 
                 // Copy data from the source record to the new record
-                $newRecord->subhead_code = $record->subhead_code;
+                $newRecord->subhead_id = $record->id;
                 $newRecord->department_id = Auth::user()->department_id;
                 // Copy other columns as needed
 
@@ -152,8 +152,18 @@ class SubheadAllocationController extends Controller
     }
 }
 
+// Update Subhead Allocation
+public function updateSubheadAllocation(Request $request, $id)
+{
+  if (SubheadAllocation::where('id', $id)->exists()) {
+    $subhead_allocation = SubheadAllocation::find($id);
+    $subhead_allocation->approved_provision = is_null($request->approved_provision) ? $subhead_allocation->approved_provision : $request->approved_provision;
+    $subhead_allocation->revised_provision = is_null($request->revised_provision) ? $subhead_allocation->revised_provision : $request->revised_provision;
 
-
+    $subhead_allocation->save();
+    return redirect()->back()->with('success', "Subhead Allocation successfuly updated.");
+}
+}
 
 
 }

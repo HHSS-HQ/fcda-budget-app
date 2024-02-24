@@ -39,7 +39,7 @@ class RegisterController extends Controller
             ->leftjoin('role', 'role.id', '=', 'users.role_id')
             ->leftjoin('department', 'department.id', '=', 'users.department_id')
             ->get();
-// return $users;
+    // return $users;
         return view('content.pages.users.users', compact('users') );
 
     }
@@ -88,6 +88,6 @@ class RegisterController extends Controller
         $user->save();
         return redirect('/users')->with('success', "User details successfuly updated.");
     }
-}
+    }
 
 }

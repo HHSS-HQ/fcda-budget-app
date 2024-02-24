@@ -14,6 +14,10 @@ use App\Models\Budget;
 use App\Http\Controllers\response;
 use Carbon\Carbon;
 use App\Models\DepartmentBudget;
+use App\Models\SubheadAllocation;
+use App\Models\Transactions;
+
+use Illuminate\Support\Facades\Auth;
 
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -36,12 +40,12 @@ class ECFController extends Controller
 
     public function store(Request $request)
   {
-    $this->validate($request, [
-      'department_id' => 'required|string',
-      'subhead_id' => 'required|string',
-    //   'created_by' => 'required',
+    // $this->validate($request, [
+    //   'department_id' => 'required|string',
+    //   'subhead_id' => 'required|string',
+    // //   'created_by' => 'required',
 
-    ]);
+    // ]);
 
 
     // \Log::info($request->all());
@@ -54,20 +58,47 @@ class ECFController extends Controller
       $active_budget_id = $active_budget->id;
     }
 
-    $ecf->department_id = $request->department_id;
-    $ecf->subhead_id = $request->subhead_id;
-    $ecf->head_id = $request->head_id;
-    $ecf->expenditure_item = $request->expenditure_item;
-    $ecf->payee_id = $request->payee_id;
-    $ecf->approved_provision = $request->approved_provision;
-    $ecf->revised_provision = $request->revised_provision;
-    $ecf->present_requisition = $request->present_requisition;
-    $ecf->department_budget_id = $request->department_budget_id;
+    $department_budget = DB::table('department_budget')
+    ->select('department_budget.id')
+    ->where('department_id', '=', Auth::user()->department_id)
+    ->first();
+    if ($department_budget) {
+      $department_budget_id = $department_budget->id;
+    }
+
+    $payee = DB::table('payee_new')
+    ->select('payee_new.*')
+    ->where('payee_id', '=', $request->payee_id)
+    ->first();
+    if ($payee) {
+      $payee_bank = $payee->payee_bank;
+      $payee_account_number = $payee->payee_account_number;
+    }
+
+    $ecf->department_id = Auth::user()->department_id;
+    $ecf->subhead_id = is_null($request->subhead_id) ? $ecf->subhead_id : $request->subhead_id;
+    $ecf->expenditure_item = is_null($request->expenditure_item) ? $ecf->expenditure_item : $request->expenditure_item;
+    $ecf->payee_id = is_null($request->payee_id) ? $ecf->payee_id : $request->payee_id;
+    $ecf->approved_provision = is_null($request->approved_provision) ? $ecf->approved_provision : $request->approved_provision;
+    $ecf->revised_provision = is_null($request->revised_provision) ? $ecf->revised_provision : $request->revised_provision;
+    $ecf->present_requisition = is_null($request->present_requisition) ? $ecf->present_requisition : $request->present_requisition;
+    $ecf->department_budget_id = $department_budget_id;
     $ecf->budget_id = $active_budget_id;
-    $ecf->uploaded_date = $request->uploaded_date;
-    $ecf->prepared_by = auth()->id();
+    $ecf->uploaded_date = is_null($request->uploaded_date) ? $ecf->uploaded_date : $request->uploaded_date;
+    $ecf->prepared_by = Auth::user()->id;
+
 
     $ecf->save();
+    
+    $transactions = new Transactions();
+    $transactions->transaction_type = "ECF";
+    $transactions->transaction_amount = is_null($request->present_requisition) ? $transactions->transaction_amount : $request->present_requisition;
+    $transactions->payee_id = is_null($request->payee_id) ? $transactions->payee_id : $request->payee_id;
+    $transactions->payee_bank = $payee_bank;
+    $transactions->payee_account_number = $payee_account_number;
+    $transactions->updated_by = Auth::user()->id;
+    $transactions->transaction_date = is_null($request->uploaded_date) ? $transactions->transaction_date : $request->uploaded_date;
+    $transactions->save();
 
     return redirect('/ecfs')->with('success', "ECF generated successfully.");
   }
@@ -92,16 +123,16 @@ class ECFController extends Controller
 
   public function fetchApprovedProvision(Request $request)
   {
-      $data['approved_provisions'] = Subhead::where("id", $request->subhead_id)
-                                  ->get(["approved_provision", "id"]);
+      $data['approved_provisions'] = SubheadAllocation::where("subhead_id", $request->subhead_id)
+                                  ->get(["approved_provision", "subhead_id"]);
 
       return response()->json($data);
   }
 
   public function fetchRevisedProvision(Request $request)
   {
-      $data['revised_provisions'] = Subhead::where("id", $request->subhead_id)
-                                  ->get(["revised_provision", "id"]);
+      $data['revised_provisions'] = SubheadAllocation::where("subhead_id", $request->subhead_id)
+                                  ->get(["revised_provision", "subhead_id", "department_id"]);
 
       return response()->json($data);
   }
@@ -133,7 +164,7 @@ class ECFController extends Controller
       $ecfs = ECF::query()
       ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
       ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name', 'subhead_code');}])
-      ->with(['payee' => function ($query) {$query->select('id', 'payee_name as payee_name');}])
+      ->with(['payee' => function ($query) {$query->select('payee_id', 'payee_name as payee_name');}])
       ->with(['head' => function ($query) {$query->select('id', 'head_name', 'head_code');}])
       ->get();
         // $ecfs = DB::select('select * from ecf')->get();
@@ -160,12 +191,13 @@ public function printECF(Request $request)
 {
 
   $ecfs = ECF::query()
-  ->with(['department' => function ($query) {$query->select('id', 'department_name as dept_name');}])
+  ->with(['department' => function ($query) {$query->select('id', 'department_name as department_name');}])
   ->with(['ecf_prepared_by' => function ($query) {$query->select('id', 'name as ecf_prepared_by');}])
   ->with(['ecf_checked_by' => function ($query) {$query->select('id', 'name as ecf_checked_by');}])
   ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name', 'subhead_code');}])
+  ->with(['subhead.subheadAllocation' => function ($query) {$query->select('id', 'approved_provision', 'revised_provision');}])
   ->with(['head' => function ($query) {$query->select('id', 'head_name', 'head_code');}])
-  ->with(['payee' => function ($query) {$query->select('id', 'payee_name');}])
+  ->with(['payee' => function ($query) {$query->select('payee_id', 'payee_name', 'payee_phone', 'payee_phone2', 'payee_email');}])
   ->where('id', '=', $request->id)
   ->get();
     $pdf = \PDF::loadView('content.pages.pdf.ecf', compact('ecfs'));

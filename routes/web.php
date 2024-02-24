@@ -301,3 +301,4 @@ Route::get('users/list', [DataTablesController::class, 'getUsers'])->name('users
 
 
 Route::post('/copy-subheads', 'App\Http\Controllers\SubheadAllocationController@copySubhead');
+Route::any('/update-subhead-allocation/{id}', [SubheadAllocationController::class, 'updateSubheadAllocation'])->name('subhead-allocation.update');

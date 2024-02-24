@@ -45,7 +45,7 @@
           <div class="row">
 
             <div class="col mb-3">
-              <label for="nameBasic" class="form-label">Payee Name</label>
+              <label for="payee_name" class="form-label">Payee Name</label>
               <input class="form-control {{ $errors->has('payee_name') ? 'error' : '' }}" type="text" id="payee_name" name="payee_name"  autofocus placeholder="Payee Name" />
             @if ($errors->has('payee_name'))
             <div class="error">
@@ -115,11 +115,33 @@
 
 
             <div class="mb-3 col-md-6">
-              <label for="code" class="form-label">Primary Phone Number</label>
-              <input class="form-control {{ $errors->has('payee_phone_number') ? 'error' : '' }}" type="text" id="payee_phone_number" name="payee_phone_number" placeholder="Payee Phone Number" />
-              @if ($errors->has('payee_phone_number'))
+              <label for="payee_sortcode" class="form-label">Payee Sort Code</label>
+              <input class="form-control {{ $errors->has('payee_sortcode') ? 'error' : '' }}" type="text" id="payee_sortcode" name="payee_sortcode" placeholder="Payee Sort Code" />
+              @if ($errors->has('payee_sortcode'))
               <div class="error">
-                {{ $errors->first('payee_phone_number') }}
+                {{ $errors->first('payee_sortcode') }}
+              </div>
+              @endif
+            </div>
+
+
+            <div class="mb-3 col-md-6">
+              <label for="payee_email" class="form-label">Payee Email</label>
+              <input class="form-control {{ $errors->has('payee_email') ? 'error' : '' }}" type="text" id="payee_email" name="payee_email" placeholder="Payee Email" />
+              @if ($errors->has('payee_email'))
+              <div class="error">
+                {{ $errors->first('payee_email') }}
+              </div>
+              @endif
+            </div>
+
+
+            <div class="mb-3 col-md-6">
+              <label for="code" class="form-label">Primary Phone Number</label>
+              <input class="form-control {{ $errors->has('payee_phone') ? 'error' : '' }}" type="text" id="payee_phone" name="payee_phone" placeholder="Payee Phone Number" />
+              @if ($errors->has('payee_phone'))
+              <div class="error">
+                {{ $errors->first('payee_phone') }}
               </div>
               @endif
             </div>
@@ -127,10 +149,10 @@
 
             <div class="mb-3 col-md-6">
               <label for="code" class="form-label">Alternate Phone Number</label>
-              <input class="form-control {{ $errors->has('payee_phone_number') ? 'error' : '' }}" type="text" id="payee_phone_number" name="alternate_phone_number" placeholder="Payee Alternate Phone Number" />
-              @if ($errors->has('payee_phone_number'))
+              <input class="form-control {{ $errors->has('payee_phone2') ? 'error' : '' }}" type="text" id="payee_phone2" name="payee_phone2" placeholder="Payee Alternate Phone Number" />
+              @if ($errors->has('payee_phone2'))
               <div class="error">
-                {{ $errors->first('payee_phone_number') }}
+                {{ $errors->first('payee_phone2') }}
               </div>
               @endif
             </div>

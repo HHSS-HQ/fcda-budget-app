@@ -36,7 +36,7 @@
           <tr>
             <th>ECF ID</th>
             <th>Department Name</th>
-            <th>Head </th>
+            {{-- <th>Head </th> --}}
             <th>Subhead Name</th>
             <th>Description</th>
             <th>Present Requisition</th>
@@ -50,7 +50,7 @@
           <tr>
             <td>{{$i++}}</td>
             <td>{{$data->department->dept_name ?? null}}</td>
-            <td>{{$data->department->department_code ?? null}}-{{$data->subhead->id ?? null}}</td>
+            {{-- <td>{{$data->department->department_code ?? null}}-{{$data->subhead->id ?? null}}</td> --}}
             <td>{{$data->subhead->subhead_name ?? null}}</td>
             <td>{{$data->expenditure_item ?? null}}</td>
             <td>&#8358;N{{number_format(($data->present_requisition ?? null),2)}}</td>
@@ -109,7 +109,7 @@
           </form>
           @empty
           <tr>
-            <td colspan="5" style="color:red">Oops! No Budget utilization has been recorded for this department yet</td>
+            <td colspan="9" style="color:red">Oops! No Budget utilization has been recorded for this department yet</td>
           </tr>
 
           @endforelse

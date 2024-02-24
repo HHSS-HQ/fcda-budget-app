@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             // $table->unsignedBigInteger('allocation_ID')->index();
             $table->unsignedBigInteger('allocation_id')->references('allocation_id')->on('transactions')->nullable();
-            $table->unsignedBigInteger('subhead_code');
-            $table->foreign('subhead_code')->references('subhead_code')->on('subhead')->nullable();
+            $table->unsignedBigInteger('subhead_id')->nullable();
+            // $table->foreign('subhead_code')->references('subhead_code')->on('subhead');
             $table->bigInteger('approved_provision')->nullable();
             $table->bigInteger('revised_provision')->nullable();
 
@@ -36,11 +36,11 @@ return new class extends Migration
             $table->string('status')->default('ACTIVE');
 
 
-            // $table->foreign('department_id')
-            //     ->references('id')->on('department')
-            //     ->onDelete('no action')
-            //     ->onUpdate('no action');
-            // $table->index(['department_id', 'subhead_id', 'year_id', 'allocation_ID']);
+            $table->index(["subhead_id"], 'fk_subhead_id_11_idx');
+            $table->foreign('subhead_id', 'fk_subhead_id_11_idx')
+            ->references('id')->on('subhead')
+            ->onDelete('no action')
+            ->onUpdate('no action');
         });
 
         Schema::enableForeignKeyConstraints();

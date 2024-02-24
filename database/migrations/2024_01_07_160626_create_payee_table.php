@@ -15,18 +15,21 @@ return new class extends Migration
 
         Schema::create('payee_new', function (Blueprint $table) {
             $table->increments('payee_id');
-            $table->bigInteger('payee_type');
-            $table->bigInteger('payee_Name');
-            $table->string('payee_phone', 11);
-            $table->string('payee_phone2', 11);
-            $table->string('payee_bank', 20);
-            $table->string('payee_account_number', 10);
-            $table->string('payee_sortcode', 15);
-            $table->string('payee_email', 30);
-            $table->mediumText('remarks');
+            $table->bigInteger('payee_type')->nullable();
+            $table->string('payee_name')->nullable();
+            $table->string('payee_phone', 11)->nullable();
+            $table->string('payee_phone2', 11)->nullable();
+            $table->string('payee_bank', 20)->nullable();
+            $table->string('payee_account_name')->nullable();
+            $table->string('payee_account_number', 10)->nullable();
+            $table->string('payee_sortcode', 15)->nullable();
+            $table->string('payee_email', 30)->nullable();
+            $table->mediumText('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedBigInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
+            $table->unsignedBigInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users');
         });
 

@@ -55,15 +55,16 @@
       
       var table = $('.all-subhead-allocation').DataTable({
           processing: true,
-          serverSide: true,
+          serverSide: false,
           ajax: "{{ route('all-subhead-allocation.list') }}",
+       
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-              {data: 'subhead_code', name: 'subhead_code'},
-              {data: 'subhead.subhead_name', name: 'subhead_name'},
-              {data: 'department.department_name', name: 'department_name'},
-              {data: 'approved_provision', name: 'approved_provision'},
-              {data: 'revised_provision', name: 'revised_provision'},
+              {data: 'subhead_code', name: 'subhead_code', searchable: true},
+              {data: 'subhead_name', name: 'subhead_name', searchable: true},
+              {data: 'department_name', name: 'department_name'},
+              {data: 'approved_provision', name: 'approved_provision', defaultContent: 'NOT SET'},
+              {data: 'revised_provision', name: 'revised_provision', defaultContent: 'NOT SET'},
               // {data: 'dob', name: 'dob'},
               {
                   data: 'action', 
