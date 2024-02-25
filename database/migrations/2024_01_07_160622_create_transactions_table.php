@@ -15,7 +15,8 @@ return new class extends Migration
 
         Schema::create('transactions', function (Blueprint $table) {
             // $table->id();
-            $table->unsignedBigInteger('allocation_id')->primary(); // Make it a primary key
+            $table->increments('allocation_id');
+            // $table->unsignedBigInteger('allocation_id')->primary(); // Make it a primary key
             $table->string('transaction_type', 20)->nullable();
             $table->bigInteger('transaction_amount')->nullable();
             $table->unsignedBigInteger('payee_id')->nullable();
@@ -31,7 +32,7 @@ return new class extends Migration
             $table->foreign('updated_by')->references('id')->on('users');
             $table->foreign('project_id')->references('project_id')->on('project');
             
-            $table->index(['payee_id', 'narration']);
+            // $table->index(['payee_id', 'narration']);
         });
 
         Schema::enableForeignKeyConstraints();

@@ -47,7 +47,7 @@
           </tr>
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No projects registered yet</td>
+                  <td colspan="6" style="color:red">Oops! No projects registered yet</td>
                 </tr>
 
           @endforelse

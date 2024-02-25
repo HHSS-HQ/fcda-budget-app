@@ -98,7 +98,7 @@
       "name": "Transactions",
       "icon": "menu-icon tf-icons bx bx-outline",
       "slug": "transactions",
-      "url": "/projects"
+      "url": "/transactions"
     },
 
     {

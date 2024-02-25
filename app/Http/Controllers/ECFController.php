@@ -96,6 +96,7 @@ class ECFController extends Controller
     $transactions->payee_id = is_null($request->payee_id) ? $transactions->payee_id : $request->payee_id;
     $transactions->payee_bank = $payee_bank;
     $transactions->payee_account_number = $payee_account_number;
+    $transactions->narration = $request->expenditure_item;
     $transactions->updated_by = Auth::user()->id;
     $transactions->transaction_date = is_null($request->uploaded_date) ? $transactions->transaction_date : $request->uploaded_date;
     $transactions->save();

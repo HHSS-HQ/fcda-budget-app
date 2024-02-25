@@ -8,6 +8,7 @@ use DataTables;
 use App\DataTables\ExportDataTable;
 use DB;
 use App\Models\Users;
+use App\Models\Transactions;
 
 class DataTablesController extends Controller
 {
@@ -115,4 +116,27 @@ class DataTablesController extends Controller
         }
     }
 
+
+    public function AllTransactions(Request $request)
+    {
+
+        if ($request->ajax()) {
+            // $data = Subhead::latest()->get()
+            $data = DB::table('transactions')
+            ->select('transactions.*', 'payee_new.payee_name')
+            ->leftjoin('payee_new', 'payee_new.payee_id', '=', 'transactions.payee_id')
+            // ->leftjoin('role', 'role.id', '=', 'users.role_id')
+            ->get();
+            // return $data;
+            return Datatables::of($data)
+            // return $dataTable->render('export');
+                ->addIndexColumn()
+                // ->addColumn('action', function($row){
+                //     $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-2"> Edit </a> <a   class="delete btn btn-danger btn-sm" style="color: white" >Delete</a>';
+                //     return $actionBtn;
+                // })
+                // ->rawColumns(['action'])
+                ->make(true);
+        }
+    }
 }

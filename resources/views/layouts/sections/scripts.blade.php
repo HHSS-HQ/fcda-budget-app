@@ -49,6 +49,37 @@
 </script>
 
 
+
+{{-- All Transactions Table --}}
+<script type="text/javascript">
+    $(function () {
+      
+      var table = $('.transactions').DataTable({
+          processing: true,
+          serverSide: false,
+          ajax: "{{ route('transactions.list') }}",
+       
+          columns: [
+              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+              {data: 'allocation_id', name: 'allocation_id', searchable: true},
+              {data: 'transaction_type', name: 'transaction_type', searchable: true},
+              {data: 'transaction_amount', name: 'transaction_amount'},
+              {data: 'payee_name', name: 'payee_name'},
+              {data: 'narration', name: 'narration'},
+              {data: 'transaction_date', name: 'transaction_date'},
+            //   {
+            //       data: 'action', 
+            //       name: 'action', 
+            //       orderable: true, 
+            //       searchable: true
+            //   },
+          ]
+      });
+      
+    });
+  </script>
+
+
 {{-- All Subhead Allocation Table --}}
 <script type="text/javascript">
     $(function () {

@@ -30,6 +30,7 @@ use App\Notifications\CustomResetPasswordNotification;
 use Illuminate\Support\Facades\Password;
 use App\Http\Controllers\DataTablesController;
 use App\Http\Controllers\SubheadAllocationController;
+use App\Http\Controllers\TransactionsController;
 
 
 // use App\Http\Controllers\ContractorController;
@@ -302,3 +303,6 @@ Route::get('users/list', [DataTablesController::class, 'getUsers'])->name('users
 
 Route::post('/copy-subheads', 'App\Http\Controllers\SubheadAllocationController@copySubhead');
 Route::any('/update-subhead-allocation/{id}', [SubheadAllocationController::class, 'updateSubheadAllocation'])->name('subhead-allocation.update');
+
+Route::get('transactions', [TransactionsController::class, 'index']);
+Route::get('transactions/list', [DataTablesController::class, 'AllTransactions'])->name('transactions.list');
