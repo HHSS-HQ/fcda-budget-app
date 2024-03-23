@@ -143,39 +143,44 @@
       
       var table = $('.users-datatable').DataTable({
           processing: true,
-          serverSide: true,
+          serverSide: false,
           ajax: "{{ route('users.list') }}",
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data: 'username', name: 'username'},
-
               {data: 'name', name: 'name'},
               {data: 'email', name: 'email'},
-                // {data: 'role_name', name: 'role_name'},
-                {
-    data: 'role_name',
-    name: 'role_name',
+              {
+                  data: 'role_name',
+                  name: 'role_name',
+                  render: function(data, type, row) {
+                      if (data === null || data === '') {
+                          return '<span style="color:red">No role assigned yet</span>';
+                      } else {
+                          return data;
+                      }
+                  }
+              },
+              {
+                  data: 'department_name',
+                  name: 'department_name',
+                  render: function(data, type, row) {
+                      if (data === null || data === '') {
+                          return '<span style="color:red">No department assigned</span>';
+                      } else {
+                          return data;
+                      }
+                  }
+              },
+              {
+    data: 'status',
+    name: 'status',
     render: function(data, type, row) {
-        if (data === null || data === '') {
-            return '<span style="color:red">No role assigned yet</span>';
-        } else {
-            return data;
-        }
+        var statusText = data == 1 ? 'ACTIVE' : 'INACTIVE';
+        var color = data == 1 ? 'green' : 'red';
+        return '<span style="color: ' + color + '">' + statusText + '</span>';
     }
 },
-                {
-    data: 'department_name',
-    name: 'department_name',
-    render: function(data, type, row) {
-        if (data === null || data === '') {
-            return '<span style="color:red">No department assigned</span>';
-        } else {
-            return data;
-        }
-    }
-},
-
-
 
               {
                   data: 'action', 
@@ -187,7 +192,8 @@
       });
       
     });
-  </script>
+</script>
+
 
 
 

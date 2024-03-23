@@ -88,6 +88,32 @@
                             </div>
                           </div>
 
+                          <div class="row">
+                            <div class="col mb-3">
+                              <label for="nameBasic" class="form-label">Status</label>
+                              <select id="id" class="select2 form-select" name="status">
+                                <option value="1">Activate</option>
+                                <option value="0">Deactivate</option>
+                                
+                              </select>
+                            </div>
+                          </div>
+{{-- 
+
+                          <div class="row">
+                            <div class="col mb-3">
+                              <label for="nameBasic" class="form-label">Status</label>
+                              <select id="id" class="select2 form-select" name="department_id">
+                                <option value="">Select Status</option>
+                                {{$departments =  App\Models\User::select('status')->where('id', '=', userId)->get();}}
+                                @forelse($departments as $item)
+                                <option value="{{$item->status}}" {{ $item->status == $item->status ? 'selected' : '' }}>{{$item->status}}</option>
+                                @empty
+                                @endforelse
+                              </select>
+                            </div>
+                          </div> --}}
+
                       </div>
                       <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Close</button>
@@ -111,7 +137,7 @@
                 <th>Email</th>
                 <th>Role</th>
                 <th>Department</th>
-                {{-- <th>Extra</th> --}}
+                <th>Status</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -135,6 +161,7 @@
       $('#name').val(name);
       $('#username').val(username);
       $('#email').val(email);
+      $('#userId').val(userId);
       $('#editForm').attr('action', '/update-user/' + userId); // Set the value of the role ID input field
   });
 </script>

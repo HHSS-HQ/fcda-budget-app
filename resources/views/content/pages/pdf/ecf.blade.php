@@ -34,7 +34,7 @@
   <div class="col-sm-6 col-lg-6 m-b-20">
   <table width="100%" style="border-collapse:collapse">
       <tr>
-      <td style="text-align:right"><h3>ECF #: {{$item['id'] ?? null}}</h3></td>
+      <td style="text-align:right"><h3>ECF #: {{$item['id'] ?? null}}/________________</h3></td>
       </tr>
       </table>
 <table width="100%" border="1" style="border-collapse:collapse">
@@ -71,8 +71,8 @@
           <td colspan="4"><ul><h4><br/>REQUISITION DETAILS</h4></ul></td>
           </tr>
           <tr >
-          <td style="color:red" ><h5>Present Requisition:</h5> <h3 class="text-uppercase">N{{number_format(($item['present_requisition'] ?? null),2)}}</h3></td>
-          <td style="color:red" colspan="3"> <h5>Epxenditure Item:</h5> <h3 class="text-uppercase">{{$item['expenditure_item'] ?? null}}</h3></td>
+          <td style="color:black" ><h5>Present Requisition:</h5> <h3 class="text-uppercase">N{{number_format(($item['present_requisition'] ?? null),2)}}</h3></td>
+          <td style="color:black" colspan="3"> <h5>Epxenditure Item:</h5> <h3 class="text-uppercase">{{$item['expenditure_item'] ?? null}}</h3></td>
           {{-- <td style="color:red"> <h5>Time:</h5> <h3 class="text-uppercase"></h3></td> --}}
       
          

@@ -102,13 +102,14 @@ class DataTablesController extends Controller
             ->select('users.*', 'department.department_name', 'role.role_name')
             ->leftjoin('department', 'department.id', '=', 'users.department_id')
             ->leftjoin('role', 'role.id', '=', 'users.role_id')
+            // ->where('status', '=', 1)
             ->get();
             // return $data;
             return Datatables::of($data)
             // return $dataTable->render('export');
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
-                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-2" data-name="' . $row->name . '" data-username="' . $row->username. '"  data-id="' . $row->id. '"  data-email="' . $row->email. '"> Edit </a> <a   class="delete btn btn-danger btn-sm" style="color: white" >Delete</a>';
+                    $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-2" data-name="' . $row->name . '" data-username="' . $row->username. '"  data-id="' . $row->id. '"  data-email="' . $row->email. '"> Edit </a> ';
                     return $actionBtn;
                 })
                 ->rawColumns(['action'])
