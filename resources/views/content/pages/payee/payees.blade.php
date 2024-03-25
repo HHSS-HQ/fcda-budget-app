@@ -43,15 +43,15 @@
             <td>{{$data->payee_account_number ?? null}}</td>
             <td>{{$data->payee_account_name ?? null}}</td>
             <td>{{$data->payee_bank ?? null}}</td>
-            <td>{{$data->payee_phone_number ?? null}}</td>
-            <td>{{$data->alternate_phone_number ?? null}}</td>
+            <td>{{$data->payee_phone ?? null}}</td>
+            <td>{{$data->payee_phone2 ?? null}}</td>
             {{-- <td>{{$data->added_by ?? null}}</td> --}}
             <td></td>
 
           </tr>
 
-          <form action="{{ route('payee.update', [$data->id]) }}" method="PUT">
-            <div class="modal fade" id="basicModal-{{$data->id}}" tabindex="-1" aria-hidden="true">
+          <form action="{{ route('payee.update', [$data->payee_id]) }}" method="PUT">
+            <div class="modal fade" id="basicModal-{{$data->payee_id}}" tabindex="-1" aria-hidden="true">
               <div class="modal-dialog" role="document">
                 <div class="modal-content">
                   <div class="modal-header">

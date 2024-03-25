@@ -59,7 +59,7 @@
     <form id="formAccountSettings" action="" action="{{ route('project.store') }}" method="POST">
       @csrf
 
-      <div class="row">
+      {{-- <div class="row">
         <div class="col mb-3">
           <label for="nameBasic" class="form-label">Project Type</label>
           <select id="project_type_id" class="select2 form-select" name="project_type_id">
@@ -71,7 +71,7 @@
             @endforelse
           </select>
         </div>
-      </div>
+      </div> --}}
 
 
 
@@ -130,12 +130,12 @@
 
         <div class="row">
           <div class="col mb-3">
-            <label for="nameBasic" class="form-label">Contractor Name</label>
-            <select id="id" class="select2 form-select" name="contractor_id">
-              <option value="">Select Contractor</option>
-              {{$contractor =  App\Models\Contractor::select('company_name', 'id')->get();}}
+            <label for="nameBasic" class="form-label">Payee Name</label>
+            <select id="id" class="select2 form-select" name="payee_id">
+              <option value="">Select Payee</option>
+              {{$contractor =  App\Models\Payee::select('payee_name', 'payee_id')->get();}}
               @forelse($contractor as $item)
-              <option value="{{$item->id}}">{{$item->company_name}}</option>
+              <option value="{{$item->payee_id}}">{{$item->payee_name}}</option>
               @empty
               @endforelse
             </select>

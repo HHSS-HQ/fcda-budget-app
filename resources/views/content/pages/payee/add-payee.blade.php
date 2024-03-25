@@ -42,8 +42,28 @@
         <form id="formAccountSettings" action="" action="{{ route('payee.store') }}" method="POST">
           @csrf
 
+          
+          
           <div class="row">
 
+
+            <div class="col mb-3 col-md-6">
+              <label for="payee_type" class="form-label">Payee Type</label>
+              <select class="form-control" name="payee_type">
+                <option value="">Select Payee Type</option>
+                <option value="contractor">Contractor</option>
+                <option value="payee">Payee</option>
+              </select>
+            @if ($errors->has('payee_type'))
+            <div class="error">
+              {{ $errors->first('payee_type') }}
+            </div>
+            @endif
+            </div>
+          </div>
+
+
+            <div class="row">
             <div class="col mb-3">
               <label for="payee_name" class="form-label">Payee Name</label>
               <input class="form-control {{ $errors->has('payee_name') ? 'error' : '' }}" type="text" id="payee_name" name="payee_name"  autofocus placeholder="Payee Name" />

@@ -7,7 +7,11 @@ use App\Models\Fundproject;
 use App\Models\Project;
 use Carbon\Carbon;
 use App\Models\Budget;
+use App\Models\Transactions;
 use DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
+
 
 class FundprojectController extends Controller
 {
@@ -16,37 +20,84 @@ class FundprojectController extends Controller
       Fundproject::query();
     }
 
-    public function fundProject(Request $request){
-      $active_budget = DB::table('budget')
-      ->select('budget.id')
-      ->where('status', '=', 'ACTIVE')
-      ->first();
-      if ($active_budget) {
-        $active_budget_id = $active_budget->id;
+    public function fundProject(Request $request) {
+      DB::beginTransaction();
+  
+      try {
+          $active_budget = DB::table('budget')
+              ->select('budget.id')
+              ->where('status', '=', 'ACTIVE')
+              ->first();
+          
+          if ($active_budget) {
+              $activeBudgetId = $active_budget->id;
+          }
+  
+          Log::info('Active budget retrieved: ' . $activeBudgetId);
+  
+          $payee = DB::table('project')
+              ->select('payee_new.payee_id', 'payee_new.payee_bank', 'payee_new.payee_account_number')
+              ->join('payee_new', 'payee_new.payee_id', '=', 'project.payee_id')
+              ->where('project_id', '=', $request->project_id)
+              ->first();
+
+          // $payee = DB::table('project')
+          // ->select('payee_id')
+          // ->where('id', '=', $request->project_id)
+          // ->first();
+      
+      if ($payee) {
+        $payeeID = $payee->payee_id; 
+        $payeeBank = $payee->payee_bank;
+          $payeeAccountNumber = $payee->payee_account_number;
       }
-
-      $fund_project = new Fundproject();
-      $fund_project->project_id = $request->project_id;
-      $fund_project->amount = $request->amount;
-      $fund_project->comment = $request->comment;
-      $fund_project->budget_id = $active_budget_id;
-      $fund_project->added_by = auth()->id();
-      $fund_project->save();
-
-
-      $update_project = Project::where('id', '=', $request->project_id)
-      ->update(['last_funded_date' => Carbon::now()]);
-
-      // return $fund_project;
-
-      if ($fund_project) {
-        return back()->with('success', 'Success! Project successfuly funded');
-    }
-    else {
-        return back()->with('error', 'Failed! Error funding project');
-    }
-
-    }
+      
+  
+          // Log::info('Payee information retrieved' . $payeeID);
+  
+          // Create and save fund project
+          $fundProject = new Fundproject();
+          $fundProject->project_id = $request->project_id;
+          $fundProject->amount = $request->amount;
+          $fundProject->comment = $request->comment;
+          $fundProject->budget_id = $activeBudgetId;
+          $fundProject->added_by = auth()->id();
+          $fundProject->save();
+  
+          Log::info('Fund project saved');
+  
+          // Create and save transaction
+          $transaction = new Transactions();
+          $transaction->project_id = $request->project_id;
+          $transaction->transaction_type = "Project";
+          $transaction->transaction_amount = $request->amount ?? $transaction->amount;
+          $transaction->payee_id = $payeeID;
+          $transaction->payee_bank = $payeeBank;
+          $transaction->payee_account_number = $payeeAccountNumber;
+          $transaction->narration = $request->comment;
+          $transaction->updated_by = Auth::user()->id;
+          $transaction->transaction_date = Carbon::now();
+          $transaction->save();
+  
+          Log::info('Transaction saved');
+  
+          // Update project
+          Project::where('id', '=', $request->project_id)
+              ->update(['last_funded_date' => Carbon::now()]);
+  
+          Log::info('Project updated');
+  
+          DB::commit();
+  
+          return back()->with('success', 'Success! Project successfully funded');
+      } catch (\Exception $e) {
+          DB::rollback();
+  
+          Log::error('Failed! Error funding project: ' . $e->getMessage());
+  
+          return back()->with('error', 'Failed! Error funding project: ' . $e->getMessage());
+      }
+  }
 
 
 

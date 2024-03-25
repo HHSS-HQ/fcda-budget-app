@@ -17,8 +17,8 @@ class PayeeController extends Controller
     public function showPayees()
     {
 
-        $payee = DB::table('payee')
-        ->select('payee.*')
+        $payee = DB::table('payee_new')
+        ->select('payee_new.*')
         ->get();
         return view('content.pages.payee.payees', compact('payee') );
 

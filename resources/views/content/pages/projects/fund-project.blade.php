@@ -53,12 +53,12 @@
 
           <div class="row">
             <div class="mb-3 col-md-6">
-              <label for="unit_name" class="form-label">Select Project to Fund</label>
+              <label for="project_id" class="form-label">Select Project to Fund</label>
               <select id="id" class="select2 form-control" name="project_id">
                 <option value="">Select</option>
-                {{$projects =  App\Models\Project::select('project_title', 'id')->get();}}
+                {{$projects =  App\Models\Project::select('project_title', 'project_id')->get();}}
                 @forelse($projects as $item)
-                <option value="{{$item->id}}">{{$item->project_title}}</option>
+                <option value="{{$item->project_id}}">{{$item->project_title}}</option>
                 @empty
                 @endforelse
               </select>

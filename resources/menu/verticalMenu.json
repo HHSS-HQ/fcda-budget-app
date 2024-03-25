@@ -39,24 +39,7 @@
       ]
     },
 
-    {
-      "name": "Head",
-      "icon": "menu-icon tf-icons bx bx-box",
-      "slug": "head",
-      "submenu": [
-        {
-          "url": "/heads",
-          "name": "View Heads",
-          "slug": "heads"
-        },
-        {
-          "url": "/add-head",
-          "name": "Add Head",
-          "slug": "add-heads"
-        }
 
-      ]
-    },
 
     {
       "name": "SubHeads",
@@ -139,7 +122,7 @@
         "slug": "budget",
         "submenu": [
           {
-            "url": "/budget-year",
+            "url": "/accounting-year",
             "name": "Budget Year",
             "slug": "layouts-without-menu"
           },
@@ -213,24 +196,7 @@
 
         ]
       },
-      {
-        "name": "Contractors",
-        "icon": "menu-icon tf-icons bx bx-group",
-        "slug": "contractors",
-        "submenu": [
-          {
-            "url": "/contractors",
-            "name": "Show Contractors",
-            "slug": "layouts-without-menu"
-          },
-          {
-            "url": "/add-contractor",
-            "name": "Add Contractor",
-            "slug": "layouts-without-navbar"
-          }
 
-        ]
-      },
 
       {
         "name": "Settings",

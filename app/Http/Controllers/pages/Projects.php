@@ -61,7 +61,7 @@ class Projects extends Controller
       $project->project_type_id = $request->project_type_id;
         $project->project_title = $request->project_title;
         $project->project_location = $request->project_location;
-        $project->contractor_id = $request->contractor_id;
+        $project->payee_id = $request->payee_id;
         $project->contract_sum = $request->contract_sum;
         $project->date_of_award = $request->date_of_award;
         $project->appropriation = $request->appropriation;
@@ -81,7 +81,10 @@ class Projects extends Controller
         $project->added_by = auth()->id();
       $project->save();
 
-        //
+      
+
+      
+      //
         if ($project) {
           return back()->with('success', 'Success! Project created');
       }
