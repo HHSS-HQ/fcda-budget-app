@@ -31,8 +31,8 @@ return new class extends Migration
         //         $table->unsignedBigInteger('department_id')->nullable();
         // });
 
-        Schema::table('payee_new', function (Blueprint $table) {
-            Schema::dropColumn('payee_id');
-        });
+        // Schema::table('payee_new', function (Blueprint $table) {
+        //     Schema::dropColumn('payee_id');
+        // });
     }
 };

@@ -61,6 +61,7 @@ class RegisterController extends Controller
       $name=$push['name'];
       $username=$push['username'];
       $password=$push['password'];
+      $department_id=$push['department_id'];
       // $phone_number=$push['phone_number'];
       // $coordinator_id=$push['coordinator_id'];
 
@@ -85,6 +86,7 @@ class RegisterController extends Controller
         $user->email = is_null($request->email) ? $user->email : $request->email;
         $user->role_id = is_null($request->role_id) ? $user->role_id : $request->role_id;
         $user->department_id = is_null($request->department_id) ? $user->department_id : $request->department_id;
+        $user->status = is_null($request->status) ? $user->status : $request->status;
         $user->save();
         return redirect('/users')->with('success', "User details successfuly updated.");
     }

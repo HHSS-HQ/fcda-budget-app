@@ -28,7 +28,7 @@
             <th>Department Name</th>
             <th>Department Code</th>
             <th>Budget Allocation</th>
-            <th>Budget Utilization</th>
+            <th>Total Expenditure</th>
             <th>Budget Balance</th>
             <th>Utilization %</th>
             <th>Actions</th>
