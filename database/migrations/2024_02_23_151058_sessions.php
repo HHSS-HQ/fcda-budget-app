@@ -17,7 +17,7 @@ return new class extends Migration
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('ip_address', 45)->nullable();
             $table->string('user_agent')->nullable();

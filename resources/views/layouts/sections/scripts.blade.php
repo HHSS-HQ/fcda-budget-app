@@ -82,31 +82,49 @@
 
 {{-- All Subhead Allocation Table --}}
 <script type="text/javascript">
-    $(function () {
-      
-      var table = $('.all-subhead-allocation').DataTable({
-          processing: true,
-          serverSide: false,
-          ajax: "{{ route('all-subhead-allocation.list') }}",
-       
-          columns: [
-              {data: 'DT_RowIndex', name: 'DT_RowIndex'},
-              {data: 'subhead_code', name: 'subhead_code', searchable: true},
-              {data: 'subhead_name', name: 'subhead_name', searchable: true},
-              {data: 'department_name', name: 'department_name'},
-              {data: 'approved_provision', name: 'approved_provision', defaultContent: 'NOT SET'},
-              {data: 'revised_provision', name: 'revised_provision', defaultContent: 'NOT SET'},
-              // {data: 'dob', name: 'dob'},
-              {
-                  data: 'action', 
-                  name: 'action', 
-                  orderable: true, 
-                  searchable: true
-              },
-          ]
-      });
-      
+$(function () {
+    var table = $('.all-subhead-allocation').DataTable({
+        processing: true,
+        serverSide: false,
+        ajax: "{{ route('all-subhead-allocation.list') }}",
+        columns: [
+            {data: 'DT_RowIndex', name: 'DT_RowIndex'},
+            {data: 'subhead_code', name: 'subhead_code', searchable: true},
+            {data: 'subhead_name', name: 'subhead_name', searchable: true},
+            {data: 'department_name', name: 'department_name'},
+            {data: 'approved_provision', name: 'approved_provision', defaultContent: 'NOT SET'},
+            {data: 'revised_provision', name: 'revised_provision', defaultContent: 'NOT SET'},
+            {data: 'totalAmount', name: 'totalAmount', defaultContent: 0}, // Ensure this line is present
+            {
+                data: 'action', 
+                name: 'action', 
+                orderable: true, 
+                searchable: true
+            },
+        ],
+        footerCallback: function (row, data, start, end, display) {
+            var api = this.api(), data;
+            var intVal = function (i) {
+                return typeof i === 'string' ?
+                    i.replace(/[\$,]/g, '') * 1 :
+                    typeof i === 'number' ?
+                    i : 0;
+            };
+
+            // Total over all pages
+            total = api.column(6).data().reduce(function (a, b) {
+                return intVal(a) + intVal(b);
+            }, 0);
+
+            // Update footer
+            $(api.column(6).footer()).html(
+                'Total amount: ' + total
+            );
+        }
     });
+});
+
+
   </script>
 
   {{-- Subhead Allocation Table --}}
@@ -120,11 +138,11 @@
           columns: [
               {data: 'DT_RowIndex', name: 'DT_RowIndex'},
               {data: 'subhead_code', name: 'subhead_code'},
-              {data: 'subhead.subhead_name', name: 'subhead_name'},
-              {data: 'department.department_name', name: 'department_name'},
-              {data: 'approved_provision', name: 'approved_provision'},
-              {data: 'revised_provision', name: 'revised_provision'},
-              // {data: 'dob', name: 'dob'},
+              {data: 'subhead_name', name: 'subhead_name'},
+              {data: 'department_name', name: 'department_name'},
+              {data: 'approved_provision', name: 'approved_provision', defaultContent: 'NOT SET'},
+              {data: 'revised_provision', name: 'revised_provision', defaultContent: 'NOT SET'},
+              {data: '', name: 'balance'},
               {
                   data: 'action', 
                   name: 'action', 

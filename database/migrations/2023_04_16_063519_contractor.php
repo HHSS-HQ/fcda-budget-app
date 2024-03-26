@@ -23,7 +23,7 @@ return new class extends Migration
         $table->string('contractor_bank', 191)->nullable();
         $table->string('contractor_phone_number', 191)->nullable();
         $table->string('alternate_phone_number', 191)->nullable();
-        $table->string('added_by')->references('id')->on('users')->nullable();
+        $table->unsignedInteger('added_by')->references('id')->on('users')->nullable();
         $table->timestamps();
         $table->softDeletes();
       });

@@ -16,7 +16,7 @@ return new class extends Migration
     {
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id();
+            $table->increments('id');
             $table->unsignedInteger('head_id')->nullable();
             // $table->unsignedBigInteger('subhead_code')->nullable();
             $table->string('subhead_code');
@@ -30,13 +30,13 @@ return new class extends Migration
             // $table->string('revised_provision')->nullable();
             $table->string('remarks')->nullable();
             $table->string('status')->default('ACTIVE');
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
 
-                $table->index(["created_by"], 'fk_entered_by_id_4_idx');
-                $table->foreign('created_by', 'fk_entered_by_id_4_idx')
+                // $table->index(["created_by"], 'fk_entered_by_id_4_idx');
+                $table->foreign('created_by')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');

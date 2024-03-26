@@ -244,6 +244,7 @@ Route::post('fetch-approved-provision', [ECFController::class, 'fetchApprovedPro
 Route::post('fetch-revised-provision', [ECFController::class, 'fetchRevisedProvision']);
 Route::post('fetch-department-budget', [ECFController::class, 'fetchDepartmentBudget']);
 Route::post('fetch-department-budget-id', [ECFController::class, 'fetchDepartmentBudgetID']);
+Route::post('fetch-expenditure-till-date', [ECFController::class, 'fetchExpenditureTillDate']);
 
 
 

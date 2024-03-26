@@ -15,14 +15,16 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create('project', function (Blueprint $table) {
-            $table->id();
+            $table->engine = 'InnoDB';
+            $table->increments('id');
             $table->unsignedInteger('project_type_id')->nullable();
             $table->string('project_id')->unique();
             // $table->morphs('tokenable');
             $table->string('project_title');
             $table->string('project_location');
-            $table->string('contractor_id')->references('id')->on('contractor')->nullable();
+            // $table->string('contractor_id')->references('id')->on('contractor')->nullable();
             $table->string('date_of_award')->nullable();
             $table->string('appropriation')->nullable();
             $table->string('contract_sum')->nullable();
@@ -34,21 +36,34 @@ return new class extends Migration
             $table->string('certified_cv_not_paid')->nullable();
             $table->string('year_last_funded')->nullable();
             $table->string('last_funded_date')->nullable();
-
+            $table->string('company_RC_number', 10)->nullable();
+            $table->string('file_number')->nullable();
+            $table->unsignedInteger('department_id')->nullable();
             $table->string('project_year')->references('id')->on('accounting_year')->nullable();
             $table->string('added_by')->references('id')->on('users')->nullable();
-            // $table->text('abilities')->nullable();
+            $table->unsignedInteger('payee_id')->nullable();
             $table->timestamps();
 
 
-         $table->index(["project_type_id"], 'fk_project_type_id_1_idx');
+      
 
-         $table->foreign('project_type_id', 'fk_project_type_id_1_idx')
+         $table->foreign('project_type_id')
          ->references('id')->on('project_type')
+         ->onDelete('no action')
+         ->onUpdate('no action');
+
+         $table->foreign('department_id')
+         ->references('id')->on('department')
+         ->onDelete('no action')
+         ->onUpdate('no action');
+
+         $table->foreign('payee_id')
+         ->references('payee_id')->on('payee_new')
          ->onDelete('no action')
          ->onUpdate('no action');
         });
 
+        Schema::enableForeignKeyConstraints();
     }
 
     /**

@@ -30,10 +30,10 @@ return new class extends Migration
 
         // $table->string('subhead_id')->nullable();
         $table->string('status')->default('PENDING APPROVAL');
-        $table->unsignedBigInteger('checked_by')->nullable();
-        $table->unsignedBigInteger('prepared_by')->nullable();
-        $table->unsignedBigInteger('budget_id')->nullable();
-        $table->unsignedBigInteger('department_budget_id')->references('id')->on('department_budget')->nullable();
+        $table->unsignedInteger('checked_by')->nullable();
+        $table->unsignedInteger('prepared_by')->nullable();
+        $table->unsignedInteger('budget_id')->nullable();
+        $table->unsignedInteger('department_budget_id')->references('id')->on('department_budget')->nullable();
         $table->dateTime('uploaded_date')->nullable();
         $table->timestamps();
         $table->softDeletes();
@@ -45,14 +45,14 @@ return new class extends Migration
             ->onDelete('no action')
             ->onUpdate('no action');
 
-            $table->index(["checked_by"], 'fk_checked_by_id_4_idx');
-            $table->foreign('checked_by', 'fk_checked_by_id_4_idx')
+            // $table->index(["checked_by"], 'fk_checked_by_id_4_idx');
+            $table->foreign('checked_by')
             ->references('id')->on('users')
             ->onDelete('no action')
             ->onUpdate('no action');
 
-            $table->index(["budget_id"], 'fk_budget_id_id_4_idx');
-            $table->foreign('budget_id', 'fk_budget_id_id_4_idx')
+            // $table->index(["budget_id"]');
+            $table->foreign('budget_id')
             ->references('id')->on('budget')
             ->onDelete('no action')
             ->onUpdate('no action');

@@ -11,6 +11,7 @@ use App\Models\Transactions;
 use DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 
 class FundprojectController extends Controller
@@ -36,7 +37,7 @@ class FundprojectController extends Controller
           Log::info('Active budget retrieved: ' . $activeBudgetId);
   
           $payee = DB::table('project')
-              ->select('payee_new.payee_id', 'payee_new.payee_bank', 'payee_new.payee_account_number')
+              ->select('project.department_id', 'payee_new.payee_id', 'payee_new.payee_bank', 'payee_new.payee_account_number')
               ->join('payee_new', 'payee_new.payee_id', '=', 'project.payee_id')
               ->where('project_id', '=', $request->project_id)
               ->first();
@@ -52,7 +53,8 @@ class FundprojectController extends Controller
           $payeeAccountNumber = $payee->payee_account_number;
       }
       
-  
+      $department_id = User::select('department_id')->where('id', '=', auth()->id())->first();
+      $department_id2 = $department_id->department_id;
           // Log::info('Payee information retrieved' . $payeeID);
   
           // Create and save fund project
@@ -75,6 +77,8 @@ class FundprojectController extends Controller
           $transaction->payee_bank = $payeeBank;
           $transaction->payee_account_number = $payeeAccountNumber;
           $transaction->narration = $request->comment;
+          $transaction->budget_id = $activeBudgetId;
+          $transaction->department_id = $department_id2;
           $transaction->updated_by = Auth::user()->id;
           $transaction->transaction_date = Carbon::now();
           $transaction->save();

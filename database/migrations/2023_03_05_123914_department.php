@@ -14,19 +14,20 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id();
+            $table->increments('id');
             $table->string('department_name')->nullable();
             $table->string('department_code')->nullable();
             $table->string('remarks')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
             
-            // $table->string('sda_id');
-            $table->string('sda_id', 20)->references('sda_id')->on('sda');
+            $table->unsignedInteger('sda_id')->nullable();
+            $table->foreign('sda_id')->references('sda_id')->on('sda');
             
 
             $table->foreign('created_by')

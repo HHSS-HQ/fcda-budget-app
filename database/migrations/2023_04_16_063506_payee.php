@@ -21,7 +21,7 @@ return new class extends Migration
           $table->string('payee_account_name')->nullable();
           $table->string('payee_bank')->nullable();
           $table->string('payee_phone_number')->nullable();
-          $table->string('added_by')->references('id')->on('users')->nullable();
+          $table->unsignedInteger('added_by')->references('id')->on('users')->nullable();
           $table->timestamps();
           $table->softDeletes();
         });

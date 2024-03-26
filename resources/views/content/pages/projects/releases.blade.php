@@ -25,7 +25,7 @@
             <th>Project Title</th>
             <th>Contract Sum</th>
             <th>Amount Released</th>
-            {{-- <th>Oustanding Balance</th> --}}
+            <th>Oustanding Balance</th>
             {{-- <th>Actions</th> --}}
           </tr>
         </thead>
@@ -37,7 +37,7 @@
             <td>{{$data->project_title ?? null }}</td>
             <td>&#8358;{{ number_format($data->contract_sum ? : '0', 2) }}</td>
             <td>&#8358;{{ number_format($data->amount ? : '0', 2) }}</td>
-            {{-- <td>&#8358;{{ number_format($data->outstanding_balance ? : '0', 2) }}</td> --}}
+            <td>&#8358;{{ $data->contract_sum - $data->amount }}</td>
             {{-- <td><span class="badge bg-label-primary me-1">Active</span></td> --}}
             {{-- <td>
               <a data-toggle = "tooltip" title = "Fund This Project"  href="javascript:void(0);"><i class="bx bx-money me-1"></i> </a> &nbsp;

@@ -33,7 +33,7 @@
           <tr>
             <td>{{$i++}}</td>
             <td>{{$data->project_title}}</td>
-            <td>{{$data->company_name}}</td>
+            <td>{{$data->payee_name}}</td>
             <td>&#8358;{{ number_format($data->contract_sum ? : '0', 2) }}</td>
             <td>&#8358;{{ number_format($data->outstanding_balance ? : '0', 2) }}</td>
             {{-- <td><span class="badge bg-label-primary me-1">Active</span></td> --}}

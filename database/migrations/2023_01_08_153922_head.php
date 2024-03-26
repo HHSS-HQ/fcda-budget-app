@@ -20,14 +20,14 @@ return new class extends Migration
             $table->string('head_code')->nullable();
             $table->string('head_name')->nullable();
             $table->string('remarks')->nullable();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(["created_by"], 'fk_created_by7_idx');
+            // $table->index(["created_by"], 'fk_created_by7_idx');
 
 
-                $table->foreign('created_by', 'fk_created_by7_idx')
+                $table->foreign('created_by')
                 ->references('id')->on('users')
                 ->onDelete('no action')
                 ->onUpdate('no action');

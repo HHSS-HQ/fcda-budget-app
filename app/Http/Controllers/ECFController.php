@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Models\DepartmentBudget;
 use App\Models\SubheadAllocation;
 use App\Models\Transactions;
+use Illuminate\Support\Facades\Log;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -82,7 +83,7 @@ class ECFController extends Controller
     $ecf->approved_provision = is_null($request->approved_provision) ? $ecf->approved_provision : $request->approved_provision;
     $ecf->revised_provision = is_null($request->revised_provision) ? $ecf->revised_provision : $request->revised_provision;
     $ecf->present_requisition = is_null($request->present_requisition) ? $ecf->present_requisition : $request->present_requisition;
-    $ecf->department_budget_id = $department_budget_id;
+    $ecf->department_budget_id = $department_budget_id ?? null;
     $ecf->budget_id = $active_budget_id;
     $ecf->uploaded_date = is_null($request->uploaded_date) ? $ecf->uploaded_date : $request->uploaded_date;
     $ecf->prepared_by = Auth::user()->id;
@@ -156,6 +157,16 @@ class ECFController extends Controller
       return response()->json($departmentBudgetId);
   }
 
+  public function fetchExpenditureTillDate(Request $request)
+  {
+      $expenditure = Transactions::where('department_id', $request->department_id)
+      // ->where('project_type', '=', 'ECF')
+          ->sum('transaction_amount');
+  
+      return response()->json(['expenditure_till_date' => $expenditure]);
+  }
+  
+
 
 
 
@@ -224,8 +235,20 @@ public function changeECFStatus(Request $request){
 
     $department_budget_id = $update_ecf->department_budget_id;
     $update_budget = DepartmentBudget::find($department_budget_id);
+
+    if ($update_budget) {
+      $update_budget->budget_utilization = floatval($update_budget->budget_utilization ?? 0) + floatval($present_requisition);
+  } else {
+      // Handle the case where $update_budget is null or not an object
+      // For example, you might log an error or display a message to the user
+      Log::error('Attempt to assign property "budget_utilization" on null');
+      // You can also throw an exception or return an error response
+      // throw new \Exception('Attempt to assign property "budget_utilization" on null');
+      // return response()->json(['error' => 'Attempt to assign property "budget_utilization" on null'], 500);
+  }
+  
     // $department_budget = DepartmentBudget::find($department_budget_id);
-    $update_budget->budget_utilization = floatval($update_budget->budget_utilization) + floatval($present_requisition);
+    $update_budget->budget_utilization = floatval($update_budget->budget_utilization ?? 0) + floatval($present_requisition);
 
     $update_ecf->save();
     $update_budget->save();

@@ -20,7 +20,7 @@ return new class extends Migration
           $table->string('budget_id', 32)->references('id')->on('budget')->nullable();
           $table->string('amount')->nullable();
           $table->string('comment')->nullable();
-          $table->string('added_by')->references('id')->on('users')->nullable();
+          $table->unsignedInteger('added_by')->references('id')->on('users')->nullable();
           $table->timestamps();
           $table->softDeletes();
 

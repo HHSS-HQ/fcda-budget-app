@@ -14,14 +14,18 @@ return new class extends Migration
      */
     public function up()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::create($this->tableName, function (Blueprint $table) {
             $table->engine = 'InnoDB';
-            $table->id();
+            $table->increments('id');
             $table->string('role_name')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
+            $table->foreign('created_by')->references('id')->on('users');
             $table->timestamps();
               $table->softDeletes();
 
                   });
+                  Schema::enableForeignKeyConstraints();
     }
 
     /**

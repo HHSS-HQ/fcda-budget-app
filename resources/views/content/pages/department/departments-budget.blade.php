@@ -47,6 +47,7 @@
           $active_budget = App\Models\DepartmentBudget::select('budgetary_allocation', 'id')->where('department_id', '=', $data->id)->first();
           $budget_utilization = App\Models\ECF::selectRaw('SUM(present_requisition) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
 
+          // $budget_utilization = App\Models\Transactions::selectRaw('SUM(amount) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
 
           @endphp
 

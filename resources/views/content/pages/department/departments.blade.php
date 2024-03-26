@@ -28,7 +28,7 @@
             <th>Department Name</th>
             <th>Department Code</th>
             <th>Budget Allocation</th>
-            <th>Budget Utilization</th>
+            <th>Total Expenditure</th>
             <th>Budget Balance</th>
             <th>Utilization %</th>
             <th>Actions</th>
@@ -45,7 +45,7 @@
           @php
 
           $active_budget = App\Models\DepartmentBudget::select('budgetary_allocation', 'id')->where('department_id', '=', $data->id)->first();
-          $budget_utilization = App\Models\ECF::selectRaw('SUM(present_requisition) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
+          $budget_utilization = App\Models\Transactions::selectRaw('SUM(transaction_amount) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
 
 
           @endphp

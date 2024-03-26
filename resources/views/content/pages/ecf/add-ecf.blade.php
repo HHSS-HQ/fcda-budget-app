@@ -97,8 +97,9 @@
 
             <div class="mb-3 col-md-6">
               <label for="expenditure_item" class="form-label">Expenditure Item (Description)</label>
-              <input class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" type="text"
-                id="expenditure_item" name="expenditure_item" autofocus placeholder="Expenditure Item (Description)" />
+              {{-- <input class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" type="text"
+                id="expenditure_item" name="expenditure_item" autofocus placeholder="Expenditure Item (Description)" /> --}}
+                <textarea class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" autofocus placeholder="Expenditure Item (Description)" ></textarea>
               @if ($errors->has('department_name'))
               <div class="error">
                 {{ $errors->first('department_name') }}
@@ -162,19 +163,40 @@
 
 
 
+<table style="margin-left:12px; width:50%;" border="1">
+  <tr>
+    <td width=35%">Budgetary Allocation:</td>
+    <td><span id="budgetary_allocation"></span></td>
+  </tr>
 
-            <div class="mb-3 col-md-6">
+  <tr>
+    <td>Expenditure Till Date:</td>
+    <td><span id="expenditure_till_date"></span></td>
+  </tr>
+
+  <tr>
+    <td>Current Balance:</td>
+    <td><span id="current_balance"></span></td>
+  </tr>
+
+  <tr>
+    <td>Balance Carried Forward:</td>
+    <td><span id="balance_carried_forward"></span></td>
+  </tr>
+</table>
+
+            {{-- <div class="mb-3 col-md-6">
               <ul>
-                <li>Budgetary Allocation: <b><span id="budgetary_allocation"></span></b></li>
+               
                 <li>Expenditure Till Date: <b></b></li>
-                {{-- <li>Expenditure Till Date: <b>N{{number_format($expenditure_till_date->first()->expenditure_till_date, 2)}}</b></li> --}}
+               
                 <li>Current Balance: </li>
                 <li>Balance Carried Forward: </li>
               </ul>
-<input type="hidden" name="department_budget_id" />
-
-              </select>
-            </div>
+              
+            </select>
+          </div> --}}
+          <input type="hidden" name="department_budget_id" />
 
             <div class="mt-2">
               <button type="submit" class="btn btn-primary me-2">Generate ECF</button>

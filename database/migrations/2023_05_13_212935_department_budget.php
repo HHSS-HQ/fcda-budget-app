@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('department_budget', function (Blueprint $table) {
             $table->engine = 'InnoDB';
             $table->id();
-            $table->unsignedBigInteger('parent_budget_id')->nullable();
-            $table->unsignedBigInteger('department_id')->nullable();
+            $table->unsignedInteger('parent_budget_id')->nullable();
+            $table->unsignedInteger('department_id')->nullable();
             $table->string('budgetary_allocation')->nullable();
             $table->string('budget_utilization')->nullable();
             $table->string('remarks')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedInteger('created_by');
             $table->timestamps();
             $table->softDeletes();
 

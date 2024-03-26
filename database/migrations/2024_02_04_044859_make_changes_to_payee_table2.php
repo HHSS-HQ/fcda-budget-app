@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('project', function (Blueprint $table) {
-            $table->unsignedInteger('payee_id')->nullable();
-            $table->foreign('payee_id')
-         ->references('payee_id')->on('payee_new')
-         ->onDelete('no action')
-         ->onUpdate('no action');
-        });
+        // Schema::table('project', function (Blueprint $table) {
+        //     $table->unsignedInteger('payee_id')->nullable();
+        //     $table->foreign('payee_id')
+        //  ->references('payee_id')->on('payee_new')
+        //  ->onDelete('no action')
+        //  ->onUpdate('no action');
+        // });
     }
     
 

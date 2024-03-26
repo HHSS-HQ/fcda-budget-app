@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->boolean('status')->default(false);
-            $table->softDeletes();
+            // $table->boolean('status')->default(false);
+            // $table->softDeletes();
         });
     }
     

@@ -18,15 +18,15 @@ return new class extends Migration
             $table->engine = 'InnoDB';
             $table->increments('id');
             $table->string('project_type')->nullable();
-            $table->unsignedBigInteger('created_by');
+            $table->unsignedInteger('created_by');
             $table->string('remarks')->nullable();
             $table->string('status')->default('ACTIVE');
             $table->timestamps();
             $table->softDeletes();
 
-            $table->index(["created_by"], 'fk_entered_by_id_7_idx');
+            // $table->index(["created_by"], 'fk_entered_by_id_7_idx');
 
-            $table->foreign('created_by', 'fk_entered_by_id_7_idx')
+            $table->foreign('created_by')
             ->references('id')->on('users')
             ->onDelete('no action')
             ->onUpdate('no action');

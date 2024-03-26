@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('sda', function (Blueprint $table) {
-            $table->id('sda_id');
+            $table->increments('sda_id');
             // $table->unsignedBigInteger('sda_id')->nullable();
             $table->string('SDA_name', 50)->nullable();
             $table->bigInteger('SDA_code')->nullable();

@@ -5,6 +5,7 @@ use App\Models\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Models\User;
 // use Dompdf\Dompdf;
 use Barryvdh\DomPDF\Facade as PDF;
 
@@ -53,7 +54,9 @@ class Projects extends Controller
         //  Store data in database
 
         // \Log::info($request->all());
-        // Projects::create($request->all());
+        $department_id = User::select('department_id')->where('id', '=', auth()->id())->first();
+        $department_id2 = $department_id->department_id;
+
         $randomNumber = random_int(100000, 999999);
 
       $project = new Project();
@@ -76,7 +79,7 @@ class Projects extends Controller
         $project->amount_paid_till_date = $request->amount_paid_till_date;
         $project->certified_cv_not_paid = $request->certified_cv_not_paid;
         $project->last_funded_date = $request->last_funded_date;
-        // $project->challenges = $request->challenges;
+        $project->department_id = $department_id2;
         $project->project_year = $request->project_year;
         $project->added_by = auth()->id();
       $project->save();
@@ -104,8 +107,8 @@ class Projects extends Controller
     public function AllProjects( Request $request )
 {
     $comm = DB::table('project')
-    ->select('project.*', 'contractor.*')
-    ->leftjoin('contractor', 'contractor.id', '=', 'project.contractor_id')
+    ->select('project.*', 'payee_new.*')
+    ->leftjoin('payee_new', 'payee_new.payee_id', '=', 'project.payee_id')
     ->get();
     return view('content.pages.projects.projects', compact('comm') );
 }
@@ -114,7 +117,7 @@ public function AllReleases( Request $request )
 {
     $comm = DB::table('project_funding')
     ->select('project_funding.*', 'project.*')
-    ->leftjoin('project', 'project.id', '=', 'project_funding.project_id')
+    ->leftjoin('project', 'project.project_id', '=', 'project_funding.project_id')
     ->get();
     return view('content.pages.projects.releases', compact('comm') );
 }

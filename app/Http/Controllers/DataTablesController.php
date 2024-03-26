@@ -46,6 +46,11 @@ class DataTablesController extends Controller
 
     public function getAllSubheadAllocations(Request $request)
     {
+        // $totalAmount = DB::table('transactions')
+        //     ->select(DB::raw('SUM(transaction_amount) as total'))
+        //     ->first();
+        //     $amount = $totalAmount->total ?? 0;
+        // return $amount;
         if ($request->ajax()) {
             // $data = Subhead::latest()->get()
             // $data = SubheadAllocation::with('subhead', 'department')->get();
@@ -55,8 +60,16 @@ class DataTablesController extends Controller
             ->join('department', 'department.id', '=', 'subhead_allocation.department_id')
             ->get();
           
+            $totalAmount = DB::table('transactions')
+            ->select(DB::raw('SUM(transaction_amount) as total'))
+            ->first();
+        // return $totalAmount;
+
+        $amount = $totalAmount->total ?? 0;
+            
             return Datatables::of($data)
             // return $dataTable->render('export');
+            ->with('totalAmount', $amount)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-3"  data-id="' . $row->id. '"  data-department_id="' . $row->department_id. '"  data-approved_provision="' . $row->approved_provision. '"  data-department_name="' . $row->department_name. '"  data-subhead_name="' . $row->subhead_name. '">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';
@@ -76,13 +89,22 @@ class DataTablesController extends Controller
             // ->where('department_id', auth()->id())
             // ->get();
             $data = DB::table('subhead_allocation')
-            ->select('subhead_allocation.*', 'subhead.subhead_name', 'department.department_name')
-            ->join('subhead', 'subhead.subhead_code', '=', 'subhead_allocation.subhead_code')
+            ->select('subhead_allocation.*', 'subhead.subhead_name as subhead_name', 'department.department_name as department_name', 'subhead.subhead_code as subhead_code')
+            ->join('subhead', 'subhead.id', '=', 'subhead_allocation.subhead_id')
             ->join('department', 'department.id', '=', 'subhead_allocation.department_id')
             ->get();
+
+            $totalAmount = DB::table('transactions')
+    ->select(DB::raw('SUM(amount) as total'))
+    ->first();
+
+$amount = $totalAmount->total ?? 0;
+
+
             // return $data;
             return Datatables::of($data)
             // return $dataTable->render('export');
+            ->with('totalAmount', $amount)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-id="' . $row->id. '">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';

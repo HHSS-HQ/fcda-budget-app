@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::disableForeignKeyConstraints();
 
         Schema::create('budget_year', function (Blueprint $table) {
-            $table->id();
-            $table->unsignedBigInteger('sda_id')->nullable();
+            $table->increments('id');
+            $table->unsignedInteger('sda_id')->nullable();
             // $table->foreign('sda_id')->references('sda_id')->on('sda')->nullable();
             $table->string('year')->nullable();
             $table->bigInteger('yearAppropriatedSum')->nullable();
@@ -23,13 +23,13 @@ return new class extends Migration
             $table->boolean('status')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('updated_by');
+            $table->unsignedInteger('updated_by');
             $table->foreign('updated_by')->references('id')->on('users');
             // Change the next line to use unsignedBigInteger
-            $table->unsignedBigInteger('year_id');
+            $table->unsignedInteger('year_id');
         
-            $table->index(["sda_id"], 'fk_budget_year_sda_id_idx'); // Updated the index name
-            $table->foreign('sda_id', 'fk_budget_year_sda_id_idx') // Updated the foreign key name
+            // $table->index(["sda_id"], 'fk_budget_year_sda_id_idx'); // Updated the index name
+            $table->foreign('sda_id') // Updated the foreign key name
                 ->references('sda_id')->on('sda')
                 ->onDelete('no action')
                 ->onUpdate('no action');

@@ -28,9 +28,9 @@ return new class extends Migration
             $table->mediumText('remarks')->nullable();
             $table->timestamps();
             $table->softDeletes();
-            $table->unsignedBigInteger('created_by')->nullable();
+            $table->unsignedInteger('created_by')->nullable();
             $table->foreign('created_by')->references('id')->on('users');
-            $table->unsignedBigInteger('updated_by')->nullable();
+            $table->unsignedInteger('updated_by')->nullable();
             $table->foreign('updated_by')->references('id')->on('users');
         });
 
