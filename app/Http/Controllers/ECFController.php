@@ -77,6 +77,9 @@ class ECFController extends Controller
       $payee_account_number = $payee->payee_account_number;
     }
 
+    $randomNumber = random_int(100000, 999999);
+
+    $ecf->ecf_id = $randomNumber;
     $ecf->department_id = Auth::user()->department_id;
     $ecf->subhead_id = is_null($request->subhead_id) ? $ecf->subhead_id : $request->subhead_id;
     $ecf->expenditure_item = is_null($request->expenditure_item) ? $ecf->expenditure_item : $request->expenditure_item;
@@ -149,13 +152,50 @@ class ECFController extends Controller
       return response()->json($departmentBudgetId);
   }
 
+  public function fetchSubheadAllocationFigure(Request $request)
+  {
+      $subhead_allocation_figure = SubheadAllocation::where('subhead_id', $request->subhead_id)
+      ->pluck('approved_provision')
+      ->first();
+  
+      $subhead_allocation_figure = $subhead_allocation_figure ?: 0; // Ensure the result is not null
+  
+      return response()->json($subhead_allocation_figure);
+  }
+  
   public function fetchExpenditureTillDate(Request $request)
   {
-      $expenditure = Transactions::where('department_id', $request->department_id)
-      // ->where('project_type', '=', 'ECF')
+      $expenditure = Transactions::where('subhead_id', $request->subhead_id)
+          // ->where('project_type', '=', 'ECF')
           ->sum('transaction_amount');
   
-      return response()->json(['expenditure_till_date' => $expenditure]);
+      $expenditure = $expenditure ?: 0; // Ensure the result is not null
+  
+      return response()->json($expenditure);
+  }
+  
+
+  public function balanceOfSubheadAllocation(Request $request)
+  {
+    // $balance = Transactions::
+    
+    // selectRaw('SELECT(subhead_allocation.approved_provision)')-('SUM(ecf.present_requisition)')
+    // ->join('subhead_allocation', 'subhead_allocation.subhead_id', '=', 'transactions.subhead_id')
+    // ->get();
+
+    $balance = DB::table('transactions')
+    ->selectRaw('subhead_allocation.approved_provision - SUM(ecf.present_requisition) as balance')
+    ->join('subhead_allocation', 'subhead_allocation.subhead_id', '=', 'transactions.subhead_id')
+    ->join('ecf', 'ecf.subhead_id', '=', 'transactions.subhead_id')
+    ->groupBy('subhead_allocation.approved_provision')
+    ->pluck('balance')
+    ->first();
+
+
+  
+      $balance = $balance ?: 0; // Ensure the result is not null
+  
+      return response()->json($balance);
   }
   
 
@@ -243,12 +283,12 @@ public function changeECFStatus(Request $request) {
           $transactions->transaction_amount = $present_requisition;
           $transactions->department_id = $update_ecf->department_id;
           $transactions->budget_id = $update_ecf->budget_id;
-          $transactions->ecf_id = $update_ecf->id;
+          $transactions->ecf_id = $update_ecf->ecf_id;
+          $transactions->subhead_id = $update_ecf->subhead_id;
           $transactions->narration = $update_ecf->expenditure_item;
           $transactions->payee_id = $update_ecf->payee_id; // Assuming this value comes from the ECF
           $transactions->payee_bank = $payee_bank; // Assuming this value comes from the ECF
           $transactions->payee_account_number = $payee_account_number; // Assuming this value comes from the ECF
-          // $transactions->narration = $request->expenditure_item;
           $transactions->updated_by = auth()->id();
           $transactions->transaction_date = $request->uploaded_date ?? now();
           $transactions->save();

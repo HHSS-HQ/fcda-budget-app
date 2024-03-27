@@ -17,8 +17,9 @@ return new class extends Migration
       Schema::create($this->tableName, function (Blueprint $table) {
         $table->engine = 'InnoDB';
         $table->increments('id');
-        // $table->string('department_id')->nullable();
-        $table->string('department_id', 32)->references('id')->on('department')->nullable();
+        // $table->string('ecf_id')->nullable();
+        $table->string('ecf_id')->unique();
+        $table->string('department_id')->references('id')->on('department')->nullable();
         $table->string('head_id')->nullable();
         $table->string('subhead_id')->nullable();
         $table->string('expenditure_item')->nullable();

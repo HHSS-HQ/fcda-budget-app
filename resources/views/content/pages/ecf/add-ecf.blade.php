@@ -170,13 +170,18 @@
   </tr>
 
   <tr>
+    <td width=35%">Subhead Allocation:</td>
+    <td><span id="subhead_allocation_figure"></span></td>
+  </tr>
+
+  <tr>
     <td>Expenditure Till Date:</td>
     <td><span id="expenditure_till_date"></span></td>
   </tr>
 
   <tr>
     <td>Current Balance:</td>
-    <td><span id="current_balance"></span></td>
+    <td><span id="balance"></span></td>
   </tr>
 
   <tr>
@@ -355,23 +360,83 @@ $('#subhead_dropdown').on('change', function() {
   });
 });
 
-// Get the id of the selected department
-var departmentId = $('#department_dropdown').val();
-
-// Run a query to get the expenditure till date for that department
-$.ajax({
-  url: "{{url('fetch-expenditure-till-date')}}",
-  type: "POST",
-  data: {
-    department_id: departmentId,
-    _token: '{{csrf_token()}}'
-  },
-  dataType: 'json',
-  success: function(res) {
-    // Display the expenditure till date beside the expenditure till date list
-    $('#expenditure_till_date').text(res.expenditure_till_date);
-  }
+// Expenditure till data
+$('#subhead_dropdown').on('change', function() {
+  var idState = this.value;
+  var subheadId = $(this).find(':selected').data('department-id'); // Use data-department-id
+  $("#expenditure_till_date").html('');
+  $.ajax({
+    url: "{{url('fetch-expenditure-till-date')}}",
+    type: "POST",
+    data: {
+      subhead_id: subheadId, // Use departmentId as the key
+      _token: '{{csrf_token()}}'
+    },
+    dataType: 'json',
+    success: function(res) {
+      $('#expenditure_till_date').html(res);
+    }
+  });
 });
+
+
+// Subhead allocation
+// Update balance on dropdown change
+$('#subhead_dropdown').on('change', function() {
+    var subheadId = $(this).find(':selected').data('department-id');
+    $("#balance").html('');
+    $.ajax({
+        url: "{{ url('balance') }}",
+        type: "POST",
+        data: {
+            subhead_id: subheadId,
+            _token: '{{ csrf_token() }}'
+        },
+        dataType: 'json',
+        success: function(res) {
+            $('#balance').html(res);
+            calculateBalanceCarriedForward();
+        }
+    });
+});
+
+// Calculate balance carried forward
+function calculateBalanceCarriedForward() {
+    var balance = parseFloat($('#balance').text());
+    var presentRequisition = parseFloat($('#present_requisition').val());
+    if (!isNaN(balance) && !isNaN(presentRequisition)) {
+        var balanceCarriedForward = balance - presentRequisition;
+        $('#balance_carried_forward').text(balanceCarriedForward.toFixed(2));
+    }
+}
+
+// Update balance carried forward when present_requisition changes
+$('#present_requisition').on('input', function() {
+    calculateBalanceCarriedForward();
+});
+
+
+
+// Balance
+$('#subhead_dropdown').on('change', function() {
+  var idState = this.value;
+  var subheadId = $(this).find(':selected').data('department-id'); // Use data-department-id
+  $("#balance").html('');
+  $.ajax({
+    url: "{{url('balance')}}",
+    type: "POST",
+    data: {
+      subhead_id: subheadId, // Use departmentId as the key
+      _token: '{{csrf_token()}}'
+    },
+    dataType: 'json',
+    success: function(res) {
+      $('#balance').html(res);
+    }
+  });
+});
+
+
 
   $('#present_requisition').on('change', function() {
     var presentRequisition = $(this).val();

@@ -36,8 +36,11 @@ return new class extends Migration
             $table->string('project_id')->nullable();
             $table->foreign('project_id')->references('project_id')->on('project')->onDelete('no action')->onUpdate('no action');
 
-            $table->unsignedInteger('ecf_id')->nullable();
-            $table->foreign('ecf_id')->references('id')->on('ecf')->onDelete('no action')->onUpdate('no action');
+            $table->string('ecf_id')->nullable();
+            $table->foreign('ecf_id')->references('ecf_id')->on('ecf')->onDelete('no action')->onUpdate('no action');
+
+            $table->unsignedInteger('subhead_id')->nullable();
+            $table->foreign('subhead_id')->references('id')->on('subhead')->onDelete('no action')->onUpdate('no action');
 
 
             $table->foreign('department_id')

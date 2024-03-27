@@ -245,6 +245,9 @@ Route::post('fetch-revised-provision', [ECFController::class, 'fetchRevisedProvi
 Route::post('fetch-department-budget', [ECFController::class, 'fetchDepartmentBudget']);
 Route::post('fetch-department-budget-id', [ECFController::class, 'fetchDepartmentBudgetID']);
 Route::post('fetch-expenditure-till-date', [ECFController::class, 'fetchExpenditureTillDate']);
+Route::post('subhead-allocation-figure', [ECFController::class, 'fetchSubheadAllocationFigure']);
+Route::post('balance', [ECFController::class, 'balanceOfSubheadAllocation']);
+
 
 
 
