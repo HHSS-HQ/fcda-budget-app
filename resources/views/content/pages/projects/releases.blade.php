@@ -49,7 +49,7 @@
           </tr>
           @empty
                 <tr>
-                  <td colspan="5" style="color:red">Oops! No releases made yet</td>
+                  <td colspan="6" style="color:red">Oops! No releases made yet</td>
                 </tr>
 
           @endforelse

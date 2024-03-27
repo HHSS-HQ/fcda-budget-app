@@ -21,6 +21,7 @@
             <th>Budget Year</th>
             <th>Appropriated Amount</th>
             <th>Amount Utilized </th>
+            <th>% Utilized </th>
             <th>Balance</th>
             <th>Code </th>
             <th>Status </th>
@@ -34,6 +35,13 @@
             <td>{{$data->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $data->start_date)->format('F, Y') }}-{{ Carbon\Carbon::createFromFormat('Y-m', $data->end_date)->format('F, Y') }})</td>
             <td style="color:green">&#8358;{{ number_format($data->appropriated_amount ? : '0', 2) }}</td>
             <td>&#8358;{{ number_format($data->total_funding ? : '0', 2) }}</td>
+            <td>
+              <div class="progress mb-3">
+                <div class="progress-bar" role="progressbar" style="width: {{ number_format(((($data->total_funding)/($data->appropriated_amount))*100),5) }}%;" aria-valuenow="{{ number_format(((($data->total_funding)/($data->appropriated_amount))*100),5) }}" aria-valuemin="0" aria-valuemax="100">{{ number_format(((($data->total_funding)/($data->appropriated_amount))*100),5) }}%</div>
+              </div>
+              {{-- {{ number_format($percentage_paid) }}% --}}
+            </td>
+            {{-- <td>{{ number_format(((($data->total_funding)/($data->appropriated_amount))*100),5) }}</td> --}}
             <td style="color:red">&#8358;{{ number_format($data->appropriated_amount-$data->total_funding ? : '0', 2) }}</td>
             <td>{{$data->code}}</td>
             {{-- <td>{{$data->status}}</td> --}}

@@ -99,7 +99,7 @@
               <label for="expenditure_item" class="form-label">Expenditure Item (Description)</label>
               {{-- <input class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" type="text"
                 id="expenditure_item" name="expenditure_item" autofocus placeholder="Expenditure Item (Description)" /> --}}
-                <textarea class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" autofocus placeholder="Expenditure Item (Description)" ></textarea>
+                <textarea class="form-control {{ $errors->has('expenditure_item') ? 'error' : '' }}" autofocus placeholder="Expenditure Item (Description)" name="expenditure_item"></textarea>
               @if ($errors->has('department_name'))
               <div class="error">
                 {{ $errors->first('department_name') }}

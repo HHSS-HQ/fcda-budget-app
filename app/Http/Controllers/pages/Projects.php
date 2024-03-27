@@ -164,9 +164,9 @@ public function printProjectReport(Request $request)
   // ->where('id', '=', $request->id)
   // ->get();
 
-  $projects = Project::select('project.*', 'project_type.project_type', 'contractor.company_name')
-  ->join('project_type', 'project_type.id', '=', 'project.project_type_id')
-  ->join('contractor', 'contractor.id', '=', 'project.contractor_id')
+  $projects = Project::select('project.*', 'payee_new.*', 'department.*')
+  ->join('department', 'department.id', '=', 'project.department_id')
+  ->join('payee_new', 'payee_new.payee_id', '=', 'project.payee_id')
 
   ->where('project_id', '=', $request->project_id)
   ->get();

@@ -45,9 +45,9 @@ class BudgetController extends Controller
       {
 
         $budgets = DB::table('budget')
-        ->select('budget.*', 'budget.id as budget_id', 'budget.status as budget_status', 'accounting_year.*', DB::raw('SUM(project_funding.amount) as total_funding'))
+        ->select('budget.*', 'budget.id as budget_id', 'budget.status as budget_status', 'accounting_year.*', DB::raw('SUM(transactions.transaction_amount) as total_funding'))
         ->leftJoin('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
-        ->leftJoin('project_funding', 'project_funding.budget_id', '=', 'budget.id')
+        ->leftJoin('transactions', 'transactions.budget_id', '=', 'budget.id')
         ->groupBy('budget.id')
         ->get();
 

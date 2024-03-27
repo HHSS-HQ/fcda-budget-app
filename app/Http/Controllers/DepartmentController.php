@@ -127,7 +127,7 @@ class DepartmentController extends Controller
         $budget_utilization = ECF::query()
         ->with(['department' => function ($query) {$query->select('id', 'department_code', 'department_name as dept_name');}])
         ->with(['subhead' => function ($query) {$query->select('id', 'subhead_name');}])
-        ->with(['payee' => function ($query) {$query->select('id', 'payee_name as payee_name');}])
+        ->with(['payee' => function ($query) {$query->select('payee_id', 'payee_name as payee_name');}])
         ->where('department_id', '=', $request->id)
         ->get();
 

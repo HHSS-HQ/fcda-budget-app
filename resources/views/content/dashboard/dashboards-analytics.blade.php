@@ -107,22 +107,15 @@
             </div>
             <span>Total Expenditures</span>
             @php
-            $budget_utilization = App\Models\Fundproject::selectRaw('SUM(project_funding.amount) as total_funding')
-            ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
-            ->where('budget.status', '=', 'ACTIVE')
-            ->first();
-
-            $ecf_utilization = App\Models\ECF::selectRaw('SUM(ecf.present_requisition) as total_ecf')
-            ->join('budget', 'budget.id', '=', 'ecf.budget_id')
-            ->where('budget.status', '=', 'ACTIVE')
-            ->first();
-
-            $current_budget_utilization = $budget_utilization ? $budget_utilization->total_funding : 0;
-            $current_ecf_utilization = $ecf_utilization ? $ecf_utilization->total_ecf: 0;
+            $expenditures = App\Models\Transactions::selectRaw('SUM(transactions.transaction_amount) as total_expenditures')->first();
+            $total_expenditures = $expenditures->total_expenditures; // Use the correct property name here
             @endphp
+        
 
             <h3 class="card-title text-nowrap mb-1">
-              &#8358;{{ number_format($utilization = $current_budget_utilization+$current_ecf_utilization, 2) }}</h3>
+              {{-- {{ $total_expenditures}} --}}
+              &#8358;{{ number_format($total_expenditures, 2) }}
+            </h3>
 
             {{-- <small class="text-success fw-semibold"><i class='bx bx-up-arrow-alt'></i> +28.42%</small> --}}
           </div>

@@ -17,6 +17,7 @@ use App\Models\DepartmentBudget;
 use App\Models\SubheadAllocation;
 use App\Models\Transactions;
 use Illuminate\Support\Facades\Log;
+use App\Models\Payee;
 
 use Illuminate\Support\Facades\Auth;
 
@@ -91,16 +92,7 @@ class ECFController extends Controller
 
     $ecf->save();
     
-    $transactions = new Transactions();
-    $transactions->transaction_type = "ECF";
-    $transactions->transaction_amount = is_null($request->present_requisition) ? $transactions->transaction_amount : $request->present_requisition;
-    $transactions->payee_id = is_null($request->payee_id) ? $transactions->payee_id : $request->payee_id;
-    $transactions->payee_bank = $payee_bank;
-    $transactions->payee_account_number = $payee_account_number;
-    $transactions->narration = $request->expenditure_item;
-    $transactions->updated_by = Auth::user()->id;
-    $transactions->transaction_date = is_null($request->uploaded_date) ? $transactions->transaction_date : $request->uploaded_date;
-    $transactions->save();
+   
 
     return redirect('/ecfs')->with('success', "ECF generated successfully.");
   }
@@ -220,43 +212,61 @@ public function printECF(Request $request)
 
 // UPDATE ECF
 
-public function changeECFStatus(Request $request){
-  // $update = ECF::where('id', '=', $request->input('id'))
-  // ->update(['status' => 'APPROVED', 'checked_by' => auth()->id()]);
+public function changeECFStatus(Request $request) {
+  try {
+      DB::beginTransaction();
 
-  $ecf_id = $request->input('id');
-  // $department_budget_id = $request->input('department_budget_id');
-  if (ECF::where('id', $ecf_id)->exists()) {
-    $update_ecf = ECF::find($ecf_id);
-    $update_ecf->status = "APPROVED";
-    $update_ecf->checked_by = auth()->id();
+      $ecf_id = $request->input('id');
+      if (ECF::where('id', $ecf_id)->exists()) {
+          $update_ecf = ECF::find($ecf_id);
+          $update_ecf->status = "APPROVED";
+          $update_ecf->checked_by = auth()->id();
+          $present_requisition = $update_ecf->present_requisition;
 
-    $present_requisition = $update_ecf->present_requisition;
+          $department_budget_id = $update_ecf->department_budget_id;
+          $update_budget = DepartmentBudget::find($department_budget_id);
 
-    $department_budget_id = $update_ecf->department_budget_id;
-    $update_budget = DepartmentBudget::find($department_budget_id);
+          if ($update_budget) {
+              $update_budget->budget_utilization = floatval($update_budget->budget_utilization ?? 0) + floatval($present_requisition);
+              $update_budget->save();
+          } else {
+              throw new \Exception('Department Budget not found');
+          }
 
-    if ($update_budget) {
-      $update_budget->budget_utilization = floatval($update_budget->budget_utilization ?? 0) + floatval($present_requisition);
-  } else {
-      // Handle the case where $update_budget is null or not an object
-      // For example, you might log an error or display a message to the user
-      Log::error('Attempt to assign property "budget_utilization" on null');
-      // You can also throw an exception or return an error response
-      // throw new \Exception('Attempt to assign property "budget_utilization" on null');
-      // return response()->json(['error' => 'Attempt to assign property "budget_utilization" on null'], 500);
+          $payee_id = $update_ecf->payee_id;
+          $payee_info = Payee::where('payee_id','=', $payee_id)->first();
+          $payee_bank = $payee_info->payee_bank;
+          $payee_account_number = $payee_info->payee_account_number;
+          
+          $transactions = new Transactions();
+          $transactions->transaction_type = "ECF";
+          $transactions->transaction_amount = $present_requisition;
+          $transactions->department_id = $update_ecf->department_id;
+          $transactions->budget_id = $update_ecf->budget_id;
+          $transactions->ecf_id = $update_ecf->id;
+          $transactions->narration = $update_ecf->expenditure_item;
+          $transactions->payee_id = $update_ecf->payee_id; // Assuming this value comes from the ECF
+          $transactions->payee_bank = $payee_bank; // Assuming this value comes from the ECF
+          $transactions->payee_account_number = $payee_account_number; // Assuming this value comes from the ECF
+          // $transactions->narration = $request->expenditure_item;
+          $transactions->updated_by = auth()->id();
+          $transactions->transaction_date = $request->uploaded_date ?? now();
+          $transactions->save();
+
+          $update_ecf->save();
+      } else {
+          throw new \Exception('ECF not found');
+      }
+
+      DB::commit();
+      return back()->with('success', 'Success! ECF status successfully changed');
+  } catch (\Exception $e) {
+      DB::rollBack();
+      return back()->with('error', 'Failed to change ECF status: ' . $e->getMessage());
+      // return response()->json(['success' => false, 'message' => 'Failed to change ECF status: ' . $e->getMessage()]);
   }
-  
-    // $department_budget = DepartmentBudget::find($department_budget_id);
-    $update_budget->budget_utilization = floatval($update_budget->budget_utilization ?? 0) + floatval($present_requisition);
-
-    $update_ecf->save();
-    $update_budget->save();
-  }
-
-  return redirect()->back()->with('message', 'ECF status changed successfully.');
-
 }
+
 
 
 public function percentageUtilization(){

@@ -55,21 +55,30 @@ class DataTablesController extends Controller
             // $data = Subhead::latest()->get()
             // $data = SubheadAllocation::with('subhead', 'department')->get();
             $data = DB::table('subhead_allocation')
-            ->select('subhead_allocation.*', 'subhead.subhead_code as subhead_code', 'subhead.subhead_name as subhead_name', 'department.department_name as department_name')
-            ->join('subhead', 'subhead.id', '=', 'subhead_allocation.subhead_id')
-            ->join('department', 'department.id', '=', 'subhead_allocation.department_id')
-            ->get();
-          
-            $totalAmount = DB::table('transactions')
-            ->select(DB::raw('SUM(transaction_amount) as total'))
-            ->first();
+    ->select(
+        'subhead_allocation.*',
+        'subhead_allocation.approved_provision',
+        'subhead.subhead_code as subhead_code',
+        'subhead.subhead_name as subhead_name',
+        'department.department_name as department_name',
+        DB::raw('(SELECT subhead_allocation.approved_provision)-(SELECT SUM(ecf.present_requisition) FROM ecf WHERE ecf.subhead_id = subhead.id) as totalAmount'),
+        // DB::raw('(SELECT SUM(ecf.present_requisition) FROM ecf WHERE ecf.subhead_id = subhead.id) - ecf.present_requisition as remainingRequisition')
+    )
+    ->leftJoin('subhead', 'subhead.id', '=', 'subhead_allocation.subhead_id')
+    ->leftJoin('ecf', 'ecf.subhead_id', '=', 'subhead_allocation.subhead_id')
+    ->leftJoin('department', 'department.id', '=', 'subhead_allocation.department_id')
+    // ->where('department.id', '=', 1)
+    ->get();
+
+        
+        
         // return $totalAmount;
 
-        $amount = $totalAmount->total ?? 0;
+        // $amount = $totalAmount->total ?? 0;
             
             return Datatables::of($data)
             // return $dataTable->render('export');
-            ->with('totalAmount', $amount)
+            // ->with('totalAmount', $amount)
                 ->addIndexColumn()
                 ->addColumn('action', function($row){
                     $actionBtn = '<a href="javascript:void(0)" class="edit btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#basicModal-3"  data-id="' . $row->id. '"  data-department_id="' . $row->department_id. '"  data-approved_provision="' . $row->approved_provision. '"  data-department_name="' . $row->department_name. '"  data-subhead_name="' . $row->subhead_name. '">Edit</a> <a href="javascript:void(0)" class="delete btn btn-danger btn-sm">Delete</a>';

@@ -4,172 +4,154 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Project Report</title>
-<script>
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-  }
-
-  th {
-    background-color: lightgray;
-  }
-  </script>
+  <title>Project Form</title>
 </head>
 <body>
   {{-- <img src="{{asset('assets/img/FCT-logo.png')}}" /> --}}
-  <center><img src="FCT-logo.png" style="width:17%;" /></center>
+  @foreach ($projects as $item)
+  <center><img src="/FCT-logo.png" style="width:17%;" /></center>
   <p style="text-align: center; font-size:26px; font-weight:bolder; margin-top:0em; margin-bottom:0em;">FEDERAL CAPITAL TERRITORY ADMINISTRATION</p>
-  <p style="text-align: center; font-size:20px; margin-top:0em; margin-bottom:0em;">PHARMACY DEPARTMENT</p>
-  <p style="text-align: center; font-size:22px; margin-top:0em; margin-bottom:0em;"><u>PROJECT REPORT</u></p>
+  <p style="text-align: center; font-size:24px; margin-top:0em; margin-bottom:0em; text-transform:uppercase;">{{$item->department_name ?? null}} department</p>
+  <p style="text-align: center; font-size:22px; margin-top:0em; margin-bottom:0em;"><u>PROJECT REPORT FORM</u></p>
 
   <p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT INFORMATION</u></p>
+{{-- @php
+  $i="a";
+@endphp --}}
+<?php
+  $department_budget = App\Models\DepartmentBudget::select('budgetary_allocation', 'budget_utilization')->first();
+
+  ?>
+
+  {{-- <ul type="i"> --}}
+    
 
 
-  @foreach ($projects as $item)
 
-  <table>
 
-    <tr>
-      <td style="width:20%">Project Type: </td>
-      <td>{{$item->project_type ?? null}} </td>
-    </tr>
 
-    <tr>
-      <td style="width:20%">Project Title: </td>
-      <td>{{$item->project_title ?? null}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:20%">Project Location: </td>
-      <td>{{$item->project_location ?? null}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:20%">Contractor Name: </td>
-      <td>{{$item->company_name ?? null}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:20%">Date of Award: </td>
-      <td>{{$item->date_of_award ?? null}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:20%">Appropriation: </td>
-      <td>N{{number_format(($item->appropriation ?? 0),2)}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:20%">Contract Sum: </td>
-      <td>N{{number_format(($item->contract_sum ?? 0),2)}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:25%">Commencement Date: </td>
-      <td>{{$item->commencement_date ?? null}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:25%">Completion Period: </td>
-      <td>{{$item->completion_period ?? null}}</td>
-    </tr>
-
-    @php
-    $project_id = $item->id;
-    $contract_sum = $item->contract_sum;
-      // $contract_sum = App\Models\Project::select('project.contract_sum')->where('project_id', '=', $project_id)->first();
-      $amount_paid = App\Models\Fundproject::selectRaw('SUM(amount) as total_amount')->where('project_id', '=', $project_id)->first();
-      $total_amount_paid = $amount_paid ? $amount_paid->total_amount : 0;
-
-      $percentage_payment_made = ($total_amount_paid / $contract_sum) * 100;
-
-      @endphp
+<div class="row">
+  <div class="col-sm-6 col-lg-6 m-b-20">
+  <table width="100%" style="border-collapse:collapse">
       <tr>
-        <td style="width:25%">Percentage Payment Made: </td>
-        <td>{{$percentage_payment_made ?? 0}}%</td>
+      <td style="text-align:right"><h5>PROJECT #: {{$item->project_id ?? null}}/________________</h5></td>
       </tr>
+      </table>
+<table width="100%" border="1" style="border-collapse:collapse">
+  @php
+  $date = \Carbon\Carbon::parse($item->uploaded_date, 'UTC')->setTimezone('Africa/Lagos');
+  $uploaded_date = $date->isoFormat('Do MMMM, YYYY');
+@endphp
+  
+{{-- <tr>
+  <td colspan="4"><h5>Department:</h5> <h3 class="text-uppercase">{{$item['department']['department_name'] ?? null}}</h3></td>
+</tr> --}}
 
-      {{-- <tr>
-        <td style="width:25%">Percentage Complete: </td>
-        <td>{{$percentage_complete ?? 0}}%</td>
-      </tr> --}}
-
+<tr>
+    <td><h5>Date of Award:</h5> <h3 class="text-uppercase">{{$item->date_of_award ?? null}}</h3></td>
+    
+    <td><h5>File Number:</h5> <h3 class="text-uppercase">{{$item->file_number ?? null}}</h3></td>
+    
+    <td colspan="3"><h5>Project Title:</h5> <h3 class="text-uppercase">{{$item->project_title ?? null}}</h3></td>
+    
+  </tr>
+   
+    
     <tr>
-      <td style="width:25%">Amount Paid Till Date: </td>
-      <td>N{{number_format(($total_amount_paid ?? 0), 2)}}</td>
+          <td><h5>Payee Name:</h5> <h3 class="text-uppercase">{{$item->payee_name ?? null}}</h3></td>
+          <td><h5>Phone Number:</h5> <h3 class="text-lowercase">{{$item->payee_phone ?? null}}</h3></td>
+          <td><h5>Alternate Number:</h5> <h3 class="text-uppercase">{{$item->payee_phone2 ?? null}}</h3></td>
+          <td colspan="2"><h5>Email:</h5> <h3 class="text-uppercase">{{$item->payee_email ?? null}}</h3></td>
+          
     </tr>
 
-    <tr>
-      <td style="width:25%">Outstanding Balance: </td>
-      <td>N{{number_format(($contract_sum-$total_amount_paid ?? 0), 2)}}</td>
-    </tr>
-
-    <tr>
-      <td style="width:25%">Certified CV Not Paid: </td>
-      <td>{{$certified_cv_not_paid ?? null}}</td>
-    </tr>
-
-    {{-- <tr>
-      <td style="width:25%">Year Last Funded: </td>
-      <td>{{$item->certified_cv_not_paid ?? null}}</td>
-    </tr>
     @php
-    $date = \Carbon\Carbon::parse($item->last_funded_date, 'UTC')->setTimezone('Africa/Lagos');
-    $last_funded_date = $date->isoFormat('Do MMMM, YYYY');
-  @endphp --}}
-    {{-- <tr>
-      <td style="width:25%">Last Funded Date: </td>
-      <td>{{$last_funded_date ?? null}}</td>
-    </tr> --}}
+    $amount_paid = App\Models\Fundproject::selectRaw('SUM(amount) as total_paid')->where('project_id', $item->project_id)->first();
+    @endphp
+    @php
+    $contract_sum = $item->contract_sum;
+    $total_amount_paid = $amount_paid->total_paid;
+    @endphp
+   
+          <tr>
+          <td colspan="5"><ul><h4><br/>PROJECT DETAILS</h4></ul></td>
+          </tr>
+          <tr>
+            <td><h5>Commencement Date:</h5> <h3 class="text-uppercase">{{ $item->project_location ?? null}}</h3></td>
+            <td><h5>Project Title:</h5> <h3 class="text-lowercase">{{ $item->project_title ?? null }}</h3></td>
+            <td><h5>RC Number:</h5> <h3 class="text-uppercase">{{$company_RC_number ?? null}}</h3></td>
+            <td><h5>Completion Period:</h5> <h3 class="text-uppercase">{{$item->completion_period ?? null}}</h3></td>
+            <td><h5>Last Funded Date:</h5> <h3 class="text-uppercase">{{$item->last_funded_date ?? null}}</h3></td>
+            </tr>
 
-</table>
-<br/>
-<p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT FUNDING HISTORY</u></p>
-<table width="100%" border="1px" style="border-collapse:collapse">
-  @php
-    $funding_history = App\Models\Fundproject::select('project_funding.*', 'budget.budget_year', 'accounting_year.*', 'project.*', 'project_funding.created_at as funding_date')
-    ->join('project', 'project.id', '=', 'project_funding.project_id')
-    ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
-    ->join('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
-    ->where('project_funding.project_id', '=', $project_id)->get();
-  @endphp
-  <th>Date</th>
-  <th>Project Title</th>
-  <th>Budget Year</th>
-  <th>Amount Funded</th>
 
-  @foreach ($funding_history as $project_list)
-  @php
-    $date = \Carbon\Carbon::parse($project_list->funding_date, 'UTC')->setTimezone('Africa/Lagos');
-    $formatted_date = $date->isoFormat('Do MMMM, YYYY');
-  @endphp
 
-    <tr>
-      <td>{{ $formatted_date}}</td>
-      <td>{{$project_list->project_title}}</td>
-      <td>{{$project_list->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $project_list->start_date)->format('F, Y') }} - {{ Carbon\Carbon::createFromFormat('Y-m', $project_list->end_date)->format('F, Y') }})</td>
-      <td>N{{number_format(($project_list->amount),2)}}</td>
-    </tr>
 
-  @endforeach
-</table>
+            <tr>
+              <td colspan="5"><ul><h4><br/>PAYMENT DETAILS</h4></ul></td>
+              </tr>
+              <tr>
+                <td><h5>Appropriation:</h5> <h3 class="text-uppercase">N{{number_format(($item->appropriation?? null),2)}}</h3></td>
+                <td><h5>Contract Sum:</h5> <h3 class="text-lowercase">N{{number_format(($item->contract_sum ?? null),2)}}</h3></td>
+                <td><h5>Amount Paid:</h5> <h3 class="text-uppercase">N{{number_format(($total_amount_paid ?? null),2)}}</h3></td>
+                @php
+                $contract_sum = $item->contract_sum ?? 0;
+                $total_amount_paid = $amount_paid->total_paid ?? 0;
+                @endphp
+                <td><h5>Balance:</h5> <h3 class="text-uppercase">N{{number_format(($contract_sum - $total_amount_paid),2)}}</h3></td>
+                @if(isset($total_amount_paid) && isset($contract_sum))
+                <td colspan="1"><h5>% Complete:</h5> <h3 class="text-uppercase">{{number_format(($total_amount_paid / $contract_sum)*100)}}%</h3></td>
+                @else
+                <h3>N/A</h3>
+                @endif
+    
+                </tr>
+          
+          </table>
 
-{{-- Project Report --}}
+
+        </table>
+        <br/>
+        <p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT FUNDING HISTORY</u></p>
+        <table width="100%" border="1px" style="border-collapse:collapse">
+          @php
+            $funding_history = App\Models\Fundproject::select('project_funding.*', 'budget.budget_year', 'accounting_year.*', 'project.*', 'project_funding.created_at as funding_date')
+            ->join('project', 'project.project_id', '=', 'project_funding.project_id')
+            ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
+            ->join('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
+            ->where('project_funding.project_id', '=', $item->project_id)->get();
+          @endphp
+          <th>Date</th>
+          <th>Project Title</th>
+          <th>Budget Year</th>
+          <th>Amount Funded</th>
+        
+          @foreach ($funding_history as $project_list)
+          @php
+            $date = \Carbon\Carbon::parse($project_list->funding_date, 'UTC')->setTimezone('Africa/Lagos');
+            $formatted_date = $date->isoFormat('Do MMMM, YYYY');
+          @endphp
+        
+            <tr>
+              <td>{{ $formatted_date}}</td>
+              <td>{{$project_list->project_title}}</td>
+              <td>{{$project_list->accounting_year_name}} ({{ Carbon\Carbon::createFromFormat('Y-m', $project_list->start_date)->format('F, Y') }} - {{ Carbon\Carbon::createFromFormat('Y-m', $project_list->end_date)->format('F, Y') }})</td>
+              <td>N{{number_format(($project_list->amount),2)}}</td>
+            </tr>
+        
+          @endforeach
+        </table>
+
+        {{-- Project Report --}}
 <br/>
 <p style="text-align: left; font-size:18px; margin-top:0em; margin-bottom:0em;"><u>PROJECT MONITORING REPORT</u></p>
 <table width="100%" border="1px" style="border-collapse:collapse">
   @php
     $project_report = App\Models\ProjectReport::select('project_report.*', 'project.project_title')
-    ->join('project', 'project.id', '=', 'project_report.project_id')
+    ->join('project', 'project.project_id', '=', 'project_report.project_id')
     // ->join('budget', 'budget.id', '=', 'project_funding.budget_id')
     // ->join('accounting_year', 'accounting_year.id', '=', 'budget.budget_year')
-    ->where('project_report.project_id', '=', $project_id)->get();
+    ->where('project_report.project_id', '=', $item->project_id)->get();
   @endphp
   <th>Visit Date</th>
   <th>Project Title</th>
@@ -194,7 +176,14 @@
   @endforeach
 </table>
 
+  </div>
+  <div>
 
+
+</div>
+
+</div>
+</div>
 @endforeach
 </body>
 </html>

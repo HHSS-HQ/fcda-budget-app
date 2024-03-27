@@ -70,6 +70,7 @@
                 <th>Department</th>
                 <th>Approved Provision</th>
                 <th>Revised Provision</th>
+                <th>Balance</th>
                 <th>Action</th>
             </tr>
         </thead>

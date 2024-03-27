@@ -45,9 +45,9 @@
           @php
 
           $active_budget = App\Models\DepartmentBudget::select('budgetary_allocation', 'id')->where('department_id', '=', $data->id)->first();
-          $budget_utilization = App\Models\ECF::selectRaw('SUM(present_requisition) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
+          // $budget_utilization = App\Models\ECF::selectRaw('SUM(present_requisition) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
 
-          // $budget_utilization = App\Models\Transactions::selectRaw('SUM(amount) as total')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
+          $budget_utilization = App\Models\Transactions::selectRaw('SUM(transaction_amount) as transaction_amount')->where('department_id', $data->id)->where('budget_id', $data->budget_id)->first();
 
           @endphp
 
@@ -57,25 +57,31 @@
             <td>{{$data->department_name ?? null}}</td>
             <td>{{$data->department_code ?? null}}</td>
             <td>N{{number_format(($active_budget->budgetary_allocation ?? null),2)}}</td>
-            <td>N{{number_format(($budget_utilization->total ?? null),2)}}</td>
-            <td>N{{number_format(($active_budget->budgetary_allocation ?? 0 - $budget_utilization->total ?? 0),2)}}</td>
-            
-            @php
-    $budgetaryAllocation = $active_budget->budgetary_allocation ?? 0;
-    $budgetUtilization = $budget_utilization->total ?? 0;
-    $difference = $budgetaryAllocation - $budgetUtilization;
-    $formattedDifference = number_format($difference, 2);
-@endphp
+            <td>N{{number_format(($budget_utilization->transaction_amount ?? null),2)}}</td>
+            <td>N{{ number_format((($active_budget->budgetary_allocation ?? 0) - ($budget_utilization->transaction_amount ?? 0)), 2) }}</td>
 
-<td>N{{ $formattedDifference }}</td>
+            @if(isset($active_budget) && isset($budget_utilization))
+    @php
+        $budgetary_allocation = $active_budget->budgetary_allocation ?? 0;
+        $transaction_amount = $budget_utilization->transaction_amount ?? 0;
 
-            {{-- <td>{{number_format((($budget_utilization->total ?? 0 /$active_budget->budgetary_allocation ?? 0)*100),2)}}%</td> --}}
-            {{-- <td></td> --}}
+        // Calculate the percentage of budget utilization
+        $utilization_percentage = ($transaction_amount / $budgetary_allocation) * 100;
+    @endphp
+
+    
+    <td><div class="progress mb-3">
+      <div class="progress-bar" role="progressbar" style="width: {{ $utilization_percentage }}%;" aria-valuenow="{{ $utilization_percentage }}" aria-valuemin="0" aria-valuemax="100">{{ $utilization_percentage }}%</div>
+    </div></td>
+@else
+    <td>N/A</td>
+@endif
+
             <td>
               <a data-toggle = "tooltip" title = "See Breakdown of Budget utilization"   href="/budget-utilization?id={{$data->id}}">[<i class="bx bx-search me-1"></i>Utilization]</a>&nbsp;
-              @if ($budgetaryAllocation == NULL or 0)
+              @if ($active_budget->budgetary_allocation == NULL or 0)
               <a data-toggle = "tooltip" title = "Add Budget"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#addBudget-{{$data->id}}">[<i class="bx bx-plus me-1"></i>Add Budget]</a>&nbsp;
-              @elseif ($budgetaryAllocation == !NULL)
+              @elseif ($active_budget->budgetary_allocation == !NULL)
               <a data-toggle = "tooltip" title = "Update Budget"   href="javascript:void(0);" data-bs-toggle="modal" data-bs-target="#updateBudget-{{$data->id}}">[<i class="bx bx-plus me-1"></i>Update Budget]</a>&nbsp;
               @endif
 
